@@ -1,0 +1,2 @@
+🔗 Step 1 : Create a new react project using vite js
+npm create vite@latest
