@@ -8,7 +8,7 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="bg-red-800 static top-0  p-4">
+        <nav className="bg-black static top-0  p-4">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="text-white font-bold  text-xl">Movie Search</div>
 

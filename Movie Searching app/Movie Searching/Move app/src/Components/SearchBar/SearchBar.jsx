@@ -6,7 +6,10 @@ function SearchBar({ placeholder}) {
  const contexdata= useContext(mycontext);
 const {movieSearch, setMovieSearch,fetchData }=contexdata
   return (
-    <div className="md:flex items-center  mt-3 max-w-md mx-auto p-2 bg-yellow-400 rounded-full shadow-md">
+    <div className="md:flex items-center  mt-1  max-w-md mx-auto p-2 bg-yellow-400 rounded-full shadow-md">
+   
+   
+
     <input
       type="text"
       placeholder={placeholder || 'Search...'}
@@ -19,6 +22,9 @@ const {movieSearch, setMovieSearch,fetchData }=contexdata
     >
       Search
     </button>
+  
+  
+   
   </div>
   );
   
