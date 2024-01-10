@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import MoveCard from '../Movie Card/MoveCard';
-import mycontext from '../../Context/Data/MyContext';
+import  MyContext from '../../Context/Data/MyContext';
 import Loader from '../Loader/Loader';
 
 function CardArea() {
-    const contextData = useContext(mycontext);
+    const contextData = useContext( MyContext);
     const { allMovieData,loading, setLoading } = contextData;
 
 if(loading){
