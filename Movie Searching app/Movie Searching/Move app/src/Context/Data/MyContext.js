@@ -1,6 +1,8 @@
+// MyContext.js
 import { createContext } from "react";
 
+const MyContext = createContext({
+  basename: '', // Provide a default value for basename
+});
 
- const mycontext=  createContext();
-
- export default mycontext;
+export default MyContext;
