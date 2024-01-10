@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import mycontext from '../../Context/Data/MyContext';
+import   MyContext from '../../Context/Data/MyContext';
 
 function SearchBar({ placeholder}) {
 
- const contexdata= useContext(mycontext);
+ const contexdata= useContext( MyContext);
 const {movieSearch, setMovieSearch,fetchData }=contexdata
   return (
     <div className="md:flex items-center  mt-1  max-w-md mx-auto p-2 bg-yellow-400 rounded-full shadow-md">

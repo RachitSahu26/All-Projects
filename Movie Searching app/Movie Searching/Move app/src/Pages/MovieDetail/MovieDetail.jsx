@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import mycontext from '../../Context/Data/MyContext';
+import  MyContext from '../../Context/Data/MyContext';
 import Loader from '../../Components/Loader/Loader';
 
 function MovieDetail() {
-const context=useContext(mycontext);
+const context=useContext( MyContext);
 const {  selectedMovieData,setSelectedMovieData, loading, setLoading  }=context; 
                    
     const { id } = useParams();
