@@ -1,20 +1,42 @@
 // MoveCard.js
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaHeart } from 'react-icons/fa';
+import  MyContext from '../../Context/Data/MyContext';
 
 function MoveCard({ title, year, poster, id }) {
+
+
+ const  contexData=useContext( MyContext)
+const {addToFavorieMovie,}=contexData
+
+  const [isFavorited, setIsFavorited] = useState(false);
+
+  const toggleFavorite = (id) => {
+    setIsFavorited((prev) => !prev);
+    addToFavorieMovie(id);
+
+  };
+
   return (
-
-      <div className="p-2 md:w-1/4 w-full">
-            <Link to={`/movieDetail/${id}`}>
-        <div className="bg-[#000000a4] p-3 border-white-100 rounded-2xl shadow-lg hover:-translate-y-1 border-2 border-gray-600">
+    <div className="p-2 md:w-1/4 w-full">
+      <div className="bg-[#000000a4] p-3 border-white-100 rounded-2xl shadow-lg hover:-translate-y-1 border-2 border-gray-600">
+        <Link to={`/movieDetail/${id}`}>
           <img className='rounded-lg w-full mb-2' src={poster} alt="" />
-          <h2 className='text-xl text-white font-bold'>{title}</h2>
-          <h2 className='text-lg text-white mb-2'>{year}</h2>
-        </div>
         </Link>
+        <h2 className='text-xl text-white font-bold'>{title}</h2>
+        <h2 className='text-lg text-white mb-2'>{year}</h2>
+        <div className="flex justify-end">
+          {/* Heart icon with dynamic color based on state */}
+          <FaHeart
+            className={`cursor-pointer ${
+              isFavorited ? 'text-red-500' : 'text-gray-500'
+            }`}
+           onClick={() => handleCombinedClick(id)}
+          />
+        </div>
       </div>
-
+    </div>
   );
 }
 

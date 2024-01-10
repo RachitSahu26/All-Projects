@@ -1,47 +1,54 @@
-import React, { useState } from 'react'
-import MyContext from './MyContext'
+// MyState.jsx
+import React, { useState } from 'react';
+import MyContext from './MyContext';
 
 function MyState(props) {
+  const [movieSearch, setMovieSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [allMovieData, setAllMovieData] = useState([]);
+  const [selectedMovieData, setSelectedMovieData] = useState([]);
 
-    const [movieSearch, setMovieSearch] = useState("");
-    // const [loading, setLoading] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [allMovieData, setAllMovieData] = useState([]);
-
-// .....................specific selected movie data state .........
-const [selectedMovieData,setSelectedMovieData]=useState([]);
-
-
-    const fetchData = async () => {
-        try {
-            setLoading(true);
-            const res = await fetch(`http://www.omdbapi.com/?s=${movieSearch}&apikey=cae6e323`)
-            const data = await res.json();
-            setAllMovieData(data.Search);
-            console.log(data.Search)
-            setMovieSearch("");
-            setLoading(false);
-
-
-        } catch (error) {
-            console.log(error)
-            setLoading(false)
-        }
-
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`http://www.omdbapi.com/?s=${movieSearch}&apikey=cae6e323`);
+      const data = await res.json();
+      setAllMovieData(data.Search);
+      console.log(data.Search);
+      setMovieSearch("");
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
+  };
 
-    return (
-        <MyContext.Provider value={{ fetchData,
-         movieSearch, setMovieSearch,
-          allMovieData, setAllMovieData, 
-          selectedMovieData,setSelectedMovieData,
-          loading, setLoading
-           }}>
-
-            {props.children}
-
-        </MyContext.Provider>
-    )
+  return (
+    <MyContext.Provider
+      value={{
+        fetchData,
+        movieSearch,
+        setMovieSearch,
+        allMovieData,
+        setAllMovieData,
+        selectedMovieData,
+        setSelectedMovieData,
+        loading,
+        setLoading,
+      }}
+    >
+      {/* Wrap the children with the context provider */}
+      {props.children}
+      
+      {/* Example usage within MyState.jsx component */}
+      <div>
+        <p>Inside MyState component:</p>
+        <p>Movie Search: {movieSearch}</p>
+        <p>Loading: {loading.toString()}</p>
+        {/* ... other state values */}
+      </div>
+    </MyContext.Provider>
+  );
 }
 
-export default MyState
+export default MyState;
