@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,12 +50,14 @@ const NavBar = () => {
                         >
                             Movies
                         </a>
+                       <Link to={"/favoriteMovie"}>
                         <a
-                            href="#"
-                            className="block lg:inline-block mt-4 lg:mt-0 text-white hover:text-gray-300"
+                           className="block lg:inline-block mt-4 lg:mt-0 text-white hover:text-gray-300"
                         >
-                            About
+                            Favorite
                         </a>
+                       </Link>
+
                     </div>
 
                 </div>
