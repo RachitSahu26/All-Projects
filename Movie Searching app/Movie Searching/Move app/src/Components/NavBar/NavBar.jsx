@@ -50,13 +50,13 @@ const NavBar = () => {
                         >
                             Movies
                         </a>
-                       <Link to={"/favoriteMovie"}>
+
                         <a
                            className="block lg:inline-block mt-4 lg:mt-0 text-white hover:text-gray-300"
                         >
-                            Favorite
+                            about
                         </a>
-                       </Link>
+                       
 
                     </div>
 

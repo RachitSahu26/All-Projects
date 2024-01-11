@@ -37,16 +37,9 @@ function MyState(props) {
         setLoading,
       }}
     >
-      {/* Wrap the children with the context provider */}
+     
       {props.children}
-      
-      {/* Example usage within MyState.jsx component */}
-      <div>
-        <p>Inside MyState component:</p>
-        <p>Movie Search: {movieSearch}</p>
-        <p>Loading: {loading.toString()}</p>
-        {/* ... other state values */}
-      </div>
+     
     </MyContext.Provider>
   );
 }

@@ -1,8 +1,6 @@
 // MyContext.js
-import { createContext } from "react";
+import { Children, createContext } from "react";
 
-const MyContext = createContext({
-  basename: '', // Provide a default value for basename
-});
+const MyContext = createContext();
 
 export default MyContext;
