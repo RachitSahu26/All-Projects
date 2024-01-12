@@ -7,7 +7,7 @@ import {
   Routes,
 } from 'react-router-dom';
 import MyState from './Context/Data/MyState.jsx';
-import Home from './Pages/Home/Home';
+// import Home from './Pages/Home/Home';
 import MovieDetail from './Pages/MovieDetail/MovieDetail';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
         <NavBar />
         <Router>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home/>} />
             <Route path="/movieDetail/:id" element={<MovieDetail />} />
            
           </Routes>
