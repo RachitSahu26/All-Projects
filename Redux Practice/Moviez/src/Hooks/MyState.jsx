@@ -15,7 +15,7 @@ function MyState(props) {
 
         useEffect(() => {
             try {
-                const res = fetchDataFromApi(url)
+                const res =  fetchDataFromApi(url)
                 setData(res);
 
 

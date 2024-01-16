@@ -21,19 +21,18 @@ function HeroBanner() {
 
   UserFetch("/movie/upcoming");
   useEffect(() => {
-    const bgImg = data?.results?.[Math.floor(Math.random() * 20)]?.backdrop_path
-    ;
+    const bgImg = data?.results?.[Math.floor(Math.random() * 20)]?.backdrop_path;
     setBackground(bgImg)
-  }, [data])
+console.log(bgImg)
+  }, [data]);
 
   const getResult = () => {
 
     if (getInput.length > 0) {
-
       navigate(`/search/${getInput}`)
-
-
     }
+
+
 
   }
 
