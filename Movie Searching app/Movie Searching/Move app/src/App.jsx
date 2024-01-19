@@ -7,9 +7,9 @@ import {
   Routes,
 } from 'react-router-dom';
 import MyState from './Context/Data/MyState.jsx';
-// import Home from './Pages/Home/Home';
+
 import MovieDetail from './Pages/MovieDetail/MovieDetail';
-// import Home from './Pages/Home/Home.jsx';
+
 import Trending from './Pages/Trending/Trending.jsx';
 import Movies from './Pages/Movies/Movies.jsx';
 import TvShow from './Pages/TV show/TvShow.jsx';
@@ -21,7 +21,7 @@ function App() {
         <NavBar />
         <Router>
           <Routes>
-            {/* <Route path="/" element={<Home/>} /> */}
+        
             <Route path="/trending" element={<Trending/>} />
             <Route path="/movies" element={<Movies/>} />
             <Route path="/tv_show" element={<TvShow/>} />
