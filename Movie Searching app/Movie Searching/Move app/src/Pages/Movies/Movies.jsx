@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
 import MoveCard from '../../Components/Movie Card/MoveCard';
 import axios from 'axios';
 import Pages from '../../Components/Pagination/Pages';
-
+// import { Badge } from 'lucide-react';
+import Badges from '../../Components/Badges/Badges';
+import { useEffect, useState } from 'react';
 function Movies() {
   const [movieContent, setMovieContent] = useState([]);
   const [noofPage, setNoofPage] = useState('');
@@ -41,44 +42,47 @@ function Movies() {
 
 
   const SelectedPageHandler = (SelectedPage) => {
-    setPage(SelectedPage)
+    if (SelectedPage == movieContent.length / 2)
+
+
+      setPage(SelectedPage)
   }
   return (
-    <div className='flex flex-wrap'>
-      {movieContent &&
-        movieContent.map((movieData) => (
-          <MoveCard
-            key={movieData.id}
-            id={movieData.id}
-            poster={movieData.poster_path}
-            title={movieData.title || movieData.name}
-            date={movieData.first_air_date || movieData.release_date}
-            media_type={movieData.media_type}
-            vote_average={movieData.vote_average}
-          />
-        ))}
 
-<div className='flex bg-black p-5 w-full justify-center items-center'>
-  {/* <Pages currentPage={currentPage} totalPage={noofPage} onPageChange={handlePageChange} /> */}
-  <div className='text-2xl bg-red-100 m-5 px-3 py-1 rounded w-50 h-10'>
-    <span className='bg-white-100 cursor-pointer'>➡️</span>
+    <>
 
-    {Array.from({ length: Math.ceil(movieContent.length / 2) }, (_, i) => (
-      <span
-        className={`bg-back-100 p-1 cursor-pointer hover:bg-yellow-500 ${
-          page === i + 1 ? 'bg-yellow-200' : 'bg-white'
-        }`}
-        key={i}
-        onClick={() => SelectedPageHandler(i + 1)}
-      >
-        {i + 1}
-      </span>
-    ))}
-
-    <span className='cursor-pointer'>⬅️</span>
-  </div>
-</div>
+      <div className='flex bg-black p-5 w-full justify-center items-center'>
+        <Badges />
       </div>
+
+      <div className='flex flex-wrap bg-black'>
+
+
+
+        {movieContent &&
+          movieContent.map((movieData) => (
+            <MoveCard
+              key={movieData.id}
+              id={movieData.id}
+              poster={movieData.poster_path}
+              title={movieData.title || movieData.name}
+              date={movieData.first_air_date || movieData.release_date}
+              media_type={movieData.media_type}
+              vote_average={movieData.vote_average}
+            />
+          ))}
+
+        <div className='flex bg-black p-5 w-full justify-center items-center'>
+          <Pages movie_content={movieContent} NumberofPage={page} Selected_Page_Handler={SelectedPageHandler} />
+        </div>
+
+
+
+
+
+      </div>
+    </>
+
   );
 }
 
