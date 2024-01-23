@@ -16,6 +16,7 @@ function Movies() {
 
   const fetchMovie = async () => {
     try {
+    
       const { data } = await axios.get(
         `https://api.themoviedb.org/3/trending/all/day?api_key=4e44d9029b1270a757cddc766a1bcb63&page=${page}`
       );
@@ -42,7 +43,7 @@ function Movies() {
 
 
   const SelectedPageHandler = (SelectedPage) => {
-    if (SelectedPage == movieContent.length / 2)
+
 
 
       setPage(SelectedPage)
@@ -51,8 +52,8 @@ function Movies() {
 
     <>
 
-      <div className='flex bg-black p-5 w-full justify-center items-center'>
-        <Badges />
+      <div className='flex bg-black  flex-wrap gap-3 p-5  justify-center items-center'>
+        <Badges type="movie"  />
       </div>
 
       <div className='flex flex-wrap bg-black'>

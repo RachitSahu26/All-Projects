@@ -2,27 +2,44 @@ import React from 'react'
 
 function Product() {
   return (
-    <div className="max-w-xs mx-auto bg-white shadow-md overflow-hidden sm:max-w-md lg:max-w-lg">
-    <div className="sm:flex sm:items-center px-6 py-4">
-      <img
-        src="https://m.media-amazon.com/images/I/811R8Gdxd0L._SY879_.jpg" Replace with the actual image source
-        alt="dfd"
-        className="block mx-auto flex-shrink-0 h-16 w-16 sm:h-24 sm:w-24 rounded-full"
-      />
-      <div className="mt-4 sm:mt-0 sm:ml-4">
-        <h3 className="text-xl font-medium text-gray-900">product.name</h3>
-        <p className="text-sm text-gray-500">$product.price</p>
-        <p className="mt-1 text-sm text-gray-500">product.description</p>
-      </div>
-    </div>
-    <div className="border-t border-gray-200 px-6 py-4">
-      <button
-        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+
+<div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/4 p-4">
+    <div className="max-w-sm p-6 border border-red-700 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <a href="#">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+          Noteworthy technology acquisitions 2021
+        </h5>
+      </a>
+      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+        Here are the biggest enterprise technology acquisitions of 2021 so far, in
+        reverse chronological order.
+      </p>
+      <a
+        href="#"
+        className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
-        Add to Cart
-      </button>
+        Read more
+        <svg
+          className="w-3.5 h-3.5 ml-2"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 10"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M1 5h12m0 0L9 1m4 4L9 9"
+          />
+        </svg>
+      </a>
     </div>
   </div>
+  
+
+
   )
 }
 
