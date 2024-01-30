@@ -13,6 +13,7 @@ import MovieDetail from './Pages/MovieDetail/MovieDetail';
 import Trending from './Pages/Trending/Trending.jsx';
 import Movies from './Pages/Movies/Movies.jsx';
 import TvShow from './Pages/TV show/TvShow.jsx';
+import SearchMovie from './Pages/Search Movie/SearchMovie.jsx';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/trending" element={<Trending/>} />
             <Route path="/movies" element={<Movies/>} />
             <Route path="/tv_show" element={<TvShow/>} />
+            <Route path="search_Movie" element={<SearchMovie/>} />
 
             <Route path="/movieDetail/:id" element={<MovieDetail />} />
             
