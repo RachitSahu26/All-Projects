@@ -1,6 +1,7 @@
 // Navbar.jsx
 
 import React, { useState } from 'react';
+import Search from '../Search/Search';
 // import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -36,9 +37,8 @@ const Navbar = () => {
         </button>
 
         <div
-          className={`lg:flex lg:items-center ${
-            isOpen ? 'block' : 'hidden'
-          }`}
+          className={`lg:flex lg:items-center ${isOpen ? 'block' : 'hidden'
+            }`}
         >
           <div className="lg:flex lg:mr-4">
             <a
@@ -59,8 +59,19 @@ const Navbar = () => {
             >
               TV Show
             </a>
+
+            <a
+              href="/search_Movie"
+              className="block lg:inline-block mt-4 ml-3 lg:mt-0 text-white hover:text-gray-300"
+            >
+              Search
+            </a>
+
+
           </div>
-          <div>
+          <div >
+          
+
             {/* Add additional links or components here */}
           </div>
         </div>

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 function Movies() {
   const [movieContent, setMovieContent] = useState([]);
   const [noofPage, setNoofPage] = useState('');
+const [SelectedGenre,setSelectedGenre] =useState([])
   const [page, setPage] = useState(() => {
     // Get the current page from localStorage or default to 1
     const storedPage = localStorage.getItem('currentPage');
@@ -16,10 +17,10 @@ function Movies() {
 
   const fetchMovie = async () => {
     try {
-    
+
       const { data } = await axios.get(
-        `https://api.themoviedb.org/3/trending/all/day?api_key=4e44d9029b1270a757cddc766a1bcb63&page=${page}`
-      );
+        `https://api.themoviedb.org/3/discover/movie?api_key=4e44d9029b1270a757cddc766a1bcb63&with_genres=${SelectedGenre}&page=${page}`    
+        );
 
       setMovieContent(data.results);
       setNoofPage(data.total_pages);
@@ -34,7 +35,7 @@ function Movies() {
 
   useEffect(() => {
     fetchMovie();
-  }, [page]);
+  }, [SelectedGenre,page]);
 
   // const handlePageChange = (pageNumber) => {
   //   fetchMovie(pageNumber);
@@ -42,18 +43,24 @@ function Movies() {
 
 
 
+
+  const handleGenreClick = (genre) => {
+    setSelectedGenre(genre);
+    setPage(1);
+  };
+
   const SelectedPageHandler = (SelectedPage) => {
+    setPage(SelectedPage);
+  };
 
 
 
-      setPage(SelectedPage)
-  }
   return (
 
     <>
 
       <div className='flex bg-black  flex-wrap gap-3 p-5  justify-center items-center'>
-        <Badges type="movie"  />
+        <Badges type="movie" onGenreClick={handleGenreClick}/>
       </div>
 
       <div className='flex flex-wrap bg-black'>
