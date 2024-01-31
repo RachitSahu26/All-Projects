@@ -1,14 +1,15 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import MoveCard from '../../Components/Movie Card/MoveCard'
-import Navbar from '../../Components/NavBar/NavBar'
+
 import Pages from '../../Components/Pagination/Pages'
+import Loader from '../../Components/Loader/Loader'
 // import Pages from '../../Components/Pagination/Pages'
 
 function Trending() {
 
   const [trendContent, setTrendContent] = useState([])
-
+  const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(() => {
     // Get the current page from localStorage or default to 1
     const storedPage = localStorage.getItem('currentPages');
@@ -17,9 +18,10 @@ function Trending() {
   const fetchTrending = async () => {
 
     try {
-
+      setLoading(true)
       const { data } = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=4e44d9029b1270a757cddc766a1bcb63&page=${page}`
       )
+      setLoading(false);
 
       setTrendContent(data.results);
       console.log(data)
@@ -27,6 +29,7 @@ function Trending() {
       localStorage.setItem('currentPages', page.toString());
     } catch (error) {
       console.error('Error fetching movie data:', error);
+      setLoading(false);
 
     }
   }
@@ -41,9 +44,18 @@ function Trending() {
   }
   return (
     <>
-      <div className='flex flex-wrap'>
-        {
-          trendContent && trendContent.map((movieData) => (
+      <div className='flex flex-wrap bg-black'>
+        {loading ?
+          (
+            <div className='flex justify-between h-screen'>
+              <Loader />
+            </div>
+          ) :
+
+
+
+
+          (trendContent && trendContent.map((movieData) => (
             <MoveCard
               key={movieData.id}
               id={movieData.id}
@@ -59,9 +71,9 @@ function Trending() {
           ))
 
 
-
+          )
         }
-        <div className='flex bg-black p-5 w-full justify-center items-center' >
+        <div className='flex bg-black mb-28 p-5 w-full justify-center items-center' >
 
           <Pages movie_content={trendContent} NumberofPage={page} Selected_Page_Handler={SelectedPageHandler} />
         </div>
