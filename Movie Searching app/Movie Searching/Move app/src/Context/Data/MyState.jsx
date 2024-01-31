@@ -35,8 +35,8 @@ function MyState(props) {
         setSelectedMovieData,
         loading,
         setLoading,
-        
-      }}
+        basename: 'defaultBasename',
+      } }
     >
      
       {props.children}

@@ -1,17 +1,8 @@
 import React, { useState } from 'react'
 
 
-function Search() {
-    const [searchMovie, setSearchMovie] = useState("")
-
-
-    // const fetchMovieData = () => {
-
-
-
-
-    // }
-
+function Search({fetchMovieData,setSearchMovie, setSearchMovieData,searchMovie, searchMovieData}) {
+  
 
 
     return (
@@ -26,7 +17,7 @@ function Search() {
           px-2 py-2 w-80 outline-none border-2 border-gray-500 text-black '
                 />
                 <button
-                    // onClick={fetchMovieData}
+                    onClick={fetchMovieData}
                     className='bg-[#40407a] px-4 rounded-r-lg text-white shadow-md 
           border-b-2 border-r-2 border-t-2 border-gray-500 '>
                     Search
