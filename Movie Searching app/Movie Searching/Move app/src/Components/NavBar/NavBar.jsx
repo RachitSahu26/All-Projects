@@ -1,8 +1,6 @@
-// Navbar.jsx
 
 import React, { useState } from 'react';
 import Search from '../Search/Search';
-// import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,72 +10,38 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white font-bold text-xl"> <a href='/'>Movie Search</a></div>
+    <div>
+      <nav className="bg-gray-800 p-4">
+        {/* ... your existing Navbar code ... */}
+      </nav>
 
-        <button
-          className="lg:hidden text-white focus:outline-none"
-          onClick={toggleNavbar}
-        >
-          <svg
-            className="h-6 w-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
-        </button>
-
-        <div
-          className={`lg:flex lg:items-center ${isOpen ? 'block' : 'hidden'
-            }`}
-        >
-          <div className="lg:flex lg:mr-4">
-            <a
-              href="/trending"
-              className="block lg:inline-block mt-4 lg:mt-0 text-white hover:text-gray-300 mr-4"
-            >
-              Trending
-            </a>
-            <a
-              href="/movies"
-              className="block lg:inline-block mt-4 lg:mt-0 text-white hover:text-gray-300 mr-4"
-            >
-              Movies
-            </a>
-            <a
-              href="/tv_show"
-              className="block lg:inline-block mt-4 lg:mt-0 text-white hover:text-gray-300"
-            >
-              TV Show
-            </a>
-
-            <a
-              href="/search_Movie"
-              className="block lg:inline-block mt-4 ml-3 lg:mt-0 text-white hover:text-gray-300"
-            >
-              Search
-            </a>
-
-
-          </div>
-          <div >
+      <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600">
+        <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+          <a href="/trending" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            {/* Add your icon for Trending */}
+            <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Trending</span>
+          </a>
           
+          <a href="/movies" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            {/* Add your icon for Movies */}
+            <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Movies</span>
+          </a>
 
-            {/* Add additional links or components here */}
-          </div>
+          <a href="/tv_show" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            {/* Add your icon for TV Show */}
+            <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">TV Show</span>
+          </a>
+
+          <a href="/search_Movie" className="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+            {/* Add your icon for Search */}
+            <span className="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Search</span>
+          </a>
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
+
+
 
 export default Navbar;
