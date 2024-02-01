@@ -7,19 +7,19 @@ function Search({fetchMovieData,setSearchMovie, setSearchMovieData,searchMovie, 
 
     return (
         <div>
-            <div className="input flex justify-center  px-5 lg:px-0 py-5">
+            <div className="input flex bg-black justify-center  px-5 lg:px-0 py-5">
                 <input
                     type="text"
-                    placeholder='Search here'
+                    placeholder='Search any movies....'
                     value={searchMovie}
                     onChange={(e) => setSearchMovie(e.target.value)}
-                    className=' shadow-md bg-gray-200 placeholder-gray-400 rounded-l-lg 
-          px-2 py-2 w-80 outline-none border-2 border-gray-500 text-black '
+                    className=' shadow-md bg-black placeholder-gray-400 rounded-l-lg 
+          px-2 py-2 w-80 outline-none border-2 border-white text-white '
                 />
                 <button
                     onClick={fetchMovieData}
-                    className='bg-[#40407a] px-4 rounded-r-lg text-white shadow-md 
-          border-b-2 border-r-2 border-t-2 border-gray-500 '>
+                    className='bg-red-500 hover:bg-red-600 px-5   rounded-r-lg text-white shadow-md 
+          border-b-2 border-r-2 border-t-2 border-black '>
                     Search
                 </button>
             </div>

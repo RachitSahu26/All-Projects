@@ -1,51 +1,56 @@
-// src/App.js
-import React from 'react';
-import Product from './Components/Product.jsx';
-import Cart from './Components/Cart.jsx';
-import { Provider } from 'react-redux';
-import { store } from './App/Store.js';
-
-
-const products = [
-  { id: 1, name: 'Product 1', price: 240 },
-  { id: 2, name: 'Product 2', price: 30 },
-  // Add more products as needed
-  { id: 3, name: 'Product 3', price: 240 },
-  { id: 4, name: 'Product 4', price: 330 }, { id: 1, name: 'Product 1', price: 240 },
-  { id: 5, name: 'Product 5', price: 350 }, { id: 1, name: 'Product 1', price: 240 },
-  { id: 6, name: 'Product 6', price: 360 },
-
-
-];
-
-const App = () => {
+import React, { useState } from 'react';
+import "../src/App.css"
+// MovieCard component
+const MovieCard = ({ id, title, language, img, onToggleFavorite, isFavorite }) => {
   return (
-    <Provider store={store}>
-      <div>
-        <h1>Online Store</h1>
+    <div>
+      <img src={img} className='netflix-image' alt={title} />
+      <h1>{title}</h1>
+      <h1>{language}</h1>
+      <button onClick={() => onToggleFavorite(id)}>
+        {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+      </button>
+    </div>
+  );
+};
 
-        <div className='flex flex-wrap gap-8 bg-red-500 p-3 px-24 ' >
-          {/* <h2>Products</h2> */}
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
+// App component
+const App = () => {
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
 
+  // Function to toggle a movie as favorite
+  const toggleFavorite = (movieId) => {
+    const isFavorite = favoriteMovies.includes(movieId);
 
-        </div>
+    if (isFavorite) {
+      // Remove from favorites
+      setFavoriteMovies(favoriteMovies.filter((id) => id !== movieId));
+    } else {
+      // Add to favorites
+      setFavoriteMovies([...favoriteMovies, movieId]);
+    }
+  };
 
+  // Dummy movie data
+  const movieData = {
+    id: 1,
+    title: 'Movie Title',
+    language: 'English',
+    img: 'https://themarketingbirds.com/wp-content/uploads/2021/04/Lemony-Snickets-Series-of-Unfortunate-Events.jpg',
+  };
 
-
-        {/* <Cart /> */}
-      </div>
-    </Provider>
+  return (
+    <div>
+      <MovieCard
+        id={movieData.id}
+        title={movieData.title}
+        language={movieData.language}
+        img={movieData.img}
+        onToggleFavorite={toggleFavorite}
+        isFavorite={favoriteMovies.includes(movieData.id)}
+      />
+      <p>Favorites: {favoriteMovies.join(', ')}</p>
+    </div>
   );
 };
 
