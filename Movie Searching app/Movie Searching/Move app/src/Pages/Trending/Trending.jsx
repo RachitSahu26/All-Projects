@@ -44,12 +44,20 @@ function Trending() {
   }
   return (
     <>
-      <div className='flex flex-wrap bg-black'>
+
+      <div className='bg-gray-600'>
+        <h4 className='text-white text-4xl  flex justify-center p-5'>TRENDING</h4>
+
+      </div>
+
+      <div className='flex flex-wrap justify-center bg-black pl-8 pr-8'>
+
+
         {loading ?
           (
-            <div className='flex justify-between h-screen'>
+            
               <Loader />
-            </div>
+        
           ) :
 
 
@@ -73,10 +81,14 @@ function Trending() {
 
           )
         }
+
         <div className='flex bg-black mb-28 p-5 w-full justify-center items-center' >
 
           <Pages movie_content={trendContent} NumberofPage={page} Selected_Page_Handler={SelectedPageHandler} />
         </div>
+   
+   
+   
       </div>
     </>
 

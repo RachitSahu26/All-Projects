@@ -4,6 +4,8 @@ import Pages from '../../Components/Pagination/Pages';
 import Badges from '../../Components/Badges/Badges';
 import { useEffect, useState } from 'react';
 import Loader from '../../Components/Loader/Loader';
+import { FaHeart } from 'react-icons/fa';
+// import FavoriteIcon from '../../Components/FavoriteIcon/FavoriteIcon';
 
 function Movies() {
   const [movieContent, setMovieContent] = useState([]);
@@ -20,7 +22,7 @@ function Movies() {
 
   const fetchMovie = async () => {
     try {
-     
+
       setLoading(true); // Set loading to true when fetching data
 
       const { data } = await axios.get(
@@ -31,17 +33,17 @@ function Movies() {
       setNoofPage(data.total_pages);
 
       localStorage.setItem('currentPage', page.toString());
-    
-    
+
+
     }
-    
+
     catch (error) {
       console.error('Error fetching movie data:', error);
     }
-    
-    
+
+
     finally {
-     setLoading(false); // Set loading to false when data fetching is complete
+      setLoading(false); // Set loading to false when data fetching is complete
     }
 
 
@@ -64,31 +66,54 @@ function Movies() {
 
   return (
     <>
+      <div className='bg-gray-600 '>
+        <h4 className='text-white text-4xl flex justify-center p-5'>MOVIES</h4>
+
+      </div>
+
       <div className='flex bg-black flex-wrap gap-3  p-5 justify-center items-center'>
         <Badges type="movie" onGenreClick={handleGenreClick} selectedGenre={selectedGenre} />
       </div>
 
-      {loading ? ( // Render loading component when loading is true
-        <Loader />
-      ) : (
-        <div className='flex flex-wrap bg-black '>
-          {movieContent &&
-            movieContent.map((movieData) => (
-              <MoveCard
-                key={movieData.id}
-                id={movieData.id}
-                poster={movieData.poster_path}
-                title={movieData.title || movieData.name}
-                date={movieData.first_air_date || movieData.release_date}
-                media_type={movieData.media_type}
-                vote_average={movieData.vote_average}
-              />
-            ))}
-          <div className='flex bg-black mb-28 p-5 w-full justify-center items-center'>
-            <Pages movie_content={movieContent} NumberofPage={page} Selected_Page_Handler={SelectedPageHandler} />
+      {loading ?
+
+
+        (
+          // Render loading component when loading is true
+          <Loader />
+
+        )
+
+
+
+        :
+
+
+
+        (
+          <div className='flex flex-wrap bg-black pl-8 pr-8 '>
+            {movieContent &&
+              movieContent.map((movieData) => (
+                <MoveCard
+                  key={movieData.id}
+                  id={movieData.id}
+                  poster={movieData.poster_path}
+                  title={movieData.title || movieData.name}
+                  date={movieData.first_air_date || movieData.release_date}
+                  media_type={movieData.media_type}
+                  vote_average={movieData.vote_average}
+                />
+              ))}
+
+
+
+            <div className='flex bg-black mb-28 p-5 w-full justify-center items-center'>
+              <Pages movie_content={movieContent} NumberofPage={page} Selected_Page_Handler={SelectedPageHandler} />
+            </div>
+
+
           </div>
-        </div>
-      )}
+        )}
     </>
   );
 }
