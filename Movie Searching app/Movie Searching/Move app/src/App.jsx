@@ -16,7 +16,7 @@ import Trending from './Pages/Trending/Trending.jsx';
 import Movies from './Pages/Movies/Movies.jsx';
 import TvShow from './Pages/TV show/TvShow.jsx';
 import SearchMovie from './Pages/Search Movie/SearchMovie.jsx';
-import Favorite from './Pages/FavotireMovie/Favorite.jsx';
+// import Favorite from './Pages/FavotireMovie/Favorite.jsx';
 
 // Define a new component that will handle the redirect
 const RedirectToHome = () => {
@@ -37,7 +37,7 @@ function App() {
             <Route path="/movies" element={<Movies />} />
             <Route path="/tv_show" element={<TvShow />} />
             <Route path="/search_Movie" element={<SearchMovie />} />
-            <Route path="/favorite_Movie" element={<Favorite/>} />
+            {/* <Route path="/favorite_Movie" element={<Favorite/>} /> */}
 
             <Route path="/movieDetail/:id" element={<MovieDetail />} />
             <Route path="/*" element={<RedirectToHome />} /> {/* Catch-all route */}

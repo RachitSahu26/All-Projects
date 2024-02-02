@@ -1,8 +1,8 @@
 // MoveCard.js
-import React, { useContext, useState } from 'react';
+import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaHeart } from 'react-icons/fa';
-import MyContext from '../../Context/Data/MyContext';
+// import { FaHeart } from 'react-icons/fa';
+// import MyContext from '../../Context/Data/MyContext';
 
 function MoveCard({
   id,
@@ -13,23 +13,23 @@ function MoveCard({
   vote_average,
 }) {
   const baseImageUrl = 'https://image.tmdb.org/t/p/w500';
-  const [isFavorite, setIsfavorite] = useState(false);
-  const favoriteMovieContext = useContext(MyContext);
-  const { addToFavorite, removeFromFavorites } = favoriteMovieContext;
+  // const [isFavorite, setIsfavorite] = useState(false);
+  // const favoriteMovieContext = useContext(MyContext);
+  // const { addToFavorite, removeFromFavorites } = favoriteMovieContext;
 
   // Function to toggle the favorite status
-  const toggleFavorite = () => {
+  // const toggleFavorite = () => {
 
-    setIsfavorite(!isFavorite)
-    addToFavorite({id,
-      poster,
-      title,
-      date,
-      media_type,
-      vote_average,});
+  //   setIsfavorite(!isFavorite)
+  //   // addToFavorite({id,
+  //   //   poster,
+  //   //   title,
+  //   //   date,
+  //   //   media_type,
+  //   //   vote_average,});
 
 
-  }
+  // }
 
   return (
     <div className="p-2 md:w-1/5 w-full">
@@ -42,11 +42,11 @@ function MoveCard({
 
         <div className="flex justify-end">
           {/* Heart icon with dynamic color based on state */}
-          <FaHeart
+          {/* <FaHeart
             onClick={toggleFavorite}
             color={isFavorite ? 'red' : 'white'} // Change color based on favorite status
             cursor="pointer"
-          />
+          /> */}
         </div>
         {/* <p>{isFavorite(id) ? 'Remove from Favorites' : 'Add to Favorites'}</p> */}
       </div>

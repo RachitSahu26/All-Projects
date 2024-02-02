@@ -15,13 +15,13 @@ const Navbar = () => {
     { path: '/movies', label: 'Movies' },
     { path: '/tv_show', label: 'TV Show' },
     { path: '/search_Movie', label: 'Search' },
-    { path: '/favorite_Movie', label: 'Favorite' },
+
   ];
 
   return (
     <div>
-
-      <nav className="bg-gray-800">
+   
+   <nav className="bg-gray-800">
         {/* ... your existing Navbar code ... */}
       </nav>
 
@@ -33,7 +33,7 @@ const Navbar = () => {
             <a
               key={link.path}
               href={link.path}
-              className={`inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group ${pathname === link.path ? 'bg-blue-500 rounded  ' : ''
+              className={`inline-flex flex-col items-center justify-center  hover:bg-gray-50 dark:hover:bg-gray-800 group ${pathname === link.path ? 'bg-blue-500 rounded  ' : ''
                 }`}
             >
               <span
@@ -49,7 +49,7 @@ const Navbar = () => {
 
         </div>
       </div>
-    </div>
+    </div> 
   );
 };
 

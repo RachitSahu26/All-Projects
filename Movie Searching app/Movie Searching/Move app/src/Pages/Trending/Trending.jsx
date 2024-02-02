@@ -24,7 +24,7 @@ function Trending() {
       setLoading(false);
 
       setTrendContent(data.results);
-      console.log(data)
+      console.log(data.results)
       // Save the current page to localStorage
       localStorage.setItem('currentPages', page.toString());
     } catch (error) {

@@ -8,7 +8,7 @@ function MyState(props) {
   const [loading, setLoading] = useState(true);
   const [allMovieData, setAllMovieData] = useState([]);
   const [selectedMovieData, setSelectedMovieData] = useState([]);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  // const [favoriteMovies, setFavoriteMovies] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -25,9 +25,9 @@ function MyState(props) {
     }
   };
 
-  const addToFavorite = (movie) => {
-    setFavoriteMovies((prevFavorites) => [...prevFavorites, movie]);
-  };
+  // const addToFavorite = (movie) => {
+  //   setFavoriteMovies((prevFavorites) => [...prevFavorites, movie]);
+  // };
 
   // const removeFromFavorites = (movieId) => {
   //   setFavoriteMovies((prevFavorites) => prevFavorites.filter((movie) => movie.id !== movieId));
@@ -53,11 +53,11 @@ function MyState(props) {
         setSelectedMovieData,
         loading,
         setLoading,
-        addToFavorite,
+        // addToFavorite,
         // removeFromFavorites,
         // clearFavorites,
-        favoriteMovies,
-        setFavoriteMovies,
+        // favoriteMovies,
+        // setFavoriteMovies,
         // isFavorite, // Include isFavorite in the context value
         basename: 'defaultBasename',
       }}
