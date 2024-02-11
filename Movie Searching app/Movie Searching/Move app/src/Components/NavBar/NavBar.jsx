@@ -33,7 +33,7 @@ const Navbar = () => {
             <a
               key={link.path}
               href={link.path}
-              className={`inline-flex flex-col items-center justify-center  hover:bg-gray-50 dark:hover:bg-gray-800 group ${pathname === link.path ? 'bg-blue-500 rounded  ' : ''
+              className={`inline-flex flex-col items-center justify-center  hover:bg-yellow dark:hover:bg-gray-800 group ${pathname === link.path ? 'bg-blue-500 rounded  ' : ''
                 }`}
             >
               <span

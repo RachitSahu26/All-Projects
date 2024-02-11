@@ -16,6 +16,8 @@ import Trending from './Pages/Trending/Trending.jsx';
 import Movies from './Pages/Movies/Movies.jsx';
 import TvShow from './Pages/TV show/TvShow.jsx';
 import SearchMovie from './Pages/Search Movie/SearchMovie.jsx';
+import Signup from './Pages/Signup/Signup.jsx';
+import Login from './Pages/Login/Login.jsx';
 // import Favorite from './Pages/FavotireMovie/Favorite.jsx';
 
 // Define a new component that will handle the redirect
@@ -40,6 +42,8 @@ function App() {
             {/* <Route path="/favorite_Movie" element={<Favorite/>} /> */}
 
             <Route path="/movieDetail/:id" element={<MovieDetail />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/*" element={<RedirectToHome />} /> {/* Catch-all route */}
           </Routes>
         </>
