@@ -8,7 +8,7 @@ import Loader from '../../Components/Loader/Loader';
 function TvShows() {
   const [tvShowContent, setTVShowContent] = useState([]);
   const [noofPage, setNoofPage] = useState('');
-const [loading,setLoading]=useState(true);
+  const [loading, setLoading] = useState(true);
 
   const [page, setPage] = useState(() => {
     const storedPage = localStorage.getItem('currentPage');
@@ -16,7 +16,12 @@ const [loading,setLoading]=useState(true);
   });
 
   const fetchTVShows = async () => {
+
+
+
     try {
+
+
 
       setLoading(true);
       const { data } = await axios.get(
@@ -32,8 +37,10 @@ const [loading,setLoading]=useState(true);
     } catch (error) {
       setLoading(true);
       console.error('Error fetching TV show data:', error);
-    }
-  };
+    }     
+
+
+     };
 
   useEffect(() => {
     fetchTVShows();
@@ -45,40 +52,40 @@ const [loading,setLoading]=useState(true);
 
   return (
     <>
- <div className='bg-gray-600'>
+      <div className='bg-gray-600'>
         <h4 className='text-white text-4xl  flex justify-center p-5'>TV SHOW</h4>
 
       </div>
 
       {
-loading ? (
-  <Loader/>
-):(
+        loading ? (
+          <Loader />
+        ) : (
 
-  <div className='flex flex-wrap bg-black pl-8 pr-8'>
-  {tvShowContent &&
-    tvShowContent.map((showData) => (
-      <MoveCard
-        key={showData.id}
-        id={showData.id}
-        poster={showData.poster_path}
-        title={showData.name}
-        date={showData.first_air_date}
-        media_type="tv"
-        vote_average={showData.vote_average}
-      />
-    ))}
-  <div className='flex bg-black p-5 w-full just`ify-center items-center'>
-    <Pages movie_content={tvShowContent} NumberofPage={page} Selected_Page_Handler={SelectedPageHandler} />
-  </div>
+          <div className='flex flex-wrap bg-black pl-8 pr-8'>
+            {tvShowContent &&
+              tvShowContent.map((showData) => (
+                <MoveCard
+                  key={showData.id}
+                  id={showData.id}
+                  poster={showData.poster_path}
+                  title={showData.name}
+                  date={showData.first_air_date}
+                  media_type="tv"
+                  vote_average={showData.vote_average}
+                />
+              ))}
+            <div className='flex bg-black p-5 w-full just`ify-center items-center'>
+              <Pages movie_content={tvShowContent} NumberofPage={page} Selected_Page_Handler={SelectedPageHandler} />
+            </div>
 
 
 
-</div>
-)
+          </div>
+        )
 
       }
-    
+
     </>
   );
 }
