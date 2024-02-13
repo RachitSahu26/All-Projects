@@ -1,69 +1,30 @@
-import React, { useEffect } from 'react'
-import './App.css'
-// import { fetchDataFromApi } from "../src/utils/api.js"
-import { useDispatch, useSelector } from 'react-redux'
-import HomeSlice, { getApiConfiguration } from './store/homeSlice.js'
+import React from 'react';
+
+
+
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
+  Route,
   Routes,
-  Route
-} from "react-router-dom";
+  // Navigate, // Import Navigate component
+  // useLocation, // Import useLocation hook
 
-import SearchResult from './Pages/Searched Result/SearchResult.jsx'
-import Explore from './Pages/Explore/Explore.jsx'
-import Page_404 from './Pages/404/Page_404.jsx'
-import Detail from './Pages/Detail/Detail.jsx'
-// import h from './store/homeSlice.js';
-
-import fetchDataFromApi from './utils/api.js';
-import MyState from './Hooks/MyState.jsx';
+} from 'react-router-dom';
+import Home from './Page/Home/Home.jsx';
+// import Home from './Page/Home.jsx';
+// import About from './Page/About.jsx';
+// import Contact from './Page/Contact.jsx';
 
 function App() {
-  const dispatch = useDispatch()
-  const { URlData } = useSelector((state) => state.home);
-  console.log(URlData)
-
-
-  useEffect(() => {
-    testApi()
-  }, [])
-
-  const testApi = () => {
-    fetchDataFromApi("/configuration")
-      .then((res) => {
-
-        console.log(res);
-
-
-
-        const url = {
-          backdrop: res.images.secure_base_url + "original",
-          poster: res.images.secure_base_url + "original",
-          profile: res.images.secure_base_url + "original",
-        };
-
-        dispatch(getApiConfiguration(url));
-
-      })
-  }
-
   return (
+    <Router>
+      <Routes>
+        <Route path='/' element={<Home/>} />
 
 
-    <MyState>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-
-          <Route path='/search/:query' element={<SearchResult />} />
-          <Route path='/explore/:mediaType' element={<Explore />} />
-          <Route path='/:mediaType/:id' element={<Detail />} />
-          <Route path='*' element={<Page_404 />} />
-        </Routes>
-
-      </BrowserRouter>
-    </MyState>
-  )
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

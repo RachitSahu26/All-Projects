@@ -1,0 +1,40 @@
+/* MatchList.scss */
+
+.match-list-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background-color: rgba(115, 239, 222, 0.688);
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+li p {
+  margin: 0;
+}
+
+li p:first-child {
+  font-weight: bold;
+}
+
+/* Style specific to match status */
+.match-status {
+  font-weight: bold;
+  color: #ff6347; /* Tomato color */
+}
+
+/* Hover effect */
+li:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
