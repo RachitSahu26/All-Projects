@@ -3,8 +3,9 @@ import express from 'express';
 import morgan from 'morgan';
 import connectToMongo from './dataBase/db.js';
 import router from './routes/authRoute.js';
-
-
+import dotenv from "dotenv";
+//configure env
+dotenv.config();
 // Create an Express application
 const app = express();
 const port = 3000;
