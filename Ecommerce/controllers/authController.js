@@ -1,64 +1,66 @@
 import { comparePassword, hashpassword } from "../helpers/authHelper.js";
-import useModel from "../models/useModel.js";
-// import User from "../models/useModel.js";
-// import Jwt from 'jsonwebtoken';
+import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken";
+import userModel from "../models/userModel.js";
+
+
 export const registerController = async (req, res) => {
-    try {
-        const { name, email, password, phone, address } = req.body;
 
-        if (!name) {
-            return res.send({ error: "Name is Required" });
-        }
-        if (!email) {
-            return res.send({ error: "Email is Required" });
-        }
-        if (!password) {
-            return res.send({ error: "Password is Required" });
-        }
-        if (!phone) {
-            return res.send({ error: "Phone no is Required" });
-        }
-        if (!address) {
-            return res.send({ error: "Address is Required" });
-        }
-        // checking existing user
-        const existingUser = await useModel.findOne({ email })
-        if (existingUser) {
-            return res.status(200).send({
-                success: true,
-                message: "Already Register please login",
-            });
-        }
+  try {
+    const { name, email, password, phone, address } = req.body;
 
-        // hashedpassword
-
-        const hashedPasswrod = await hashpassword(password);
-        const user = await new useModel({
-            name,
-            email,
-            phone,
-            address,
-            password: hashedPasswrod,
-        }).save()
-
-        res.status(201).send({
-            success: true,
-            message: "User Register Successfully",
-            user,
-        });
-
-
-
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: "Errro in Registeration",
-            error,
-        });
+    if (!name) {
+      return res.send({ error: "Name is Required" });
     }
+    if (!email) {
+      return res.send({ error: "Email is Required" });
+    }
+    if (!password) {
+      return res.send({ error: "Password is Required" });
+    }
+    if (!phone) {
+      return res.send({ error: "Phone no is Required" });
+    }
+    if (!address) {
+      return res.send({ error: "Address is Required" });
+    }
+    // checking existing user
+    const existingUser = await userModel.findOne({ email })
+    if (existingUser) {
+      return res.status(200).send({
+        success: false,
+        message: "Already Register please login",
+      });
+    }
+
+    // hashedpassword
+
+    const hashedPasswrod = await hashpassword(password);
+    const user = await new userModel({
+      name,
+      email,
+      phone,
+      address,
+      password: hashedPasswrod,
+    }).save()
+
+    res.status(201).send({
+      success: true,
+      message: "User Register Successfully",
+      user,
+    });
+
+
+
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Errro in Registeration",
+      error,
+    });
+  }
 
 }
 
@@ -69,60 +71,57 @@ export const registerController = async (req, res) => {
 
 
 
+// ROUTE 2: Login a User using POST "/api/auth/login". No login required
 
-// ..................Login controller
-export const loginController = async (req, res) => {
+  export const loginController = async (req,res) => {
+    
+    
+    
     try {
-        const { email, password } = req.body;
+      
+      const { email, password } = req.body;
 
-        // Validation
-        if (!email || !password) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid email or password",
-            });
-        }
 
-        // Check user
-        const user = await useModel.findOne({ email });
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "Email is not registered",
-            });
-        }
-
-        // Compare passwords
-        const match = await comparePassword(password, user.password);
-        if (!match) {
-            return res.status(401).json({
-                success: false,
-                message: "Invalid Password",
-            });
-        }
-
-        // Generate JWT token
-        const token = Jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-            expiresIn: "7d",
-        });
-
-        res.status(200).json({
-            success: true,
-            message: "Login successful",
-            user: {
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                phone: user.phone,
-                address: user.address,
-            },
-            token,
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({
-            success: false,
-            message: "Internal server error",
-        });
+    // Validation
+    if (!email || !password) {
+      return res.status(400).json({ error: "All fields are required" });
     }
+
+    // Email Validation
+    if (!email.includes("@")) {
+      return res.status(400).json({ error: "Please enter a valid email" });
+    }
+
+    // Find Unique User with email
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Matching user password to hash password with bcrypt.compare()
+    const doMatch = await bcrypt.compare(password, user.password);
+
+    if (doMatch) {
+      // Generate token
+      const token = Jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: '7d'
+      });
+
+      res.status(201).json({ token });
+    } else {
+      res.status(401).json({ error: 'Email and password do not match' });
+    }
+
+  }
+
+  catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+
+
 };
+
+
+

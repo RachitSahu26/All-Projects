@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import connectToMongo from './dataBase/db.js';
 import router from './routes/authRoute.js';
 import dotenv from "dotenv";
+import cors from 'cors';
 //configure env
 dotenv.config();
 // Create an Express application
@@ -12,8 +13,9 @@ const port = 3000;
 
 
 // middle ware
-app.use(express.json())
-app.use(morgan("dev"))
+app.use(cors());
+app.use(express.json());
+app.use(morgan("dev"));
   
 
 // databse connection is here 
