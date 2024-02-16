@@ -1,14 +1,29 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
+import mycontext from '../../Context/myContext';
+import { toast } from 'react-toastify';
 
 function Header() {
 
-
+  const ContextData = useContext(mycontext);
+  const { auth, setAuth } = ContextData;
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
+
+
+  const logOutHandle = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: ""
+    })
+    localStorage.removeItem("auth");
+    toast.success("Logout Successfully");
+  }
+
   return (
     <>
       <nav className="bg-gray-800  ">
@@ -21,7 +36,7 @@ function Header() {
 
           <div className=" h-16">
             <div className="flex justify-between">
-            
+
               <div className="flex-shrink-0 flex items-center">
                 <span className="text-teal-100 text-xl font-bold">Logo</span>
               </div>
@@ -31,14 +46,32 @@ function Header() {
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link to="/" className="text-gray-300 hover:text-white  p-4 rounded-md text-xl font-medium">Home</Link>
                   <Link to="/category" className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium">Category</Link>
-                  <Link to="/signup" className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium">SignUp</Link>
 
-                  <Link to="/signin" className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium">SignIn</Link>
-                  <Link  className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium">Logout</Link>
+
+
+
+                  {
+                    !auth.user ? (
+                      <>
+                        <Link to="/signup" className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium">SignUp</Link>
+                        <Link to="/signin" className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium">SignIn</Link>
+
+                      </>
+                    ) : (
+
+                      <>
+                        <Link className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium" onClick={logOutHandle}>Logout</Link>
+                      </>
+                    )
+                  }
+
+
+
+
                 </div>
               </div>
-            
-            
+
+
             </div>
 
 
