@@ -4,22 +4,24 @@ import mycontext from './myContext'
 const Mystate = (props) => {
 
     const [auth, setAuth] = useState({
-        token: "",
+        user:null,
+        token: ""
     });
 
 
-    // useEffect(() => {
-    //     const data = localStorage.getItem("auth",)
-    //     if (data) {
-    //         const parseData = JSON.parse(data);
-    //         setAuth({
-    //             ...auth,
-    //             token: parseData.token
-    //         })
+    useEffect(() => {
+        const data = localStorage.getItem("auth",)
+        if (data) {
+            const parseData = JSON.parse(data);
+            setAuth({
+                ...auth,
+                token: parseData.token,
+                user:parseData.user,
+            })
 
 
-    //     }
-    // },[auth]);
+        }
+    },[]);
 
 
 
