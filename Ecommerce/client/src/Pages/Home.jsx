@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import LayOut from '../Components/Layout/LayOut'
-import mycontext from '../Context/myContext';
-import { json } from 'react-router-dom';
+import mycontext from '../Context/myContext.jsx';
+// import { json } from 'react-router-dom';
 
 function Home(props) {
 
@@ -13,10 +13,7 @@ function Home(props) {
                 <div className='bg-teal-500 h-5 p-16'>
 
                     <h1>
-
-                        {
-                            JSON.stringify(auth)
-                        }
+                        {JSON.stringify(auth)}
                     </h1>
 
                 </div>

@@ -11,23 +11,31 @@ import SignUp from './Pages/SignUp'
 // import { Toaster } from 'react-hot-toast'
 import { ToastContainer } from 'react-toastify'
 import Mystate from './Context/mystate.jsx';
+import Dashboard from './Pages/User/Dashboard.jsx'
+import { Private } from './Components/PrivateRoute/Private.jsx'
 
 function App() {
 
 
   return (
     <>
-    <Mystate >
+      <Mystate >
 
-  <Routes>
-<Route path="/" element={<Home/>}/>
-<Route path="/category" element={<Category/>}/>
-<Route path="/signin" element={<SignIn/>}/>
-<Route path="/signup" element={<SignUp/>}/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/category" element={<Category />} />
 
-  </Routes>
-</Mystate>
-<ToastContainer/>
+          <Route path="/dashboard" element={<Private />} >
+            <Route path="" element={<Dashboard />} />
+          </Route>
+
+
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+
+        </Routes>
+      </Mystate>
+      <ToastContainer />
 
     </>
   )
