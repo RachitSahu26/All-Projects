@@ -2,8 +2,6 @@ import { comparePassword, hashpassword } from "../helpers/authHelper.js";
 import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
-
-
 export const registerController = async (req, res) => {
 
   try {
@@ -26,6 +24,7 @@ export const registerController = async (req, res) => {
     }
     // checking existing user
     const existingUser = await userModel.findOne({ email })
+
     if (existingUser) {
       return res.status(200).send({
         success: false,
@@ -73,55 +72,76 @@ export const registerController = async (req, res) => {
 
 // ROUTE 2: Login a User using POST "/api/auth/login". No login required
 
-  export const loginController = async (req,res) => {
-    
-    
-    
-    try {
-      
-      const { email, password } = req.body;
+export const loginController = async (req, res) => {
 
 
-    // Validation
+
+  try {
+
+    const { email, password } = req.body;
+
+
+    //validation
     if (!email || !password) {
-      return res.status(400).json({ error: "All fields are required" });
+      return res.status(404).send({
+        success: false,
+        message: "Invalid email or password",
+      });
     }
-
     // Email Validation
     if (!email.includes("@")) {
-      return res.status(400).json({ error: "Please enter a valid email" });
+      return res.status(400).send({
+        success: false,
+        message: "please Enter Correct email",
+      });
     }
 
     // Find Unique User with email
     const user = await userModel.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).send({
+        success: false,
+        message: "Email is not registerd",
+      });
     }
 
     // Matching user password to hash password with bcrypt.compare()
     const doMatch = await bcrypt.compare(password, user.password);
 
-    if (doMatch) {
-      // Generate token
-      const token = Jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {
-        expiresIn: '7d'
+    if (!doMatch) {
+      return res.status(200).send({
+        success: false,
+        message: "Invalid Password",
       });
-
-      res.status(201).json({ token });
-    } else {
-      res.status(401).json({ error: 'Email and password do not match' });
     }
-
+    //token
+    const token = await Jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+    res.status(200).send({
+      success: true,
+      message: "login successfully",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        role: user.role,
+      },
+     token: token,
+    });
   }
 
   catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in Login",
+      error,
+    })
   }
 
 
-};
-
-
-
+}
