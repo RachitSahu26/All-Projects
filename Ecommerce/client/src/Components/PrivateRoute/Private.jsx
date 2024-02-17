@@ -1,37 +1,38 @@
-import axios from "axios"
-import { useContext, useEffect, useState } from "react"
-import mycontext from "../../Context/myContext"
-// import { set } from "mongoose"
+import axios from "axios";
+import { useContext, useEffect, useState } from "react";
+import mycontext from "../../Context/myContext";
 import { Outlet } from 'react-router-dom';
 import Spinner from "../Spinner/Spinner";
 
 export const Private = () => {
-
-    const contextData = useContext(mycontext)
-    const { auth, setAuth } = contextData;
+    const contextData = useContext(mycontext);
+    const { auth } = contextData;
     const [ok, setOk] = useState(false);
 
     useEffect(() => {
         const authCheck = async () => {
-            const res = await axios.get("http://localhost:3000/api/auth/user-auth", {
-                headers: {
-                    "Authorization": auth?.token
+            try {
+                if (auth?.token) {
+                    const res = await axios.get("http://localhost:3000/api/auth/user-auth", {
+                        headers: {
+                            "Authorization": auth?.token
+                        }
+                    });
+                    setOk(res.data.ok);
+                } else {
+                    // If no token is available, consider the user unauthorized
+                    setOk(false);
                 }
-            })
-            if (res.data.ok) {
-
-                setOk(true);
-            }
-            else{
+            } catch (error) {
+                console.error("Error checking user authorization:", error);
                 setOk(false);
             }
-        }
+        };
 
-        if(auth?.token){
+        if (auth?.token) {
             authCheck();
         }
-    }, [auth?.token])
+    }, [auth]);
 
-
-return ok? <Outlet/> : <Spinner/>
-}
+    return ok ? <Outlet /> : <Spinner />;
+};
