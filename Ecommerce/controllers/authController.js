@@ -2,6 +2,8 @@ import { comparePassword, hashpassword } from "../helpers/authHelper.js";
 import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
+
+
 export const registerController = async (req, res) => {
 
   try {
@@ -24,7 +26,6 @@ export const registerController = async (req, res) => {
     }
     // checking existing user
     const existingUser = await userModel.findOne({ email })
-
     if (existingUser) {
       return res.status(200).send({
         success: false,
@@ -41,6 +42,7 @@ export const registerController = async (req, res) => {
       phone,
       address,
       password: hashedPasswrod,
+      
     }).save()
 
     res.status(201).send({

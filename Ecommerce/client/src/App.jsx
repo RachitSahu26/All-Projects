@@ -10,23 +10,38 @@ import SignUp from './Pages/SignUp'
 // import { ToastContainer } from 'react-toastify'
 // import { Toaster } from 'react-hot-toast'
 import { ToastContainer } from 'react-toastify'
-import Mystate from './Context/mystate.jsx';
-import Dashboard from './Pages/User/Dashboard.jsx'
+// import Mystate from './Context/mystate.jsx';
+import Dashboard from './Pages/DashBoard/UserDashboard.jsx'
 import { Private } from './Components/PrivateRoute/Private.jsx'
+import Mystate from './Context/mystate.jsx'
+import AdminDashboard from './Pages/Admin/AdminDashboard.jsx'
+import { AdminPrivate } from './Components/PrivateRoute/AdminPrivate.jsx'
+import AdminCreateCategory from './Pages/Admin/AdminCreateCategory.jsx'
+import AdminCreateProduct from './Pages/Admin/AdminCreateProduct.jsx'
+import UserDashboard from './Pages/DashBoard/UserDashboard.jsx'
 
 function App() {
 
 
   return (
     <>
-      <Mystate >
+      <Mystate>
 
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/category" element={<Category />} />
 
           <Route path="/dashboard" element={<Private />} >
-            <Route path="" element={<Dashboard />} />
+            <Route path="user" element={<UserDashboard />} />
+          </Route>
+
+
+
+          <Route path="/dashboard" element={<AdminPrivate/>} >
+            <Route path="admin" element={<AdminDashboard />} />
+            <Route path="admin/create-category" element={<AdminCreateCategory />} />
+            <Route path="admin/create-product" element={<AdminCreateProduct />} />
+
           </Route>
 
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from './Header'
 import Footer from './Footer'
-import { ToastContainer } from 'react-toastify'
 const LayOut = (props) => {
   return (
     <div>
@@ -9,7 +8,6 @@ const LayOut = (props) => {
 
       <main>
 {props.children}
-<ToastContainer/>
 
       </main>
    <Footer/>

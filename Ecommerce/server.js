@@ -5,6 +5,7 @@ import connectToMongo from './dataBase/db.js';
 import router from './routes/authRoute.js';
 import dotenv from "dotenv";
 import cors from 'cors';
+import categoryRoute from './routes/categoryRoute.js';
 //configure env
 dotenv.config();
 // Create an Express application
@@ -26,6 +27,7 @@ connectToMongo();
 // Define a route
 app.use("/api/auth",router);
 
+app.use("/api/category",categoryRoute);
 
 
 app.get('/', (req, res) => {
