@@ -12,8 +12,12 @@ router.post('/login', loginController);
 
 
 
-// prive Route checking
-router.get('/user-auth', requireSignIn, isAdmin, (req, res) => {
+// private Route checking
+router.get('/user-auth', (req, res) => {
+    res.status(200).send({ ok: true });
+});
+// admin  Route checking
+router.get('/admin-auth', requireSignIn, isAdmin, (req, res) => {
     res.status(200).send({ ok: true });
 });
 
