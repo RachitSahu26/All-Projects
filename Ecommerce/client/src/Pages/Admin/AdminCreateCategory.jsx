@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import LayOut from '../../Components/Layout/LayOut'
-import Sidebar from '../../Components/SideBar/SideBar'
-import CreateCategoryForm from '../../Components/Form/CreateCategoryForm'
-import axios from 'axios'
-import toast from 'react-hot-toast'
+import LayOut from '../../Components/Layout/LayOut.jsx'
+// import Sidebar from '../../Components/SideBar/U.jsx'
+import CreateCategoryForm from '../../Components/Form/CreateCategoryForm.jsx'
+// import axios from 'axios'
+// import toast from 'react-hot-toast'
 import mycontext from '../../Context/myContext'
+import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
 
 function AdminCreateCategory() {
 

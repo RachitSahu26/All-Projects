@@ -19,6 +19,8 @@ import { AdminPrivate } from './Components/PrivateRoute/AdminPrivate.jsx'
 import AdminCreateCategory from './Pages/Admin/AdminCreateCategory.jsx'
 import AdminCreateProduct from './Pages/Admin/AdminCreateProduct.jsx'
 import UserDashboard from './Pages/DashBoard/UserDashboard.jsx'
+import UserOrder from './Pages/DashBoard/UserOrder.jsx'
+import UserProfile from './Pages/DashBoard/UserProfile.jsx'
 
 function App() {
 
@@ -32,15 +34,23 @@ function App() {
           <Route path="/category" element={<Category />} />
 
           <Route path="/dashboard" element={<Private />} >
+          
+          
             <Route path="user" element={<UserDashboard />} />
+            <Route path="user/order" element={<UserOrder />} />
+            <Route path="user/profile" element={<UserProfile />} />
+
+
+
           </Route>
 
 
 
-          <Route path="/dashboard" element={<AdminPrivate/>} >
+          <Route path="/dashboard" element={<AdminPrivate />} >
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="admin/create-category" element={<AdminCreateCategory />} />
             <Route path="admin/create-product" element={<AdminCreateProduct />} />
+            {/* <Route path="admin/create-product" element={<AdminCra />} /> */}
 
           </Route>
 

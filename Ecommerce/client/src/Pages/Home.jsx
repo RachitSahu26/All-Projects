@@ -12,10 +12,10 @@ function Home(props) {
             <LayOut>
                 <div className='bg-teal-500 h-5 p-16'>
 
-                    <h1>Name:{auth.user.name}</h1>
+                    {/* <h1>Name:{auth.user.name}</h1>
                     <h1>Email:{auth.user.email}</h1>
                     <h1>Phone:{auth.user.phone}</h1>
-                    <h1>Address:{auth.user.address}</h1>
+                    <h1>Address:{auth.user.address}</h1> */}
 
                 </div>
 
