@@ -1,15 +1,14 @@
 import React from 'react'
 import LayOut from '../../Components/Layout/LayOut.jsx'
-import Sidebar from '../../Components/SideBar/AdminSideBar.jsx'
+import UserSideBar from '../../Components/SideBar/UserSideBar.jsx'
 
-
-const AdminDashboard = () => {
+function UserProfile() {
   return (
     <LayOut>
       <div className='border-2 border-yellow-700 flex flex-row'>
         <div>
 
-          <Sidebar />
+          <UserSideBar />
         </div>
 
 
@@ -19,7 +18,7 @@ const AdminDashboard = () => {
 
 
 
-          <h1> Admin Dashboard</h1>
+          <h1> User Profile</h1>
 
         </div>
 
@@ -29,4 +28,4 @@ const AdminDashboard = () => {
   )
 }
 
-export default AdminDashboard
+export default UserProfile

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
 import LayOut from '../../Components/Layout/LayOut'
 import mycontext from '../../Context/myContext';
+// import Sidebar from '../../Components/SideBar/AdminSideBar';
+import UserSideBar from '../../Components/SideBar/UserSideBar';
 
 function UserDashboard() {
 
@@ -8,15 +10,26 @@ function UserDashboard() {
   const { auth, setAuth } = ContextData;
   return (
     <LayOut>
-      UserDashboard
-      <h1>
-        <h1>Name:{auth.user.name}</h1>
-        <h1>Email:{auth.user.email}</h1>
-        <h1>Phone:{auth.user.phone}</h1>
-        <h1>Address:{auth.user.address}</h1>
+    <div className='border-2 border-yellow-700 flex flex-row'>
+      <div>
 
-      </h1>
-    </LayOut>
+        <UserSideBar />
+      </div>
+
+
+
+      <div className='bg-red-100 w-[90%] justify-center'>
+
+
+
+
+        <h1> Admin Dashboard</h1>
+
+      </div>
+
+
+    </div>
+  </LayOut>
   )
 }
 
