@@ -6,6 +6,10 @@ import router from './routes/authRoute.js';
 import dotenv from "dotenv";
 import cors from 'cors';
 import categoryRoute from './routes/categoryRoute.js';
+// import productModel from './models/productModel.js';
+
+import productRoute from './routes/productRoute.js'
+
 //configure env
 dotenv.config();
 // Create an Express application
@@ -29,6 +33,7 @@ app.use("/api/auth",router);
 
 app.use("/api/category",categoryRoute);
 
+app.use("/api/product",productRoute);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
