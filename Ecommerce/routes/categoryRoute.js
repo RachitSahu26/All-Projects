@@ -1,6 +1,6 @@
 import express from "express";
 import { isAdmin, requireSignIn } from "../middleware/SignInRequrie.js";
-import createCategoryController, { categoryControlller, deleteCategoryController, updateCategoryController } from "../controllers/createCategoryController.js";
+import { createProductController } from "../controllers/productController.js";
 
 
 const router = express.Router()
@@ -13,7 +13,7 @@ const router = express.Router()
 router.post(
     "/create-category",
     requireSignIn,
-    createCategoryController,
+    createProductController,
 );
 
 
@@ -26,7 +26,7 @@ router.put(
     "/update-category/:id",
     requireSignIn,
     isAdmin,
-    updateCategoryController
+    
 );
 
 
