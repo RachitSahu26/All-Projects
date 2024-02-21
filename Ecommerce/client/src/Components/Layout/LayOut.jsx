@@ -4,13 +4,13 @@ import Footer from './Footer'
 const LayOut = (props) => {
   return (
     <div>
-      <Header/>
+      <Header />
 
       <main>
-{props.children}
+        {props.children}
 
       </main>
-   <Footer/>
+      <Footer />
     </div>
   )
 }

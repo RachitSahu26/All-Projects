@@ -1,7 +1,6 @@
-import React from 'react'
+
 import productModel from '../models/productModel.js';
 import slugify from 'slugify';
-import fs from 'fs'
 
 
 
@@ -22,11 +21,13 @@ export const createProductController = async (req, res) => {
                 return res.status(500).send({ error: "Category is Required" });
             case !quantity:
                 return res.status(500).send({ error: "Quantity is Required" });
+            case !shipping:
+                return res.status(500).send({ error: "shipping is Required" });
 
 
         }
 
-        const products = new productModel({ ...req.fields, slug: slugify(name) });
+        const products = new productModel({ ...req.body, slug: slugify(name) });
 
         products.save();
         res.status(201).send({
@@ -76,11 +77,14 @@ export const updateProductController = async (req, res) => {
                 return res.status(500).send({ error: "Category is Required" });
             case !quantity:
                 return res.status(500).send({ error: "Quantity is Required" });
+            case !shipping:
+                return res.status(500).send({ error: "shipping is Required" });
+
         }
 
         const products = await productModel.findByIdAndUpdate(
             req.params.pid,
-            { ...req.fields, slug: slugify(name) },
+            { ...req.body, slug: slugify(name) },
             { new: true }
         );
 
