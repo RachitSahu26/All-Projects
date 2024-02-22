@@ -21,6 +21,8 @@ import AdminCreateProduct from './Pages/Admin/AdminCreateProduct.jsx'
 import UserDashboard from './Pages/DashBoard/UserDashboard.jsx'
 import UserOrder from './Pages/DashBoard/UserOrder.jsx'
 import UserProfile from './Pages/DashBoard/UserProfile.jsx'
+import AllProduct from './Pages/Admin/AllProduct.jsx'
+import UpdateProduct from './Pages/Admin/UpdateProduct.jsx'
 
 function App() {
 
@@ -33,24 +35,26 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/category" element={<Category />} />
 
+
+
+
+{/* .......................user Dashboard Route........... */}
           <Route path="/dashboard" element={<Private />} >
-          
-          
             <Route path="user" element={<UserDashboard />} />
             <Route path="user/order" element={<UserOrder />} />
             <Route path="user/profile" element={<UserProfile />} />
-
-
-
           </Route>
 
+{/* .......................Admin Dashboard Route........... */}
 
 
           <Route path="/dashboard" element={<AdminPrivate />} >
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="admin/create-category" element={<AdminCreateCategory />} />
             <Route path="admin/create-product" element={<AdminCreateProduct />} />
-            {/* <Route path="admin/create-product" element={<AdminCra />} /> */}
+            <Route path="admin/product/:slug" element={<UpdateProduct />} />
+
+            <Route path="admin/product" element={<AllProduct/>} />
 
           </Route>
 

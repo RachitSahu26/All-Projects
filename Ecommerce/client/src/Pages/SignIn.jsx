@@ -16,7 +16,14 @@ function Login() {
             const res = await axios.post('http://localhost:3000/api/auth/login', {
                 email,
                 password
-            });
+            }
+                , {
+                    headers: {
+                        Authorization: auth?.token,
+                    },
+                }
+
+            );
 
 
             if (res && res.data.success) {
@@ -24,7 +31,7 @@ function Login() {
                 toast.success(res.data && res.data.message);
                 setAuth({
                     ...auth,
-                    user:res.data.user,
+                    user: res.data.user,
                     token: res.data.token,
                 });
                 localStorage.setItem("auth", JSON.stringify(res.data));

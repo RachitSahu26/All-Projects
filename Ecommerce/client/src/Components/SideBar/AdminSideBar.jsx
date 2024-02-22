@@ -53,9 +53,9 @@ const Sidebar = () => {
                                     </svg>
                                 </span>
                                 <span className=' font-semibold text-white text-xl'>
-                                   
-                                   Crate Category
-                                   </span>
+
+                                    Crate Category
+                                </span>
                             </li>
                         </Link>
 
@@ -75,7 +75,22 @@ const Sidebar = () => {
 
 
 
-{/* 
+                        {/*  Product List */}
+                        <Link to={'/dashboard/admin/product'}>
+                            <li className={`flex space-x-2 transition-all items-center   ${currentTab === '/dashboard/admin/product' && 'md:bg-teal-500'}  h-16    hover:bg-teal-500 w-52 p-2  `}>
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </span>
+                                <span className=' font-semibold text-white text-xl'>All Product</span>
+                            </li>
+                        </Link>
+
+
+
+
+                        {/* 
                         Profile Page Link 
                         <Link to={'/dashboard/admin/profile'} activeClassName="border-b-indigo-600">
                             <li className={`flex space-x-2 transition-all items-center   ${currentTab === '/dashboard/admin/profile' && 'md:bg-teal-500'}  h-16    hover:bg-teal-500 w-52 p-2  `}>
