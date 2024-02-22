@@ -5,10 +5,10 @@ import { toast } from 'react-toastify';
 
 const Mystate = (props) => {
   const [name, setName] = useState("");
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
 
 
-
+  const [allProduct, setAllProduct] = useState([]);
 
   const [auth, setAuth] = useState({
     user: null,
@@ -33,9 +33,9 @@ const Mystate = (props) => {
   // ...................................get all category data...........
 
   const getAllCategory = async () => {
-   
+
     try {
-      const { data } = await axios.get("http://localhost:3000/api/category/get-category",);
+      const { data } = await axios.get("http://localhost:3000/api/category/get-category");
 
       if (data?.success) {
         toast.success(`successfully  created`);
@@ -51,6 +51,22 @@ const Mystate = (props) => {
     }
   }
 
+
+
+  // ...................................get all Product data...........
+
+  const getAllProduct = async () => {
+
+    try {
+      const { data } = await axios.get("http://localhost:3000/api/product/get-product");
+
+      setAllProduct(data.products);
+    }
+       catch (error) {
+      console.log(error);
+      toast.error("Someething Went Wrong");
+    }
+  }
 
   const categoryHandle = async () => {
     try {
@@ -88,7 +104,8 @@ const Mystate = (props) => {
     <mycontext.Provider value={{
       auth, setAuth,
       name, setName, categoryHandle,
-      categories, setCategories,  getAllCategory
+      categories, setCategories, getAllCategory,
+      getAllProduct,allProduct
     }}>
       {props.children}
     </mycontext.Provider>
