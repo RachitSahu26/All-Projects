@@ -156,3 +156,27 @@ export const getProductController = async (req, res) => {
     }
 };
 
+
+// ............get single products...........
+
+export const getSingleProductController = async (req, res) => {
+
+
+    try {
+        const product = await productModel.findOne({ slug: req.params.slug }).populate("category");
+        res.status(200).send({
+            success: true,
+            message: "Single Product Fetched",
+            product,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Eror while getitng single product",
+            error,
+        });
+
+
+    }
+}
