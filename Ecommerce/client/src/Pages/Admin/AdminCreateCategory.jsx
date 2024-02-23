@@ -1,20 +1,43 @@
 import React, { useContext, useEffect, useState } from 'react'
 import LayOut from '../../Components/Layout/LayOut.jsx'
-// import Sidebar from '../../Components/SideBar/U.jsx'
+
 import CreateCategoryForm from '../../Components/Form/CreateCategoryForm.jsx'
-// import axios from 'axios'
-// import toast from 'react-hot-toast'
+
 import mycontext from '../../Context/myContext'
 import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function AdminCreateCategory() {
+  // .........................context data......................
+  const contextData = useContext(mycontext)
+  const { categories, getAllCategory, } = contextData;
 
-  const contextData = useContext(mycontext);
-  const { categories, setCategories, getAllCategory } = contextData
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axios.delete(`http://localhost:3000/api/category/delete-category/${id}`, {
+        headers: {
+          Authorization: contextData.auth?.token, // Access auth object from contextData
+        },
+      });
+  
+      if (data.success) {
+        toast.success(`Category is deleted`);
+        getAllCategory();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
+
+
+
+
   useEffect(() => {
     getAllCategory()
   }, [])
-
 
   return (
     <LayOut>
