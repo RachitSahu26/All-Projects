@@ -11,9 +11,9 @@ function ProductCard() {
             {allProduct.map((item) => (
 
 
-                <Link to={`/dashboard/admin/product/${item.slug}`}>
+                <Link to={`/dashboard/admin/product/${item.slug}`} key={item._id}>
 
-                    <div key={item._id} className="bg-white rounded-lg shadow-md">
+                    <div  className="bg-white rounded-lg shadow-md">
                         {/* Remove the image part if you're not using images */}
                         {/* <img src={item.image} className="card-img-top" alt={item.name} /> */}
 
@@ -21,6 +21,9 @@ function ProductCard() {
                             <h5 className="text-xl font-bold mb-2">{item.name}</h5>
                             <p className="text-gray-600 mb-4">Price: {item.price}</p>
                             <p className="text-gray-600 mb-4">Quantity: {item.quantity}</p>
+                            <p className="text-gray-600 mb-4">Category: {item.category}</p>
+                            <p className="text-gray-600 mb-4">Description: {item.description}</p>
+                          
                             <input
                                 type="number"
                                 value={item.quantity}
