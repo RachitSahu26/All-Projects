@@ -21,8 +21,8 @@ function Header() {
       token: ""
     })
     localStorage.removeItem("auth");
+    navigate("http://localhost:5173/signin");
     toast.success("Logout Successfully");
-    navigate("/signin");
   }
 
 
