@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Mystate = (props) => {
-  const [name, setName] = useState("");
+
   const [categories, setCategories] = useState([]);
 
 
@@ -30,6 +30,27 @@ const Mystate = (props) => {
     }
   }, []);
 
+
+  // ...................................get all Product data...........
+
+  const getAllProduct = async () => {
+
+    try {
+      const { data } = await axios.get("http://localhost:3000/api/product/get-product");
+
+      setAllProduct(data.products);
+    }
+       catch (error) {
+      console.log(error);
+      toast.error("Someething Went Wrong");
+    }
+  }
+
+
+
+
+
+
   // ...................................get all category data...........
 
   const getAllCategory = async () => {
@@ -53,48 +74,6 @@ const Mystate = (props) => {
 
 
 
-  // ...................................get all Product data...........
-
-  const getAllProduct = async () => {
-
-    try {
-      const { data } = await axios.get("http://localhost:3000/api/product/get-product");
-
-      setAllProduct(data.products);
-    }
-       catch (error) {
-      console.log(error);
-      toast.error("Someething Went Wrong");
-    }
-  }
-
-  const categoryHandle = async () => {
-    try {
-      const { data } = await axios.post(
-        "http://localhost:3000/api/category/create-category",
-        {
-          name,
-        },
-        {
-          headers: {
-            Authorization: auth?.token,
-          },
-        }
-      );
-      if (data?.success) {
-        toast.success(`${name} is created`);
-        getAllCategory();
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something went wrong in input form");
-    }
-  };
-
-
-
 
 
 
@@ -103,7 +82,7 @@ const Mystate = (props) => {
   return (
     <mycontext.Provider value={{
       auth, setAuth,
-      name, setName, categoryHandle,
+  
       categories, setCategories, getAllCategory,
       getAllProduct,allProduct
     }}>

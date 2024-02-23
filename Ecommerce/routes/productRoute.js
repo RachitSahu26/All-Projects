@@ -2,7 +2,7 @@ import express from "express";
 
 
 import { requireSignIn } from "../middleware/SignInRequrie.js";
-import { createProductController, deleteProductController, getProductController, updateProductController } from "../controllers/productController.js";
+import { createProductController, deleteProductController, getProductController, getSingleProductController, updateProductController } from "../controllers/productController.js";
 
 
 const router = express.Router();
@@ -27,11 +27,11 @@ router.put(
 router.get("/get-product",getProductController)
 
 
-// //single product
-// router.get("/get-product/:slug", getSingleProductController);
+//single product
+router.get("/get-product/:slug", getSingleProductController);
 
 
 //delete product
-router.delete("/product/:pid", deleteProductController);
+router.delete("/delete-product/:pid", deleteProductController);
 
 export default router;

@@ -2,51 +2,48 @@
 import productModel from '../models/productModel.js';
 import slugify from 'slugify';
 
-
-
-// ..............createProduct...............
+// .......................create product..........
 export const createProductController = async (req, res) => {
     try {
         const { name, description, price, category, quantity, shipping } = req.body;
-
-        //alidation
-        switch (true) {
-            case !name:
-                return res.status(500).send({ error: "Name is Required" });
-            case !description:
-                return res.status(500).send({ error: "Description is Required" });
-            case !price:
-                return res.status(500).send({ error: "Price is Required" });
-            case !category:
-                return res.status(500).send({ error: "Category is Required" });
-            case !quantity:
-                return res.status(500).send({ error: "Quantity is Required" });
-            case !shipping:
-                return res.status(500).send({ error: "shipping is Required" });
-
-
+        console.log(res.body);
+        // Validation
+        if (!name) {
+            return res.status(400).json({ error: "Name is required" });
+        }
+        if (!description) {
+            return res.status(400).json({ error: "Description is required" });
+        }
+        if (!price) {
+            return res.status(400).json({ error: "Price is required" });
+        }
+        if (!category) {
+            return res.status(400).json({ error: "Category is required" });
+        }
+        if (!quantity) {
+            return res.status(400).json({ error: "Quantity is required" });
+        }
+        if (!shipping) {
+            return res.status(400).json({ error: "Shipping is required" });
         }
 
-        const products = new productModel({ ...req.body, slug: slugify(name) });
+        const newProduct = new productModel({ ...req.body, slug: slugify(name) });
+        await newProduct.save();
 
-        products.save();
-        res.status(201).send({
+        res.status(201).json({
             success: true,
-            message: "Product Created Successfully",
-            products,
+            message: "Product created successfully",
+            product: newProduct,
         });
     } catch (error) {
-        console.log(error);
-        res.status(500).send({
+        console.error("Error creating product:", error);
+        res.status(500).json({
             success: false,
-            error,
-            message: "Error in crearing product",
+            message: "Error creating product",
+            error: error.message,
         });
-
-    };
-
-}
-
+    }
+};
 
 
 
@@ -163,7 +160,7 @@ export const getSingleProductController = async (req, res) => {
 
 
     try {
-        const product = await productModel.findOne({ slug: req.params.slug }).populate("category");
+        const product = await productModel.findOne({ slug: req.params.slug })
         res.status(200).send({
             success: true,
             message: "Single Product Fetched",

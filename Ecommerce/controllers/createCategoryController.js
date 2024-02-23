@@ -6,7 +6,9 @@ import categoryModel from "../models/categoryModel.js";
 // .......................create categorycontroller.........................
 const createCategoryController = async (req, res) => {
     try {
+
         const { name } = req.body;
+        console.log(req.body)
         if (!name) {
             return res.status(401).send({ message: "Name is required" });
         }

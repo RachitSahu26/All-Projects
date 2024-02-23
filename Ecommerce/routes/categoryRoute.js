@@ -1,7 +1,7 @@
 import express from "express";
 import { isAdmin, requireSignIn } from "../middleware/SignInRequrie.js";
 import { createProductController } from "../controllers/productController.js";
-import { categoryControlller, deleteCategoryController } from "../controllers/createCategoryController.js";
+import createCategoryController, { categoryControlller, deleteCategoryController } from "../controllers/createCategoryController.js";
 
 
 const router = express.Router()
@@ -14,7 +14,7 @@ const router = express.Router()
 router.post(
     "/create-category",
     requireSignIn,
-    createProductController,
+    createCategoryController,
 );
 
 
