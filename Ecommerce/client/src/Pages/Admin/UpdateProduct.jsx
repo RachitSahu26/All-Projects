@@ -1,92 +1,128 @@
-import React, { useContext, useEffect, useState } from 'react'
-import LayOut from '../../Components/Layout/LayOut'
-import Sidebar from '../../Components/SideBar/AdminSideBar'
+import React, { useContext, useEffect, useState } from 'react';
+import LayOut from '../../Components/Layout/LayOut.jsx';
+import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
+import mycontext from '../../Context/myContext.jsx';
+import { useLinkClickHandler, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import mycontext from '../../Context/myContext';
 import { toast } from 'react-toastify';
+// import ProductForm from '../../Components/Product_Form/ProductForm.jsx';
+
+const UpdateProduct = () => {
 
 
-function UpdateProduct() {
+
+
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState('');
-    const [shipping, setShipping] = useState('');
-    const [id, setId] = useState('');
+    const [shipping, setShipping] = useState(false); // Use boolean for shipping
     const [selectedOption, setSelectedOption] = useState('');
+    const [id, setId] = useState('');
+    const [category, setCategory] = useState('');
 
 
-
-    // .....................context API data................
-    const contextData = useContext(mycontext);
-    const { categories, setCategories, getAllCategory,auth } = contextData
-
-
+    // .....................use useParams...........
     const params = useParams();
 
+const navigate=useNavigate();
+
+    // Context API
+    const contextData = useContext(mycontext);
+    const { categories, getAllCategory, auth } = contextData;
 
 
+    // ....................get single Product...........
+
+
+    //get single product
     const getSingleProduct = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3000/api/product/get-product/${params.slug}`);
-
+            const { data } = await axios.get(
+                `http://localhost:3000/api/product/get-product/${params.slug}`
+            );
             setName(data.product.name);
             setId(data.product._id);
             setDescription(data.product.description);
             setPrice(data.product.price);
-
+            setPrice(data.product.price);
             setQuantity(data.product.quantity);
             setShipping(data.product.shipping);
             setCategory(data.product.category._id);
-
+            setSelectedOption(data.product.selectedOption._id);
         } catch (error) {
             console.log(error);
-        }
-    }
-
-
-    // ...................update  product handler...........
-    //create product function
-    const handleUpdate = async (e) => {
-        e.preventDefault();
-        try {
-
-
-            const { data } = axios.put(
-                `http://localhost:3000/api/product/update-product/${id}`, {
-                name,
-                price: parseFloat(price), // Convert price to a number
-                description,
-                shipping: Boolean(shipping), // Convert shipping to a boolean
-                quantity: parseInt(quantity), // Convert quantity to a number if needed
-                category: selectedOption // Provide the selected category as an ObjectId
-            }, {
-                headers: {
-                    Authorization: auth?.token,
-                },
-            }
-
-            );
-            if (data?.success) {
-                toast.error(data?.message);
-            } else {
-                toast.success("Product Updated Successfully");
-                // navigate("/dashboard/admin/products");
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error("something went wrong");
         }
     };
 
 
 
-    useEffect(() => {
-        getAllCategory();
-        getSingleProduct();
-    }, [])
 
+
+
+
+
+
+    // ............................updateHandler......
+    const productUpdateHandle = async () => {
+        try {
+            const { data } = await axios.put(`http://localhost:3000/api/product/update-product/${id}`, {
+                name,
+                price: parseFloat(price),
+                description,
+                quantity: parseInt(quantity),
+                shipping,
+                category: selectedOption
+            }, {
+                headers: {
+                    Authorization: auth?.token,
+                },
+            });
+
+            if (data?.success) {
+                toast.success("Product Updated Successfully");
+                navigate("/dashboard/admin/product");
+            } else {
+                toast.error(data?.message);
+            }
+        } catch (error) {
+            console.error('Error creating product:', error);
+            toast.error("Something went wrong");
+        }
+    }
+    // ..............................delete product Handler...............
+
+
+
+    const productDeleteHandle = async () => {
+
+        try {
+            const { data } = await axios.delete(`http://localhost:3000/api/product/delete-product/${id}`);
+
+            if (data?.success) {
+                toast.success("Product Deleted Successfully");
+                navigate("/dashboard/admin/product");
+            } else {
+                toast.error(data?.message);
+            }
+        } catch (error) {
+            console.error('Error Deleting product:', error);
+            toast.error("Something went wrong");
+        }
+    }
+
+
+
+
+
+    const handleOptionChange = (event) => {
+        setSelectedOption(event.target.value);
+    };
+    // ....................useEffet ..........
+    useEffect(() => {
+        getSingleProduct();
+        getAllCategory();
+    }, []);
 
     return (
         <LayOut>
@@ -97,17 +133,13 @@ function UpdateProduct() {
                 <div className='bg-red-100 w-[90%] justify-center'>
 
                     <div className='bg-yellow-200 p-5'>
-                        <h1>Update Product</h1>
-                        {/* ..................................Update Form...................  */}
+                        <h1>Update form</h1>
 
+                        {/* ...........................updateFrom............. */}
 
                         <div className="max-w-md mx-auto mt-8">
-                            <h2 className="text-xl font-semibold mb-4">Update Product</h2>
-                            <div className="space-y-4  bg-teal-500 p-4 rounded-xl " >
-
-
-                                {/* .............................Name.............. */}
-
+                            <h2 className="text-xl font-semibold mb-4">Add Product</h2>
+                            <div className="space-y-4 bg-pink-500 p-4 rounded-xl">
                                 <div>
                                     <label className="block">Name:</label>
                                     <input
@@ -118,22 +150,16 @@ function UpdateProduct() {
                                         className="w-full border rounded px-3 py-2"
                                     />
                                 </div>
-
-
-                                {/* .............................price.............. */}
-
                                 <div>
                                     <label className="block">Price:</label>
                                     <input
-                                        type="text"
+                                        type="number" // Use type="number" to accept only numeric values
                                         name="price"
                                         value={price}
                                         onChange={(e) => setPrice(e.target.value)}
                                         className="w-full border rounded px-3 py-2"
                                     />
                                 </div>
-                                {/* .............................description.............. */}
-
                                 <div>
                                     <label className="block">Description:</label>
                                     <textarea
@@ -143,43 +169,31 @@ function UpdateProduct() {
                                         className="w-full border rounded px-3 py-2"
                                     />
                                 </div>
-                                {/* .............................quantity.............. */}
-
                                 <div>
                                     <label className="block">Quantity:</label>
-                                    <textarea
+                                    <input
+                                        type="number" // Use type="number" to accept only numeric values
                                         name="quantity"
                                         value={quantity}
                                         onChange={(e) => setQuantity(e.target.value)}
                                         className="w-full border rounded px-3 py-2"
                                     />
                                 </div>
-
-                                {/* .............................Shipping.............. */}
-
                                 <div>
                                     <label className="block">Shipping:</label>
-                                    <textarea
-                                        name="Shipping"
-                                        value={shipping}
-                                        onChange={(e) => setShipping(e.target.value)}
-                                        className="w-full border rounded px-3 py-2"
+                                    <input
+                                        type="checkbox" // Use checkboxes for boolean values
+                                        name="shipping"
+                                        checked={shipping}
+                                        onChange={(e) => setShipping(e.target.checked)}
                                     />
                                 </div>
-
-
-                                {/* .............................Category.............. */}
-
-
-
                                 <div>
                                     <label className="block">Category:</label>
-
-
                                     <select
                                         id="options"
                                         value={selectedOption}
-                                        onChange={(e) => setSelectedOption(e.target.value)}
+                                        onChange={handleOptionChange}
                                         className="w-full border rounded text-black px-3 py-2"
                                     >
                                         <option value="">Select a category</option>
@@ -189,33 +203,28 @@ function UpdateProduct() {
                                             </option>
                                         ))}
                                     </select>
-
-
-
-
-
                                 </div>
-
-
-
-
-
-
-
-                                {/* Add more fields as needed */}
-                                <button onClick={handleUpdate} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">
+                                <button onClick={productUpdateHandle} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">
                                     Update Product
                                 </button>
+
+                                {/* .....detlete btn...... */}
+                                <button onClick={productDeleteHandle} className="bg-red-500 hover:bg-red-600 text-white ml-5 font-semibold px-4 py-2 rounded">
+                                    Delete Product
+                                </button>
+
                             </div>
                         </div>
 
-                        {/* ..................................End Form...................  */}
 
+
+
+                        {/* .........................end updateForm........ */}
                     </div>
                 </div>
             </div>
         </LayOut>
-    )
-}
+    );
+};
 
-export default UpdateProduct
+export default UpdateProduct;
