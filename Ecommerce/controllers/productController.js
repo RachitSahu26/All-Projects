@@ -177,3 +177,30 @@ export const getSingleProductController = async (req, res) => {
 
     }
 }
+
+
+
+
+// .....................Filter..........
+export const productFiltersController = async (req, res) => {
+    try {
+        const { category, radio } = req.body; // Change checked to category
+        let args = {};
+        if (category && category.length > 0) args.category = { $in: category }; // Use $in operator for multiple categories
+        if (radio && radio.length === 2) {
+            args.price = { $gte: radio[0], $lte: radio[1] }; // Ensure radio is an array with two elements
+        }
+        const products = await productModel.find(args);
+        res.status(200).send({
+            success: true,
+            products,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            message: "Error while filtering products",
+            error,
+        });
+    }
+};
