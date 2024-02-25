@@ -1,21 +1,52 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import LayOut from '../Components/Layout/LayOut'
+
+import Filter from '../Components/Filter/Filter.jsx';
+import ProductCard from '../Components/Product Card/ProductCard.jsx';
 import mycontext from '../Context/myContext.jsx';
 // import { json } from 'react-router-dom';
 
 function Home(props) {
 
-    const ContextData = useContext(mycontext)
-    const { auth, setAuth } = ContextData;
+
+
+
+    const contextData = useContext(mycontext);
+    const { getAllProduct, filterHandle, radio, selectedCategory, setSelectedCategory } = contextData
+
+    useEffect(() => {
+        if (!selectedCategory.length || !radio.length) {
+            getAllProduct();
+        }
+    }, [selectedCategory.length, radio.length]);
+
+    useEffect(() => {
+        if (selectedCategory.length || radio.length) {
+            filterHandle();
+        }
+    }, [selectedCategory, radio]);
+
+
+
     return (
         <div>
             <LayOut>
-                <div className='bg-teal-500 h-5 p-16'>
 
-                    {/* <h1>Name:{auth.user.name}</h1>
-                    <h1>Email:{auth.user.email}</h1>
-                    <h1>Phone:{auth.user.phone}</h1>
-                    <h1>Address:{auth.user.address}</h1> */}
+
+                <div className='bg-red-200 flex  ' >
+
+
+                    <div className=' border-2 border-red-500  w-[50%]'>
+                        <div>
+                            <Filter />
+                        </div>
+
+
+                    </div>
+                    <div className=' border-2 border-green-500'>
+
+                        <ProductCard />
+                    </div>
 
                 </div>
 
