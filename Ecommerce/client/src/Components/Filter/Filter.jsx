@@ -3,21 +3,21 @@ import mycontext from '../../Context/myContext';
 import { Price } from '../Price.js';
 import { Radio } from "antd";
 import axios from 'axios';
-const Filter = () => {
+const Filter = ({
+    FilterHandle,
+    FiterProducts,
+    HandleCategoryChange,
+    radioValue, // Rename prop to avoid conflicts
+    setRadio,
+    SelectedCategory,
+
+
+}) => {
 
 
     // .........................context data.const.............
     const contextData = useContext(mycontext);
-    const {
-        categories, getAllCategory,
-        auth, setAuth,
-        selectedCategory, setSelectedCategory,
-        radio, setRadio,
-
-        filterHandle
-    } = contextData
-
-
+    const { categories, getAllCategory } = contextData
 
 
 
@@ -40,13 +40,9 @@ const Filter = () => {
                 <label htmlFor="category" className="block font-semibold mb-2">Category</label>
                 <select
                     id="category"
-
                     className="w-full border rounded px-3 py-2"
-
-                    value={selectedCategory}
-                    onChange={(e) => setSelectedCategory(e.target.value)}
-
-
+                    value={SelectedCategory}
+                    onChange={HandleCategoryChange} // Update selected category on change
                 >
                     <option value="">All Categories</option>
                     {categories.map((category) => (
@@ -64,18 +60,21 @@ const Filter = () => {
                 <Radio.Group onChange={(e) => setRadio(e.target.value)}>
                     {Price?.map((p) => (
                         <div key={p._id}>
-                            <Radio value={p.array}>{p.name}</Radio>
+                            <Radio value={p.array}>{p.name}</Radio> {/* Use radioValue prop instead of p.array */}
                         </div>
                     ))}
                 </Radio.Group>
             </div>
 
+
+
+
             {/* ........................btn........... */}
 
             <div className='flex flex-col gap-2'>
 
-                <button onClick={filterHandle} className="bg-blue-500 text-white font-semibold px-4 py-2 rounded">Apply Filters</button>
-                <button className="bg-red-500 text-white font-semibold px-4 py-2 rounded">Reset Filters</button>
+                <button onClick={FilterHandle} className="bg-blue-500 text-white font-semibold px-4 py-2 rounded">Apply Filters</button>
+                <button   onClick={() => window.location.reload()} className="bg-red-500 text-white font-semibold px-4 py-2 rounded">Reset Filters</button>
 
             </div>
 

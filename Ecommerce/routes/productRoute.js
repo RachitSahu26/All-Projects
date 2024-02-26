@@ -36,6 +36,6 @@ router.delete("/delete-product/:pid", deleteProductController);
 
 
 // ..............filter...........
-router.delete("/filter-product", productFiltersController);
+router.post("/filter-product", productFiltersController);
 
 export default router;

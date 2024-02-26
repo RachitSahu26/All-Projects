@@ -4,6 +4,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Mystate = (props) => {
+  
+ 
+
 
   const [categories, setCategories] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
@@ -12,7 +15,6 @@ const Mystate = (props) => {
     token: ""
   });
 
-  const [radio, setRadio] = useState([]); // Define radio state here
 
   useEffect(() => {
     const data = localStorage.getItem("auth",)
@@ -51,25 +53,23 @@ const Mystate = (props) => {
     }
   }
 
-  const filterHandle = async () => {
-    try {
-      const { data } = await axios.post("http://localhost:3000/api/product/filter-product", {
-        category: selectedCategory,
-        radio: radio
-      });
-      console.log("Filtered products:", data);
-    } catch (error) {
-      console.error("Error filtering products:", error);
-    }
-  };
+
+
+
+
+
+
+
+
+
+
 
   return (
     <mycontext.Provider value={{
       auth, setAuth,
       categories, setCategories, getAllCategory,
       getAllProduct, allProduct,
-      filterHandle, // Provide filterHandle function
-      radio, setRadio // Provide radio state and setter function
+     
     }}>
       {props.children}
     </mycontext.Provider>

@@ -21,8 +21,6 @@ import AdminCreateProduct from './Pages/Admin/AdminCreateProduct.jsx'
 import UserDashboard from './Pages/DashBoard/UserDashboard.jsx'
 import UserOrder from './Pages/DashBoard/UserOrder.jsx'
 import UserProfile from './Pages/DashBoard/UserProfile.jsx'
-import AllProduct from './Pages/Admin/AllProduct.jsx'
-import UpdateProduct from './Pages/Admin/UpdateProduct.jsx'
 
 function App() {
 
@@ -32,33 +30,30 @@ function App() {
       <Mystate>
 
         <Routes>
+          
           <Route path="/" element={<Home />} />
           <Route path="/category" element={<Category />} />
 
 
 
 
-{/* .......................user Dashboard Route........... */}
+{/* ...............................user Dashboard............ */}
           <Route path="/dashboard" element={<Private />} >
             <Route path="user" element={<UserDashboard />} />
             <Route path="user/order" element={<UserOrder />} />
             <Route path="user/profile" element={<UserProfile />} />
           </Route>
 
-{/* .......................Admin Dashboard Route........... */}
 
+{/* ...............................user Admin Dashboard............ */}
 
           <Route path="/dashboard" element={<AdminPrivate />} >
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="admin/create-category" element={<AdminCreateCategory />} />
             <Route path="admin/create-product" element={<AdminCreateProduct />} />
-            <Route path="admin/product/:slug" element={<UpdateProduct />} />
+         </Route>
 
-            <Route path="admin/product" element={<AllProduct/>} />
-
-          </Route>
-
-
+{/* .................................authentication Routing............/ */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
 
