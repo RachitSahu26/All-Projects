@@ -21,6 +21,7 @@ import AdminCreateProduct from './Pages/Admin/AdminCreateProduct.jsx'
 import UserDashboard from './Pages/DashBoard/UserDashboard.jsx'
 import UserOrder from './Pages/DashBoard/UserOrder.jsx'
 import UserProfile from './Pages/DashBoard/UserProfile.jsx'
+import ProductDetail from './Pages/ProductDetail.jsx'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/category" element={<Category />} />
 
+          <Route path="/dashboard/admin/product/:slug" element={<ProductDetail/>} />
 
 
 

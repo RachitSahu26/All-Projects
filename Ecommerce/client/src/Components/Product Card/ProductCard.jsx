@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import mycontext from '../../Context/myContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-function ProductCard({FiterProducts}) {
+function ProductCard({ FiterProducts }) {
     const contextData = useContext(mycontext);
     const { allProduct, categories } = contextData;
-
+    const navigate = useNavigate()
     // Combine allProduct and filterProducts into a single array
     const combinedProducts = FiterProducts.length > 0 ? FiterProducts : allProduct;
 
@@ -29,8 +29,11 @@ function ProductCard({FiterProducts}) {
                             />
                         </div>
                         <div className="flex justify-end p-4">
-                            <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
                                 Add to cart
+                            </button>
+                            <button onClick={() => navigate(`/dashboard/admin/product/:${slug}`)} className="bg-blue-500 ml-3 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+                                More Detail
                             </button>
                         </div>
                     </div>
