@@ -1,18 +1,25 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import mycontext from '../../Context/myContext';
 import { toast } from 'react-toastify';
 
 function Header() {
-   const navigate =  useNavigate()
+  const navigate = useNavigate()
   const ContextData = useContext(mycontext);
-  const { auth, setAuth } = ContextData;
+  const { auth, setAuth, categories, getAllCategory } = ContextData;
   // const [isOpenNav, setIsOpenNav] = useState(false);
 
   // const toggleNavbars = () => {
   //   setIsOpenNav(!isOpenNav);
   // };
+  const [isOpen, setIsOpen] = useState(false);
 
+  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
+
+
+  const toggleCategoryMenu = () => {
+    setIsCategoryMenuOpen(!isCategoryMenuOpen);
+  };
 
   const logOutHandle = () => {
     setAuth({
@@ -26,12 +33,15 @@ function Header() {
   }
 
 
-  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    getAllCategory()
+  }
+    , [])
   return (
     <>
       <nav className="bg-gray-800  ">
@@ -44,7 +54,7 @@ function Header() {
 
           <div className=" h-16">
             <div className="flex justify-between">
-
+              {/* ........................logo................ */}
               <div className="flex-shrink-0 flex items-center">
                 <span className="text-teal-100 text-xl font-bold">Logo</span>
               </div>
@@ -53,7 +63,33 @@ function Header() {
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link to="/" className="text-gray-300 hover:text-white  p-4 rounded-md text-xl font-medium">Home</Link>
-                  <Link to="/category" className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium">Category</Link>
+
+
+                  {/* .....................category............. */}
+                  <div className="relative">
+                    <button
+                      onClick={toggleCategoryMenu}
+                      className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium focus:outline-none"
+                    >
+                      Category
+                    </button>
+                    {isCategoryMenuOpen && (
+                      <div className="absolute z-10 right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        {/* Render the category names here */}
+                        <ul>
+                          <Link to={`/category`} className="block px-4 py-2 text-gray-700 text-sm hover:bg-gray-100">All Category</Link>
+
+                          {categories.map((category) => (
+                            <li key={category._id}>
+                              <Link to={`/category/${category.slug}`} className="block px-4 py-2 text-gray-700 text-sm hover:bg-gray-100">{category.name}</Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+
+
 
 
 
@@ -94,7 +130,7 @@ function Header() {
                           {isOpen && (
                             <ul className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                               <li>
-                                <Link to={`/dashboard/${auth?.user?.role===1 ?"admin":"user"}`} className="text-gray-700 block px-4 py-2 text-sm">
+                                <Link to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`} className="text-gray-700 block px-4 py-2 text-sm">
                                   Dashboard
                                 </Link>
                               </li>
@@ -118,7 +154,7 @@ function Header() {
 
 
 
-                  <Link className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium" >Cart</Link>
+                  <Link to={"/cart"} className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium" >Cart</Link>
 
                 </div>
               </div>
