@@ -22,6 +22,8 @@ import UserDashboard from './Pages/DashBoard/UserDashboard.jsx'
 import UserOrder from './Pages/DashBoard/UserOrder.jsx'
 import UserProfile from './Pages/DashBoard/UserProfile.jsx'
 import ProductDetail from './Pages/ProductDetail.jsx'
+import CategoryProduct from './Pages/CategoryProduct.jsx'
+import Cart from './Pages/Cart.jsx'
 
 function App() {
 
@@ -34,6 +36,7 @@ function App() {
           
           <Route path="/" element={<Home />} />
           <Route path="/category" element={<Category />} />
+          <Route path="/category/:slug" element={<CategoryProduct />} />
 
           <Route path="/dashboard/admin/product/:slug" element={<ProductDetail/>} />
 
@@ -58,6 +61,7 @@ function App() {
 {/* .................................authentication Routing............/ */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/cart" element={<Cart />} />
 
         </Routes>
       </Mystate>

@@ -67,6 +67,7 @@ function Home(props) {
                     <div className='border-2 border-green-500'>
                        
                         <ProductCard  FiterProducts={fiterProducts}/>
+                   
                     </div>
                 </div>
             </LayOut>

@@ -1,6 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import mycontext from '../../Context/myContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart } from '../../Redux/Slice/CartSlice';
+import { toast } from 'react-toastify';
 
 function ProductCard({ FiterProducts }) {
     const contextData = useContext(mycontext);
@@ -9,11 +12,28 @@ function ProductCard({ FiterProducts }) {
     // Combine allProduct and filterProducts into a single array
     const combinedProducts = FiterProducts.length > 0 ? FiterProducts : allProduct;
 
+
+    const cartItem = useSelector((state) => state.cart);
+
+    const dispatch = useDispatch()
+
+    const addCartItem = (product) => {
+        dispatch(addToCart(product));
+        toast.success("Cart Successfully added")
+        console.log(cartItem);
+    }
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cartItem));
+    }, [cartItem])
+
+
+
     return (
         <div className="grid grid-cols-1 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {combinedProducts.map((item) => (
-                <Link to={`/dashboard/admin/product/${item.slug}`} key={item._id}>
-                    <div className="bg-white rounded-lg shadow-md">
+                <div className="bg-white rounded-lg shadow-md">
+                    <Link to={`/dashboard/admin/product/${item.slug}`} key={item._id}>
                         <div className="card-body p-4">
                             <h5 className="text-xl font-bold mb-2">{item.name}</h5>
                             <p className="text-gray-600 mb-4">Price: ${item.price}</p>
@@ -28,16 +48,14 @@ function ProductCard({ FiterProducts }) {
                                 className="border border-gray-300 rounded px-3 py-2"
                             />
                         </div>
-                        <div className="flex justify-end p-4">
-                            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
-                                Add to cart
-                            </button>
-                            <button onClick={() => navigate(`/dashboard/admin/product/:${slug}`)} className="bg-blue-500 ml-3 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                                More Detail
-                            </button>
-                        </div>
+                    </Link>
+                    <div className="flex justify-end p-4">
+                        <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                            Add to cart
+                        </button>
+
                     </div>
-                </Link>
+                </div>
             ))}
         </div>
     );

@@ -2,7 +2,7 @@ import express from "express";
 
 
 import { requireSignIn } from "../middleware/SignInRequrie.js";
-import { createProductController, deleteProductController, getProductController, getSingleProductController, productFiltersController, updateProductController } from "../controllers/productController.js";
+import { createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, updateProductController } from "../controllers/productController.js";
 
 
 const router = express.Router();
@@ -37,5 +37,10 @@ router.delete("/delete-product/:pid", deleteProductController);
 
 // ..............filter...........
 router.post("/filter-product", productFiltersController);
+
+// .............product category base........
+router.get("/category-base-product/:slug",productCategoryBaseController );
+
+
 
 export default router;
