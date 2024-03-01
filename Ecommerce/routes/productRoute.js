@@ -2,7 +2,8 @@ import express from "express";
 
 
 import { requireSignIn } from "../middleware/SignInRequrie.js";
-import { createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, updateProductController } from "../controllers/productController.js";
+import { braintreePaymentController, braintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, updateProductController } from "../controllers/productController.js";
+import braintree from "braintree";
 
 
 const router = express.Router();
@@ -42,5 +43,11 @@ router.post("/filter-product", productFiltersController);
 router.get("/category-base-product/:slug",productCategoryBaseController );
 
 
+
+// ..............payment braintree TokenExpiredError........
+router.get("/braintree/token", braintreeTokenController);
+
+// ....................payment  ................
+router.post("braintree/payment", requireSignIn ,braintreePaymentController);
 
 export default router;
