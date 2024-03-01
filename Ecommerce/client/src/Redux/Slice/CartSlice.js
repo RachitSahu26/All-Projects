@@ -1,17 +1,21 @@
 
+
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState =JSON.parse(localStorage.getItem('cart')) ?? [];
-
+// const initialState =JSON.parse(localStorage.getItem('cart')) ?? [];
+const initialState = JSON.parse(localStorage.getItem('cart')) || [];
 const CartSlice = createSlice({
   name: "cart",
-  initialState, // Fix the typo here
+  initialState,// Fix the typo here
   reducers: {
+  
     addToCart(state, action) {
       state.push(action.payload);
     },
+   
+   
     removeToCart(state, action) {
-      return state.filter((item) => item.id !== action.payload.id);
+      return state.filter((item) => item._id !== action.payload);
     },
   },
 });

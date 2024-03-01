@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import LayOut from '../Components/Layout/LayOut'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 const Cart = () => {
     const cartItem = useSelector((state) => state.cart);
-    console.log(cartItem);
+
 
 
 
@@ -20,9 +20,7 @@ const Cart = () => {
         toast.success("Item removed from cart successfully");
     }
 
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cartItem));
-    }, [cartItem])
+
 
     // const cartItems = [
     //     { id: 1, name: 'Iphone 11 pro', price: 900, quantity: 2, description: '256GB, Navy Blue' },
@@ -36,8 +34,25 @@ const Cart = () => {
     const handleDecrement = (id) => {
         // Implement decrement logic
     };
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cartItem));
+    }, [cartItem])
 
-    ;
+
+    const [totalAmount, setTotalAmount] = useState(0);
+    useEffect(() => {
+        let temp = 0;
+        cartItem.forEach((cartItem) => {
+            temp = temp + parseInt(cartItem.price)
+        })
+        setTotalAmount(temp);
+        // console.log(temp)
+    }, [cartItem])
+
+    // ................shipping total.........
+    let shipping = parseInt(100);
+    const grandTotal = shipping + totalAmount
+  
 
     return (
         <LayOut>
@@ -51,6 +66,7 @@ const Cart = () => {
                             <h2>Shopping Cart</h2>
                             <p>You have {cartItem.length} items in your cart</p>
                         </div>
+
                         <div className=' p-3'>
                             {cartItem.map((item) => (
                                 <div className='card-body border-2 border-black rounded-lg m-3 p-3' key={item._id}>
@@ -80,23 +96,68 @@ const Cart = () => {
                             ))}
                         </div>
                     </div>
-                    {/* Right Column */}
-                    <div className='md:w-1/2 p-4'>
-                        <div className='bg-white p-4'>
-                            <h2>Payment Details</h2>
-                            {/* Add payment form here */}
-                            <form>
-                                {/* Payment form fields */}
-                                <div className='mb-4'>
-                                    <label htmlFor='cardNumber' className='block mb-2'>Card Number</label>
-                                    <input type='text' id='cardNumber' className='border p-2 w-full' />
+
+
+
+
+                    <div className='flex justify-center flex-col w-full p-2'>
+
+
+                        {/* ...............................sdfdsfsd.............. */}
+                        <div className=" border-2 border-red-600 h-[30] max-h-auto rounded-lg  bg-white p-6 shadow-md md:mt-0 md:w-1/3" >
+                            <div className="mb-2 flex justify-between">
+                                <p className="text-gray-700" >Subtotal</p>
+                                <p className="text-gray-700" >${totalAmount}</p>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <p className="text-gray-700" >Shipping</p>
+                                <p className="text-gray-700" >₹{shipping}</p>
+                            </div>
+
+                            <hr className="my-4" />
+
+                            <div className="flex justify-between mb-3">
+                                <p className="text-lg font-bold" >Total</p>
+                                <div className>
+                                    <p className="mb-1 text-lg font-bold" >₹{grandTotal}</p>
                                 </div>
-                                {/* Add more payment form fields */}
-                                <button type='submit' className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'>Proceed to Payment</button>
-                            </form>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        {/* Right Column */}
+                        <div className='md:w-1/2 p-4 border-2 border-green-600 mt-4 h-[30] max-h-auto'>
+                            <div className='bg-white p-4'>
+                                <h2>Payment Details</h2>
+                                {/* Add payment form here */}
+                                <form>
+                                    {/* Payment form fields */}
+                                    <div className='mb-4'>
+                                        <label htmlFor='cardNumber' className='block mb-2'>Card Number</label>
+                                        <input type='text' id='cardNumber' className='border p-2 w-full' />
+                                    </div>
+                                    {/* Add more payment form fields */}
+                                    <button type='submit' className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'>Proceed to Payment</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </LayOut>
     )

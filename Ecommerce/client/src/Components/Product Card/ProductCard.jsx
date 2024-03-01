@@ -23,9 +23,6 @@ function ProductCard({ FiterProducts }) {
         console.log(cartItem);
     }
 
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cartItem));
-    }, [cartItem])
 
 
 
