@@ -3,11 +3,14 @@ import LayOut from '../Components/Layout/LayOut'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import ProductCard from '../Components/Product Card/ProductCard';
+import Spinner from '../Components/Spinner/Spinner';
 
 function CategoryProduct() {
 
     const [Product, setProduct] = useState([]);
     const [category, setCategory] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const navigate = useNavigate();
 
     const params = useParams();
@@ -18,8 +21,11 @@ function CategoryProduct() {
 
             setProduct(data?.products);
             setCategory(data?.category);
+            setLoading(false);
+
         } catch (error) {
             console.log(error);
+            setLoading(false);
         }
 
     }
@@ -33,6 +39,17 @@ function CategoryProduct() {
         }
 
     }, [params?.slug])
+
+
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+            <Spinner />
+          </div>
+        )
+    }
+
 
     return (
         <LayOut>
@@ -62,7 +79,7 @@ function CategoryProduct() {
                                 <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
                                     Add to cart
                                 </button>
-                           
+
                             </div>
                         </div>
                     ))}

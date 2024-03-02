@@ -1,39 +1,38 @@
-import React, { useEffect, useState } from 'react'
+
+import React, { useContext, useEffect, useState } from 'react'
 import LayOut from '../Components/Layout/LayOut'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { removeToCart } from '../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 // import LayOut from '../Components/Layout/LayOut.jsx'
+import DropIn from "braintree-web-drop-in-react";
+import mycontext from '../Context/myContext';
+import axios from 'axios';
 
-const Cart = () => {
+
+function Cart() {
+
+
     const cartItem = useSelector((state) => state.cart);
+    const contextData = useContext(mycontext)
 
+    const { auth } = contextData;
 
-
+    const [clientToken, setClientToken] = useState('');
+    const [instance, setInstance] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
+    // ...................deleting product from the cart.........
     const deleteCart = (productId) => {
         console.log("Deleting product with ID:", productId);
         dispatch(removeToCart(productId));
         toast.success("Item removed from cart successfully");
     }
 
-
-
-    // const cartItems = [
-    //     { id: 1, name: 'Iphone 11 pro', price: 900, quantity: 2, description: '256GB, Navy Blue' },
-    //     { id: 2, name: 'Samsung galaxy Note 10', price: 900, quantity: 2, description: '256GB, Navy Blue' },
-    //     // Add more cart items as needed
-    // ];
-    const handleIncrement = (id) => {
-        // Implement increment logic
-    };
-
-    const handleDecrement = (id) => {
-        // Implement decrement logic
-    };
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItem));
     }, [cartItem])
@@ -49,12 +48,70 @@ const Cart = () => {
         // console.log(temp)
     }, [cartItem])
 
-    // ................shipping total.........
+
+
+    const handleIncrement = (id) => {
+        // Implement increment logic
+    };
+
+    const handleDecrement = (id) => {
+        // Implement decrement logic
+    };
+
+
+
+
+
+
+    useEffect(() => {
+        // Fetch client token from your server
+        const fetchClientToken = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/product/braintree/token');
+                setClientToken(response.data.clientToken);
+                console.log(response.data.clientToken)
+            } catch (error) {
+                console.error('Error fetching client token:', error);
+            }
+        };
+
+        fetchClientToken();
+    }, [auth?.token]);
+
+
+
+
+    const handlePayment = async () => {
+        if (!instance) return;
+
+        setLoading(true);
+        try {
+            const { nonce } = await instance.requestPaymentMethod();
+            const response = await axios.post('http://localhost:3000/api/product/braintree/payment', { nonce, cartItem });
+            console.log('Payment successful:', response.data);
+            // Handle success response
+        } catch (error) {
+            console.error('Payment error:', error.response.data);
+            // Handle error response
+        } finally {
+            setLoading(false);
+        }
+
+
+
+    }
+
     let shipping = parseInt(100);
     const grandTotal = shipping + totalAmount
-  
+
+
+
+
 
     return (
+
+
+
         <LayOut>
             <div className='bg-black h-screen pt-5'>
                 <div className='bg-white flex flex-col md:flex-row m-5 rounded'>
@@ -73,8 +130,8 @@ const Cart = () => {
                                     <div className='flex justify-between items-center'>
                                         <div className='flex items-center'>
                                             {/* <div>
-                                                <img src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp' className='rounded-3' alt='Shopping item' style={{ width: '65px' }} />
-                                            </div> */}
+                                            <img src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp' className='rounded-3' alt='Shopping item' style={{ width: '65px' }} />
+                                        </div> */}
                                             <div className='ms-3'>
                                                 <h5>{item.name}</h5>
                                                 <p className='small mb-0'>{item.description}</p>
@@ -139,28 +196,37 @@ const Cart = () => {
 
 
                         {/* Right Column */}
-                        <div className='md:w-1/2 p-4 border-2 border-green-600 mt-4 h-[30] max-h-auto'>
-                            <div className='bg-white p-4'>
-                                <h2>Payment Details</h2>
-                                {/* Add payment form here */}
-                                <form>
-                                    {/* Payment form fields */}
-                                    <div className='mb-4'>
-                                        <label htmlFor='cardNumber' className='block mb-2'>Card Number</label>
-                                        <input type='text' id='cardNumber' className='border p-2 w-full' />
-                                    </div>
-                                    {/* Add more payment form fields */}
-                                    <button type='submit' className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'>Proceed to Payment</button>
-                                </form>
-                            </div>
+
+                        <div>
+                            <h2>Checkout</h2>
+                            {clientToken && (
+                                <DropIn
+                                    options={{ authorization: clientToken }}
+                                    onInstance={setInstance}
+                                />
+                            )}
+                            <button className='bg-green-400 p-2 border-2 border-black rounded-lg' onClick={handlePayment} disabled={!clientToken || loading || !auth?.token}>
+                                {loading ? 'Processing...' : 'Complete Payment'}
+                            </button>
                         </div>
+
                     </div>
 
                 </div>
 
             </div>
         </LayOut>
+
+
+
     )
 }
 
 export default Cart
+
+
+
+
+
+
+

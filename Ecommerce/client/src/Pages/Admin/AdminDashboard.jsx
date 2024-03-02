@@ -6,7 +6,7 @@ import Sidebar from '../../Components/SideBar/AdminSideBar.jsx'
 const AdminDashboard = () => {
   return (
     <LayOut>
-      <div className='border-2 border-yellow-700 flex flex-row'>
+      <div className='border-2  flex flex-row'>
         <div>
 
           <Sidebar />
@@ -14,7 +14,7 @@ const AdminDashboard = () => {
 
 
 
-        <div className='bg-red-100 w-[90%] justify-center'>
+        <div className=' w-[90%] justify-center'>
 
 
 

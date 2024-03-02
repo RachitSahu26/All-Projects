@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const productModel= new mongoose.Schema(
+const productModel = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -29,6 +29,10 @@ const productModel= new mongoose.Schema(
     },
     shipping: {
       type: Boolean,
+    },
+    image: {
+      type: String, // Assuming you store image URLs as strings
+      // required: true, // Adjust as needed
     },
   },
   { timestamps: true }

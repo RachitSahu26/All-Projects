@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 
-function ProductCard({ FiterProducts }) {
+function ProductCard({ FilterProducts }) {
     const contextData = useContext(mycontext);
     const { allProduct, categories } = contextData;
     const navigate = useNavigate()
     // Combine allProduct and filterProducts into a single array
-    const combinedProducts = FiterProducts.length > 0 ? FiterProducts : allProduct;
+    const combinedProducts = FilterProducts.length > 0 ? FilterProducts : allProduct;
 
 
     const cartItem = useSelector((state) => state.cart);
@@ -19,7 +19,7 @@ function ProductCard({ FiterProducts }) {
 
     const addCartItem = (product) => {
         dispatch(addToCart(product));
-        toast.success("Cart Successfully added")
+        // toast.success("Cart Successfully added")
         console.log(cartItem);
     }
 

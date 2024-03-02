@@ -27,7 +27,7 @@ const Sidebar = () => {
 
 
 
-            <div className="bg-gradient-to-r bg-black from-fff878 to-ee49fd text-black w-52 h-screen   border-2 border-red-600">
+            <div className="bg-gradient-to-r bg-black from-fff878 to-ee49fd text-black w-52 h-screen border-r-8 border-blue-">
                 <div className="p-4">
                     <h1 className="text-2xl text-white font-bold">Sidebar</h1>
                 </div>

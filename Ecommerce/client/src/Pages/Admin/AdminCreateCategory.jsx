@@ -41,7 +41,7 @@ function AdminCreateCategory() {
 
   return (
     <LayOut>
-      <div className='border-2 border-yellow-700 flex'>
+      <div className='border-2  flex'>
         <div>
 
           <Sidebar />
@@ -49,7 +49,7 @@ function AdminCreateCategory() {
 
 
 
-        <div className='bg-red-100  w-[90%] justify-center flex-col border-3 '>
+        <div className='  text-white w-[90%] justify-center flex-col border-3 '>
           <h1>Create Category</h1>
           <CreateCategoryForm />
 
@@ -59,8 +59,8 @@ function AdminCreateCategory() {
 
 
 
-          <div className='border-4 mt-5 border-yellow-500 '>
-            <h4>data of the all category</h4>
+          <div className='border-t-2 border-b-2  border-teal-400 mt-5 '>
+            <h4 className='text-center tex'>Data of the all category</h4>
 
 
 

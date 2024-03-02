@@ -5,8 +5,9 @@ import slugify from 'slugify';
 import braintree from 'braintree';
 import orderModel from '../models/orderModel.js';
 import dotenv from "dotenv";
+// import gateway from 'path/to/braintree';
 
-// import dotenv from "dotenv";
+
 dotenv.config();
 
 
@@ -31,7 +32,7 @@ var gateway = new braintree.BraintreeGateway({
 // .......................create product..........
 export const createProductController = async (req, res) => {
     try {
-        const { name, description, price, category, quantity, shipping } = req.body;
+        const { name, description, price, category, quantity, shipping,imageUrl } = req.body;
         console.log(res.body);
         // Validation
         if (!name) {
@@ -51,6 +52,9 @@ export const createProductController = async (req, res) => {
         }
         if (!shipping) {
             return res.status(400).json({ error: "Shipping is required" });
+        } if (!imageUrl) {
+            return res.status(400).json({ error: "Image URL is required" });
+            console.log(imageUrl)
         }
 
         const newProduct = new productModel({ ...req.body, slug: slugify(name) });
@@ -263,56 +267,69 @@ export const productCategoryBaseController = async (req, res) => {
 
 
 
-// ...............briantree Token....................
-export const braintreeTokenController=()=>{
- 
+// Briantree Token Controller
+export const braintreeTokenController = (req, res) => {
     try {
         gateway.clientToken.generate({}, function (err, response) {
-          if (err) {
-            res.status(500).send(err);
-          } else {
-            res.send(response);
-          }
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                res.send(response);
+            }
         });
-      } catch (error) {
+    } catch (error) {
         console.log(error);
-      }
-
-
-
+    }
 }
 
 
-// ...................baintree Payment.............
-   export const  braintreePaymentController =()=>{
+
+
+export const braintreePaymentController = async (req, res) => {
     try {
-        const { nonce, cart } = req.body;
+        const { nonce, cartItem } = req.body;
         let total = 0;
-        cart.map((i) => {
-          total += i.price;
+        cartItem.forEach((item) => {
+            total += item.price;
         });
-        let newTransaction = gateway.transaction.sale(
-          {
-            amount: total,
-            paymentMethodNonce: nonce,
-            options: {
-              submitForSettlement: true,
+
+        // Check if req.user exists and contains the buyer's ID
+        if (!req.user || !req.user._id) {
+            return res.status(400).json({ error: 'Buyer information not available' });
+        }
+
+        // Perform the transaction
+        gateway.transaction.sale(
+            {
+                amount: total,
+                paymentMethodNonce: nonce,
+                options: {
+                    submitForSettlement: true,
+                },
             },
-          },
-          function (error, result) {
-            if (result) {
-              const order = new orderModel({
-                products: cart,
-                payment: result,
-                buyer: req.user._id,
-              }).save();
-              res.json({ ok: true });
-            } else {
-              res.status(500).send(error);
+            async (error, result) => {
+              
+                if (error) {
+                    return res.status(500).send(error);
+                }
+
+                try {
+                    // Save the order to the database
+                    const order = new orderModel({
+                        products: cartItem,
+                        payment: result,
+                        buyer: req.user._id,
+                    });
+                    await order.save();
+                    return res.json({ ok: true });
+                } catch (saveError) {
+                    console.log(saveError);
+                    return res.status(500).send(saveError);
+                }
             }
-          }
         );
-      } catch (error) {
+    } catch (error) {
         console.log(error);
-      }
-   }
+        return res.status(500).send(error);
+    }
+};

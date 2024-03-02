@@ -35,7 +35,7 @@ function CreateCategoryForm() {
     };
 
     return (
-        <div className='bg-teal-200 flex flex-col justify-center items-center p-5 rounded-lg border-4 border-red-500' >
+        <div className=' flex flex-col justify-center items-center p-5 rounded-lg border-t-2 border-b-2 border-teal-500' >
             <h2 className='text-2xl font-semibold mb-4'>Add New Category</h2>
             <div className='w-full max-w-sm'  >
                 <div className='flex items-center border-b-2 border-teal-500 py-2'>

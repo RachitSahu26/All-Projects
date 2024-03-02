@@ -11,7 +11,7 @@ const ProductFrom = () => {
     const [quantity, setQuantity] = useState('');
     const [shipping, setShipping] = useState(false); // Use boolean for shipping
     const [selectedOption, setSelectedOption] = useState('');
-    
+    const [imageUrl, setImageUrl] = useState('')
 
 
 
@@ -36,7 +36,8 @@ const navigate=useNavigate();
                 description,
                 quantity: parseInt(quantity),
                 shipping,
-                category: selectedOption
+                category: selectedOption,
+                 image:imageUrl
             }, {
                 headers: {
                     Authorization: auth?.token,
@@ -54,6 +55,12 @@ const navigate=useNavigate();
             toast.error("Something went wrong");
         }
     }
+
+
+
+  
+
+
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
@@ -111,6 +118,19 @@ const navigate=useNavigate();
                         onChange={(e) => setShipping(e.target.checked)}
                     />
                 </div>
+{/* ...........................image adding............... */}
+<div>
+                    <label className="block">Product Image URL:</label>
+                    <input
+                        type="text" // Use type="text" for accepting text input
+                        name="imageUrl"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)} // Handle changes in the image URL
+                        className="w-full border rounded px-3 py-2"
+                    />
+                </div>
+
+
                 <div>
                     <label className="block">Category:</label>
                     <select

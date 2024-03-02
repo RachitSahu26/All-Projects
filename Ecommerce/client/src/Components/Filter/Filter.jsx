@@ -60,7 +60,7 @@ const Filter = ({
                 <Radio.Group onChange={(e) => setRadio(e.target.value)}>
                     {Price?.map((p) => (
                         <div key={p._id}>
-                            <Radio value={p.array}>{p.name}</Radio> {/* Use radioValue prop instead of p.array */}
+                            <Radio value={p.name}>{p.name}</Radio> {/* Use radioValue prop instead of p.array */}
                         </div>
                     ))}
                 </Radio.Group>

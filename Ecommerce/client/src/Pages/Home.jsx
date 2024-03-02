@@ -5,10 +5,11 @@ import ProductCard from '../Components/Product Card/ProductCard.jsx';
 import mycontext from '../Context/myContext.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Spinner from '../Components/Spinner/Spinner.jsx';
 
 function Home(props) {
     const contextData = useContext(mycontext);
-    const { getAllProduct } = contextData
+    const { getAllProduct, loading } = contextData
 
 
     const [fiterProducts, setFilterProducts] = useState([]);
@@ -49,10 +50,21 @@ function Home(props) {
             filterHandle();
         }
     }, [radio, selectedCategory]);
+
+
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+            <Spinner />
+          </div>
+        )
+    }
+
     return (
         <div>
             <LayOut>
-                <div className='bg-red-200 flex'>
+                <div className='bg-black flex'>
                     <div className='border-2 border-red-500 w-[50%]'>
                         <div>
                             <Filter
@@ -65,10 +77,12 @@ function Home(props) {
                         </div>
                     </div>
                     <div className='border-2 border-green-500'>
-                       
-                        <ProductCard  FiterProducts={fiterProducts}/>
-                   
+                     
+                            <ProductCard FilterProducts={fiterProducts} />
+                      
                     </div>
+
+                    
                 </div>
             </LayOut>
         </div>

@@ -2,18 +2,22 @@ import React, { useEffect, useState } from 'react';
 import LayOut from '../Components/Layout/LayOut';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Spinner from '../Components/Spinner/Spinner';
 
 function ProductDetail() {
     const params = useParams();
     const [singleProduct, setSingleProduct] = useState(null);
-
+    const [loading, setLoading] = useState(true);
     // Function to fetch single product data
     const getProduct = async () => {
         try {
             const response = await axios.get(`http://localhost:3000/api/product/get-product/${params.slug}`);
             setSingleProduct(response.data.product);
+            setLoading(false);
         } catch (error) {
             console.error('Error fetching product:', error);
+            setLoading(false);
+
         }
     };
 
@@ -22,6 +26,16 @@ function ProductDetail() {
             getProduct();
         }
     }, [params.slug]);
+
+
+
+
+    if (loading) {
+        return (<div className="flex justify-center items-center h-screen">
+            <Spinner />
+        </div>)
+    }
+
 
     return (
         <LayOut>

@@ -8,13 +8,13 @@ const AdminCreateProduct = () => {
   
   return (
     <LayOut>
-      <div className='border-2 border-yellow-700 flex flex-row'>
+      <div className='border-2  flex flex-row'>
         <div>
           <Sidebar />
         </div>
-        <div className='bg-red-100 w-[90%] justify-center'>
+        <div className=' w-[90%] justify-center'>
          
-          <div className='bg-yellow-200 p-5'>
+          <div className=' p-5'>
             <h1>Add form</h1>
             <ProductForm />
           </div>
