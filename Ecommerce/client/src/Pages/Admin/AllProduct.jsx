@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import LayOut from '../../Components/Layout/LayOut'
 import Sidebar from '../../Components/SideBar/AdminSideBar'
 import mycontext from '../../Context/myContext';
@@ -7,13 +7,18 @@ import { Link } from 'react-router-dom';
 
 function AllProduct() {
 
-
+    const [photoUrl, setPhotoUrl] = useState([])
     const contextData = useContext(mycontext);
-    const { getAllProduct,allProduct} = contextData
+    const { getAllProduct, allProduct } = contextData
 
     useEffect(() => {
+        console.log(allProduct)
         getAllProduct();
     }, [])
+
+
+
+
 
     return (
 
@@ -32,37 +37,41 @@ function AllProduct() {
                         {allProduct.map((item) => (
 
 
-                            <Link to={`/dashboard/admin/product/${item.slug}`} key={item._id}>
 
-                                <div className="bg-white rounded-lg shadow-md">
-                                    {/* Remove the image part if you're not using images */}
-                                    {/* <img src={item.image} className="card-img-top" alt={item.name} /> */}
+                            <>
 
-                                    <div className="card-body p-4">
-                                        <h5 className="text-xl font-bold mb-2">{item.name}</h5>
-                                        <p className="text-gray-600 mb-4">Price: ${item.price}</p>
-                                        <p className="text-gray-600 mb-4">Quantity: {item.quantity}</p>
-                                        <p className="text-gray-600 mb-4">Category: {item.category}</p>
-                                        <p className="text-gray-600 mb-4">Description: {item.description}</p>
+                                <a class="flex flex-col group bg-white  shadow-sm border-2 border-green-500 rounded-xl overflow-hidden hover:shadow-lg transition dark: dark:border-gray-700 dark:shadow-slate-700/[.7]" href="#">
+                                    <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
 
-                                        <input
-                                            type="number"
-                                            value={item.quantity}
-                                            onChange={(e) => updateQuantity(item.id, e.target.value)}
-                                            className="border border-gray-300 rounded px-3 py-2"
+                                        <img
+                                            src={`http://localhost:3000/api/product/product-photo/${item._id}`}
+                                            className="card-img-top"
+                                            alt={item.name}
                                         />
 
                                     </div>
+                                    <div class="p-4 md:p-5">
+                                        <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+                                            {item.name}
+                                        </h3>
+                                        <p class="mt-1 text-gray-500 dark:text-gray-400">
+                                            {item.description}
 
-                                </div>
-                            </Link>
+                                        </p>
+                                    </div>
+                                </a>
+
+                            </>
+
+
+
                         ))}
                     </div>
                 </div>
 
 
             </div>
-        </LayOut>
+        </LayOut >
 
 
 

@@ -45,8 +45,8 @@ function CategoryProduct() {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
-            <Spinner />
-          </div>
+                <Spinner />
+            </div>
         )
     }
 
@@ -61,6 +61,12 @@ function CategoryProduct() {
                         <div className="bg-white rounded-lg shadow-md" key={item._id}>
                             <Link to={`/dashboard/admin/product/${item.slug}`} >
                                 <div className="card-body p-4">
+                                    <img
+                                        src={`http://localhost:3000/api/product/product-photo/${item._id}`}
+                                        className="card-img-top"
+                                        alt={item.name}
+                                    />
+
                                     <h5 className="text-xl font-bold mb-2">{item.name}</h5>
                                     <p className="text-gray-600 mb-4">Price: ${item.price}</p>
                                     <p className="text-gray-600 mb-4">Quantity: {item.quantity}</p>

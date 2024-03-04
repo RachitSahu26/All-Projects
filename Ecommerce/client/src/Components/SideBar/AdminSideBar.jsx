@@ -76,7 +76,7 @@ const Sidebar = () => {
 
 
                         {/*  Product List */}
-                        <Link to={'/dashboard/admin/product'}>
+                        <Link to={'/dashboard/admin/all-product'}>
                             <li className={`flex space-x-2 transition-all items-center   ${currentTab === '/dashboard/admin/product' && 'md:bg-teal-500'}  h-16    hover:bg-teal-500 w-52 p-2  `}>
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">

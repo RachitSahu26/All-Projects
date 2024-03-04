@@ -11,54 +11,59 @@ const ProductFrom = () => {
     const [quantity, setQuantity] = useState('');
     const [shipping, setShipping] = useState(false); // Use boolean for shipping
     const [selectedOption, setSelectedOption] = useState('');
-    const [imageUrl, setImageUrl] = useState('')
+    const [photo, setPhoto] = useState('')
 
 
 
     // ...........................Use Navigate....................
 
-const navigate=useNavigate();
+    const navigate = useNavigate();
 
 
     // Context API
     const contextData = useContext(mycontext);
     const { categories, getAllCategory, auth } = contextData;
-    
+
     useEffect(() => {
         getAllCategory();
     }, []);
 
+
+    // ..............adding product  handler...............
     const productAddedHandle = async () => {
         try {
-            const { data } = await axios.post("http://localhost:3000/api/product/create-product", {
-                name,
-                price: parseFloat(price),
-                description,
-                quantity: parseInt(quantity),
-                shipping,
-                category: selectedOption,
-                 image:imageUrl
-            }, {
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('price', parseFloat(price));
+            formData.append('description', description);
+            formData.append('quantity', parseInt(quantity));
+            formData.append('shipping', shipping);
+            formData.append('category', selectedOption);
+            formData.append('photo', photo); // Append the image file
+
+            const { data } = await axios.post("http://localhost:3000/api/product/create-product", formData, {
                 headers: {
                     Authorization: auth?.token,
+                    'Content-Type': 'multipart/form-data', // Set the correct content type for file uploads
                 },
             });
 
+            // Handle response...
+
             if (data?.success) {
                 toast.success("Product Created Successfully");
-                navigate("/dashboard/admin/product")
+                // navigate("/dashboard/admin/product")
             } else {
                 toast.error(data?.message);
             }
+
+
         } catch (error) {
             console.error('Error creating product:', error);
             toast.error("Something went wrong");
         }
-    }
+    };
 
-
-
-  
 
 
 
@@ -70,6 +75,7 @@ const navigate=useNavigate();
         <div className="max-w-md mx-auto mt-8">
             <h2 className="text-xl font-semibold mb-4">Add Product</h2>
             <div className="space-y-4 bg-teal-500 p-4 rounded-xl">
+               
                 <div>
                     <label className="block">Name:</label>
                     <input
@@ -80,6 +86,7 @@ const navigate=useNavigate();
                         className="w-full border rounded px-3 py-2"
                     />
                 </div>
+               
                 <div>
                     <label className="block">Price:</label>
                     <input
@@ -90,6 +97,7 @@ const navigate=useNavigate();
                         className="w-full border rounded px-3 py-2"
                     />
                 </div>
+               
                 <div>
                     <label className="block">Description:</label>
                     <textarea
@@ -99,6 +107,7 @@ const navigate=useNavigate();
                         className="w-full border rounded px-3 py-2"
                     />
                 </div>
+               
                 <div>
                     <label className="block">Quantity:</label>
                     <input
@@ -109,6 +118,7 @@ const navigate=useNavigate();
                         className="w-full border rounded px-3 py-2"
                     />
                 </div>
+              
                 <div>
                     <label className="block">Shipping:</label>
                     <input
@@ -118,19 +128,34 @@ const navigate=useNavigate();
                         onChange={(e) => setShipping(e.target.checked)}
                     />
                 </div>
-{/* ...........................image adding............... */}
-<div>
-                    <label className="block">Product Image URL:</label>
-                    <input
-                        type="text" // Use type="text" for accepting text input
-                        name="imageUrl"
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)} // Handle changes in the image URL
-                        className="w-full border rounded px-3 py-2"
-                    />
+                {/* ...........................image adding............... */}
+
+                <div className="mb-3">
+                    <label className="border border-gray-300 bg-white rounded-md p-2 block text-center cursor-pointer">
+                        {photo ? photo.name : "Upload Photo"}
+                        <input
+                            type="file"
+                            name="photo"
+                            accept="image/*"
+                            onChange={(e) => setPhoto(e.target.files[0])}
+                            className="hidden"
+                        />
+                    </label>
                 </div>
 
+                {photo && (
+                    <div className="text-center">
+                        <img
+                            src={URL.createObjectURL(photo)}
+                            alt="product_photo"
+                            className="h-48 object-contain mx-auto"
+                        />
+                    </div>
+                )}
 
+
+
+                {/* .................category............. */}
                 <div>
                     <label className="block">Category:</label>
                     <select
@@ -147,11 +172,21 @@ const navigate=useNavigate();
                         ))}
                     </select>
                 </div>
+
+
+
+                {/* ...........create product/ btn.......... */}
+
                 <button onClick={productAddedHandle} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">
                     Create Product
                 </button>
+
+
             </div>
         </div>
+
+
+
     );
 };
 

@@ -24,6 +24,7 @@ import UserProfile from './Pages/DashBoard/UserProfile.jsx'
 import ProductDetail from './Pages/ProductDetail.jsx'
 import CategoryProduct from './Pages/CategoryProduct.jsx'
 import Cart from './Pages/Cart.jsx'
+import AllProduct from './Pages/Admin/AllProduct.jsx'
 
 function App() {
 
@@ -56,6 +57,8 @@ function App() {
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="admin/create-category" element={<AdminCreateCategory />} />
             <Route path="admin/create-product" element={<AdminCreateProduct />} />
+            <Route path="admin/all-product" element={<AllProduct />} />
+       
          </Route>
 
 {/* .................................authentication Routing............/ */}
