@@ -6,7 +6,7 @@ import braintree from 'braintree';
 import orderModel from '../models/orderModel.js';
 import dotenv from "dotenv";
 // import gateway from 'path/to/braintree';
-
+import fs from 'fs'
 
 dotenv.config();
 
@@ -15,10 +15,10 @@ dotenv.config();
 
 var gateway = new braintree.BraintreeGateway({
     environment: braintree.Environment.Sandbox,
-    merchantId:process.env.BRAINTREE_MERCHANT_ID ,
+    merchantId: process.env.BRAINTREE_MERCHANT_ID,
     publicKey: process.env.BRAINTREE_PUBLIC_KEY,
     privateKey: process.env.BRAINTREE_PRIVATE_KEY,
-  });
+});
 
 
 
@@ -28,59 +28,70 @@ var gateway = new braintree.BraintreeGateway({
 
 
 
-
-// .......................create product..........
 export const createProductController = async (req, res) => {
     try {
-        const { name, description, price, category, quantity, shipping,imageUrl } = req.body;
-        console.log(res.body);
-        // Validation
-        if (!name) {
-            return res.status(400).json({ error: "Name is required" });
-        }
-        if (!description) {
-            return res.status(400).json({ error: "Description is required" });
-        }
-        if (!price) {
-            return res.status(400).json({ error: "Price is required" });
-        }
-        if (!category) {
-            return res.status(400).json({ error: "Category is required" });
-        }
-        if (!quantity) {
-            return res.status(400).json({ error: "Quantity is required" });
-        }
-        if (!shipping) {
-            return res.status(400).json({ error: "Shipping is required" });
-        } if (!imageUrl) {
-            return res.status(400).json({ error: "Image URL is required" });
-            console.log(imageUrl)
+        const { name, description, price, category, quantity, shipping } =
+            req.fields;
+        const { photo } = req.files;
+        //alidation
+        switch (true) {
+            case !name:
+                return res.status(500).send({ error: "Name is Required" });
+            case !description:
+                return res.status(500).send({ error: "Description is Required" });
+            case !price:
+                return res.status(500).send({ error: "Price is Required" });
+            case !category:
+                return res.status(500).send({ error: "Category is Required" });
+            case !quantity:
+                return res.status(500).send({ error: "Quantity is Required" });
+            case photo && photo.size > 1000000:
+                return res
+                    .status(500)
+                    .send({ error: "photo is Required and should be less then 1mb" });
         }
 
-        const newProduct = new productModel({ ...req.body, slug: slugify(name) });
-        await newProduct.save();
-
-        res.status(201).json({
+        const products = new productModel({ ...req.fields, slug: slugify(name) });
+        if (photo) {
+            products.photo.data = fs.readFileSync(photo.path);
+            products.photo.contentType = photo.type;
+        }
+        await products.save();
+        res.status(201).send({
             success: true,
-            message: "Product created successfully",
-            product: newProduct,
+            message: "Product Created Successfully",
+            products,
         });
     } catch (error) {
-        console.error("Error creating product:", error);
-        res.status(500).json({
+        console.log(error);
+        res.status(500).send({
             success: false,
-            message: "Error creating product",
-            error: error.message,
+            error,
+            message: "Error in crearing product",
         });
     }
 };
 
 
 
-
-
-
-
+// get photo
+export const productPhotoController = async (req, res) => {
+    try {
+      const product = await productModel.findById(req.params.pid).select("photo");
+      if (product.photo.data) {
+        res.set("Content-type", product.photo.contentType);
+        return res.status(200).send(product.photo.data);
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({
+        success: false,
+        message: "Erorr while getting photo",
+        error,
+      });
+    }
+  };
+  
 
 
 
@@ -267,6 +278,14 @@ export const productCategoryBaseController = async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
 // Briantree Token Controller
 export const braintreeTokenController = (req, res) => {
     try {
@@ -293,10 +312,6 @@ export const braintreePaymentController = async (req, res) => {
             total += item.price;
         });
 
-        // Check if req.user exists and contains the buyer's ID
-        if (!req.user || !req.user._id) {
-            return res.status(400).json({ error: 'Buyer information not available' });
-        }
 
         // Perform the transaction
         gateway.transaction.sale(
@@ -308,7 +323,7 @@ export const braintreePaymentController = async (req, res) => {
                 },
             },
             async (error, result) => {
-              
+
                 if (error) {
                     return res.status(500).send(error);
                 }
