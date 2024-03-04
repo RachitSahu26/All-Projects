@@ -2,9 +2,10 @@ import express from "express";
 
 
 import { requireSignIn } from "../middleware/SignInRequrie.js";
-import { braintreePaymentController, braintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, updateProductController } from "../controllers/productController.js";
+import { braintreePaymentController, braintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, productPhotoController, updateProductController } from "../controllers/productController.js";
 import braintree from "braintree";
 
+import formidable from 'express-formidable';
 
 const router = express.Router();
 
@@ -12,7 +13,8 @@ const router = express.Router();
 router.post(
     "/create-product",
     requireSignIn,
-   createProductController
+    formidable(),
+    createProductController
 );
 
 
@@ -25,8 +27,9 @@ router.put(
 );
 
 // .............Get All Product Routes..........
-router.get("/get-product",getProductController)
-
+router.get("/get-product", getProductController)
+// ................get photo.........
+router.get("/product-photo/:pid", productPhotoController)
 
 //single product
 router.get("/get-product/:slug", getSingleProductController);
@@ -40,7 +43,7 @@ router.delete("/delete-product/:pid", deleteProductController);
 router.post("/filter-product", productFiltersController);
 
 // .............product category base........
-router.get("/category-base-product/:slug",productCategoryBaseController );
+router.get("/category-base-product/:slug", productCategoryBaseController);
 
 
 
