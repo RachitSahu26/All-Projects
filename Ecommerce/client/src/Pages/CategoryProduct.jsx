@@ -10,7 +10,7 @@ function CategoryProduct() {
     const [Product, setProduct] = useState([]);
     const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    // const [CategoryName, setCategoryName] = useState('')
     const navigate = useNavigate();
 
     const params = useParams();
@@ -21,6 +21,7 @@ function CategoryProduct() {
 
             setProduct(data?.products);
             setCategory(data?.category);
+            // setCategoryName(response.data.name);
             setLoading(false);
 
         } catch (error) {
@@ -53,39 +54,33 @@ function CategoryProduct() {
 
     return (
         <LayOut>
+
+
             CategoryProduct
 
-            <div className='border-2 border-green-500 h-screen p-2'>
-                <div className="grid border-2 border-red-500 grid-cols-1 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className='border-2 border-green-500  h-[50%] p-2'>
+                <h2 className='text-white text-center text-5xl p-5'> </h2>
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
+
                     {Product.map((item) => (
-                        <div className="bg-white rounded-lg shadow-md" key={item._id}>
-                            <Link to={`/dashboard/admin/product/${item.slug}`} >
-                                <div className="card-body p-4">
-                                    <img
-                                        src={`http://localhost:3000/api/product/product-photo/${item._id}`}
-                                        className="card-img-top"
-                                        alt={item.name}
-                                    />
+                        <div className="max-w-sm bg-white border  m-5 p-5  border-gray-200 rounded-lg shadow">
 
-                                    <h5 className="text-xl font-bold mb-2">{item.name}</h5>
-                                    <p className="text-gray-600 mb-4">Price: ${item.price}</p>
-                                    <p className="text-gray-600 mb-4">Quantity: {item.quantity}</p>
-                                    {/* Render category name instead of category ID */}
-                                    <p className="text-gray-600 mb-4">Category: {item.name}</p>
-                                    <p className="text-gray-600 mb-4">Description: {item.description}</p>
-                                    <input
-                                        type="number"
-                                        value={item.quantity}
-                                        onChange={(e) => updateQuantity(item.id, e.target.value)}
-                                        className="border border-gray-300 rounded px-3 py-2"
-                                    />
-                                </div>
-                            </Link>
-                            <div className="flex justify-end p-4">
-                                <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
-                                    Add to cart
+                         
+                                <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
+                          
+
+
+                            <div className="p-5">
+                              
+                                    <h3 className="text-lg font-bold text-black">{item.name}</h3>
+                              
+                                <p className="mt-1 text-sm text-black line-clamp-3">{item.description}</p>
+                                <button    onClick={() => navigate(`/product/${item.slug}`)}  className="inline-flex items-center mt-2 px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Read more
+                                    <svg className="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                    </svg>
                                 </button>
-
                             </div>
                         </div>
                     ))}

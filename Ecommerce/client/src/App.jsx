@@ -39,7 +39,9 @@ function App() {
           <Route path="/category" element={<Category />} />
           <Route path="/category/:slug" element={<CategoryProduct />} />
 
-          <Route path="/dashboard/admin/product/:slug" element={<ProductDetail/>} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
+
+  <Route path="/dashboard/admin/product/:slug" element={<ProductDetail/>} />
 
 
 
@@ -58,6 +60,7 @@ function App() {
             <Route path="admin/create-category" element={<AdminCreateCategory />} />
             <Route path="admin/create-product" element={<AdminCreateProduct />} />
             <Route path="admin/all-product" element={<AllProduct />} />
+            {/* <Route path="/dashboard/admin/product/:slug" element={<ProductDetail/>} /> */}
        
          </Route>
 

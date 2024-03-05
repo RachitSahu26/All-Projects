@@ -30,7 +30,7 @@ const Filter = ({
 
 
 
-        <div className="bg-gray-100 p-4 rounded-lg">
+        <div className="bg-gray-100 p-4 rounded-lg sticky top-0 ">
             <h2 className="text-lg font-semibold mb-4">Filter</h2>
 
 
@@ -56,10 +56,10 @@ const Filter = ({
 
             {/* price filter */}
             <h4 className="text-center mt-4">Filter By Price</h4>
-            <div className="d-flex flex-column">
+            <div className="d-flex flex-column m-5">
                 <Radio.Group onChange={(e) => setRadio(e.target.value)}>
                     {Price?.map((p) => (
-                        <div key={p._id}>
+                        <div key={p._id}  className="p-[10%]"  >
                             <Radio value={p.name}>{p.name}</Radio> {/* Use radioValue prop instead of p.array */}
                         </div>
                     ))}
@@ -71,10 +71,10 @@ const Filter = ({
 
             {/* ........................btn........... */}
 
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-2 p-5'>
 
                 <button onClick={FilterHandle} className="bg-blue-500 text-white font-semibold px-4 py-2 rounded">Apply Filters</button>
-                <button   onClick={() => window.location.reload()} className="bg-red-500 text-white font-semibold px-4 py-2 rounded">Reset Filters</button>
+                <button onClick={() => window.location.reload()} className="bg-red-500 text-white font-semibold px-4 py-2 rounded">Reset Filters</button>
 
             </div>
 

@@ -1,23 +1,23 @@
-import React, { useContext, useEffect, useState } from 'react'
-import LayOut from '../../Components/Layout/LayOut.jsx'
-
-import CreateCategoryForm from '../../Components/Form/CreateCategoryForm.jsx'
-
-import mycontext from '../../Context/myContext'
+import React, { useContext, useEffect, useState } from 'react';
+import LayOut from '../../Components/Layout/LayOut.jsx';
+import CreateCategoryForm from '../../Components/Form/CreateCategoryForm.jsx';
+import mycontext from '../../Context/myContext';
 import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function AdminCreateCategory() {
-  // .........................context data......................
-  const contextData = useContext(mycontext)
-  const { categories, getAllCategory, } = contextData;
+  const contextData = useContext(mycontext);
+  const { categories, getAllCategory } = contextData;
+
+  const [showModal, setShowModal] = useState(false);
+  const [editedCategory, setEditedCategory] = useState({});
 
   const handleDelete = async (id) => {
     try {
       const { data } = await axios.delete(`http://localhost:3000/api/category/delete-category/${id}`, {
         headers: {
-          Authorization: contextData.auth?.token, // Access auth object from contextData
+          Authorization: contextData.auth?.token,
         },
       });
   
@@ -31,40 +31,59 @@ function AdminCreateCategory() {
       toast.error("Something went wrong");
     }
   };
+// ...................handle edit ......
+  const handleEdit = (category) => {
+    setEditedCategory(category);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setEditedCategory({});
+    setShowModal(false);
+  };
 
 
 
+
+
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.put(`http://localhost:3000/api/category/update-category/${editedCategory._id}`, editedCategory, {
+        headers: {
+          Authorization: contextData.auth?.token,
+        },
+      });
+  
+      if (data.success) {
+        toast.success(`Category updated successfully`);
+        getAllCategory();
+        setShowModal(false);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
 
   useEffect(() => {
-    getAllCategory()
-  }, [])
+    getAllCategory();
+  }, []);
 
   return (
     <LayOut>
-      <div className='border-2  flex'>
+      <div className='border-2 flex'>
         <div>
-
           <Sidebar />
         </div>
-
-
-
-        <div className='  text-white w-[90%] justify-center flex-col border-3 '>
+        <div className='text-white w-[90%] justify-center flex-col border-3'>
           <h1>Create Category</h1>
           <CreateCategoryForm />
 
-
-
-          {/* .....................showind created category.......... */}
-
-
-
-          <div className='border-t-2 border-b-2  border-teal-400 mt-5 '>
+          <div className='border-t-2 border-b-2 border-teal-400 mt-5'>
             <h4 className='text-center tex'>Data of the all category</h4>
-
-
-
-
             <table className="table-fixed w-full">
               <thead>
                 <tr>
@@ -79,15 +98,13 @@ function AdminCreateCategory() {
                     <td className="border px-4 py-2">
                       <button
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-
+                        onClick={() => handleEdit(c)}
                       >
                         Edit
                       </button>
                       <button
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        onClick={() => {
-                          handleDelete(c._id);
-                        }}
+                        onClick={() => handleDelete(c._id)}
                       >
                         Delete
                       </button>
@@ -96,16 +113,35 @@ function AdminCreateCategory() {
                 ))}
               </tbody>
             </table>
-
-
           </div>
 
+          {showModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-white p-6 rounded-lg">
+                <h2 className="text-lg font-semibold mb-4 text-black">Edit Category</h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-4">
+                    <label htmlFor="name" className="block font-semibold mb-2 text-black">Category Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      className="w-full border rounded text-black px-3 py-2"
+                      value={editedCategory.name}
+                      onChange={(e) => setEditedCategory({ ...editedCategory, name: e.target.value })}
+                    />
+                  </div>
+                  <div className="flex justify-between">
+                    <button type="submit" className="bg-blue-500 text-white font-semibold px-2 py-2 rounded">Save Changes</button>
+                    <button type="button" onClick={handleCloseModal} className="bg-red-500 text-white font-semibold px-4 py-2 rounded">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
-
-
       </div>
     </LayOut>
-  )
+  );
 }
 
-export default AdminCreateCategory
+export default AdminCreateCategory;

@@ -1,25 +1,33 @@
 
-<div className="bg-white rounded-lg shadow-md" key={item._id}>
-    <Link to={`/dashboard/admin/product/${item.slug}`} key={item._id}>
 
 
-        <div className="card-body p-4">
-          
 
-            <h5 className="text-xl font-bold mb-2">{item.name}</h5>
-            <p className="text-gray-600 mb-4">Price: ${item.price}</p>
-            <p className="text-gray-600 mb-4">Quantity: {item.quantity}</p>
-            {/* Render category name instead of category ID */}
-            <p className="text-gray-600 mb-4">Category: {item.name}</p>
-            <p className="text-gray-600 mb-4">Description: {item.description}</p>
-            <input
-                type="number"
-                value={item.quantity}
-                onChange={(e) => updateQuantity(item.id, e.target.value)}
-                className="border border-gray-300 rounded px-3 py-2"
-            />
-        </div>
+<!-- ................................................................................... --><div className="grid border-2 border-red-500 grid-cols-1 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {Product.map((item) => (
+                        <div className="bg-white rounded-lg shadow-md" key={item._id}>
+                            <Link to={`/dashboard/admin/product/${item.slug}`} >
+                                <div className="card-body p-4">
+                                    <img
+                                        src={`http://localhost:3000/api/product/product-photo/${item._id}`}
+                                        className="card-img-top"
+                                        alt={item.name}
+                                    />
 
-
-    </Link>
-</div>
+                                    <h5 className="text-xl font-bold mb-2">{item.name}</h5>
+                                    <p className="text-gray-600 mb-4">Price: ${item.price}</p>
+                                    <p className="text-gray-600 mb-4">Quantity: {item.quantity}</p>
+                                    {/* Render category name instead of category ID */}
+                                    <p className="text-gray-600 mb-4">Category: {item.name}</p>
+                                    <p className="text-gray-600 mb-4">Description: {item.description}</p>
+                                    <input
+                                        type="number"
+                                        value={item.quantity}
+                                        onChange={(e) => updateQuantity(item.id, e.target.value)}
+                                        className="border border-gray-300 rounded px-3 py-2"
+                                    />
+                                </div>
+                            </Link>
+                           
+                        </div>
+                    ))}
+                </div>

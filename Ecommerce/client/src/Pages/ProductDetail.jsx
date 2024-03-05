@@ -44,6 +44,8 @@ function ProductDetail() {
                     {singleProduct && (
                         <div className="md:flex">
                             <div className="p-8">
+                            <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${singleProduct._id}`} alt={singleProduct.name} />
+                   
                                 <h2 className="text-2xl font-bold mb-4">{singleProduct.name}</h2>
                                 <p className="text-gray-600 mb-4">Price: ${singleProduct.price}</p>
                                 <p className="text-gray-600 mb-4">Quantity: {singleProduct.quantity}</p>

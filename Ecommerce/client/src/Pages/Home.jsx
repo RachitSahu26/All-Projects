@@ -65,7 +65,7 @@ function Home(props) {
         <div>
             <LayOut>
                 <div className='bg-black flex'>
-                    <div className='border-2 border-red-500 w-[50%]'>
+                    <div className='border-2 border-red-500 w-[20%] sticky top-0 '>
                         <div>
                             <Filter
                                 FilterHandle={filterHandle}
