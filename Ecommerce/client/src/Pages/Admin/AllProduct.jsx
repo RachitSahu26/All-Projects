@@ -32,13 +32,13 @@ function AllProduct() {
 
                 <div className='bg-black w-[90%] justify-center'>
                     <h1>Product</h1>
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
-                   
-                                      {allProduct.map((item) => (
+                    <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
+
+                        {allProduct.map((item) => (
                             <div className="max-w-sm bg-white border  m-5 p-5  border-gray-200 rounded-lg shadow">
-                                <a href="#">
+                                <Link   to={ `/dashboard/admin/product/${item.slug}`}> 
                                     <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
-                                </a>
+                                </Link>
                                 <div className="p-5">
                                     <a href="#">
                                         <h3 className="text-lg font-bold text-black">{item.name}</h3>

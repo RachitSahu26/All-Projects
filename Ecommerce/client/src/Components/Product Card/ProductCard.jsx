@@ -44,7 +44,7 @@ function ProductCard({ FilterProducts }) {
                             <h3 className="text-lg font-bold text-black">{item.name}</h3>
                         </a>
                         <p className="mt-1 text-sm text-black line-clamp-3">{item.description}</p>
-                        {/* <p className="mt-1 text-sm text-black line-clamp-3">{item.category}</p> */}
+                        <p className="mt-1 text-sm text-black line-clamp-3">{item.category}</p>
                         {/* <p className="mt-1 text-sm text-black line-clamp-3">{categories.find(cat => cat._id === item.category)?.name}</p> */}
 
 

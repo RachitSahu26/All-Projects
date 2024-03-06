@@ -28,7 +28,7 @@ function Header() {
       token: ""
     })
     localStorage.removeItem("auth");
-    navigate("http://localhost:5173/signin");
+    navigate('/signup');
     toast.success("Logout Successfully");
   }
 
@@ -80,7 +80,7 @@ function Header() {
                           <Link to={`/category`} className="block px-4 py-2 text-gray-700 text-sm hover:bg-gray-100">All Category</Link>
 
                           {categories.map((category) => (
-                            <li key={category._id}>
+                            <li key={category._id}  >
                               <Link to={`/category/${category.slug}`} className="block px-4 py-2 text-gray-700 text-sm hover:bg-gray-100">{category.name}</Link>
                             </li>
                           ))}

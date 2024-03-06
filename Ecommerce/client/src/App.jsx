@@ -25,6 +25,7 @@ import ProductDetail from './Pages/ProductDetail.jsx'
 import CategoryProduct from './Pages/CategoryProduct.jsx'
 import Cart from './Pages/Cart.jsx'
 import AllProduct from './Pages/Admin/AllProduct.jsx'
+import AdminProductDetail from './Pages/Admin/AdminProductDetail.jsx'
 
 function App() {
 
@@ -41,7 +42,7 @@ function App() {
 
           <Route path="/product/:slug" element={<ProductDetail />} />
 
-  <Route path="/dashboard/admin/product/:slug" element={<ProductDetail/>} />
+  <Route path="/dashboard/admin/product/:slug" element={<AdminProductDetail/>} />
 
 
 

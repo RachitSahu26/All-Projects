@@ -44,13 +44,13 @@ const Mystate = (props) => {
   }
 
   const getAllCategory = async () => {
-  
+
     try {
       const { data } = await axios.get("http://localhost:3000/api/category/get-category");
       if (data?.success) {
         // toast.success(`successfully created`);
         setCategories(data?.category);
-      setLoading(false);
+        setLoading(false);
 
       } else {
         toast.error(data.message);
@@ -59,8 +59,8 @@ const Mystate = (props) => {
       console.log(error);
       toast.error("Something went wrong in input form");
       setLoading(false);
-   
-    } 
+
+    }
   }
 
 
@@ -78,7 +78,7 @@ const Mystate = (props) => {
     <mycontext.Provider value={{
       auth, setAuth,
       categories, setCategories, getAllCategory,
-      getAllProduct, allProduct,loading
+      getAllProduct, allProduct, loading
 
     }}>
       {props.children}

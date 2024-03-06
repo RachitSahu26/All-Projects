@@ -7,11 +7,20 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 function AdminCreateCategory() {
+  // const contextData = useContext(mycontext);
+
+  // ..............fetching another context ............
   const contextData = useContext(mycontext);
+  const { auth } = contextData;
+
   const { categories, getAllCategory } = contextData;
 
   const [showModal, setShowModal] = useState(false);
   const [editedCategory, setEditedCategory] = useState({});
+
+
+
+
 
   const handleDelete = async (id) => {
     try {
@@ -20,7 +29,7 @@ function AdminCreateCategory() {
           Authorization: contextData.auth?.token,
         },
       });
-  
+
       if (data.success) {
         toast.success(`Category is deleted`);
         getAllCategory();
@@ -31,9 +40,10 @@ function AdminCreateCategory() {
       toast.error("Something went wrong");
     }
   };
-// ...................handle edit ......
+  // ...................handle edit ......
   const handleEdit = (category) => {
     setEditedCategory(category);
+    console.log(category)
     setShowModal(true);
   };
 
@@ -46,27 +56,83 @@ function AdminCreateCategory() {
 
 
 
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+
+  const editHandle = async () => {
     try {
-      const { data } = await axios.put(`http://localhost:3000/api/category/update-category/${editedCategory._id}`, editedCategory, {
+
+      console.log(editedCategory._id)
+      console.log(editedCategory)
+
+      const { data } = await axios.put(`http://localhost:3000/api/category/update-category/${editedCategory._id}`, {
+        name: editedCategory.name,
         headers: {
           Authorization: contextData.auth?.token,
         },
       });
-  
+
       if (data.success) {
+        console.log(data.success);
         toast.success(`Category updated successfully`);
         getAllCategory();
-        setShowModal(false);
+        // setShowModal(false);
       } else {
         toast.error(data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Something went wrong");
     }
   };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //update category
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.put(
+        `/api/v1/category/update-category/${selected._id}`,
+        { name: updatedName }
+      );
+      if (data.success) {
+        toast.success(`${updatedName} is updated`);
+        setSelected(null);
+        setUpdatedName("");
+        setVisible(false);
+        getAllCategory();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error("Somtihing went wrong");
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     getAllCategory();
@@ -119,26 +185,29 @@ function AdminCreateCategory() {
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <div className="bg-white p-6 rounded-lg">
                 <h2 className="text-lg font-semibold mb-4 text-black">Edit Category</h2>
-                <form onSubmit={handleSubmit}>
-                  <div className="mb-4">
-                    <label htmlFor="name" className="block font-semibold mb-2 text-black">Category Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      className="w-full border rounded text-black px-3 py-2"
-                      value={editedCategory.name}
-                      onChange={(e) => setEditedCategory({ ...editedCategory, name: e.target.value })}
-                    />
-                  </div>
-                  <div className="flex justify-between">
-                    <button type="submit" className="bg-blue-500 text-white font-semibold px-2 py-2 rounded">Save Changes</button>
-                    <button type="button" onClick={handleCloseModal} className="bg-red-500 text-white font-semibold px-4 py-2 rounded">Cancel</button>
-                  </div>
-                </form>
+
+                <div className="mb-4">
+                  <label htmlFor="name" className="block font-semibold mb-2 text-black">Category Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-full border rounded text-black px-3 py-2"
+                    value={editedCategory.name}
+                    onChange={(e) => setEditedCategory({ ...editedCategory, name: e.target.value })}
+                  />
+                </div>
+                <div className="flex justify-between">
+                  <button type="submit" className="bg-blue-500 text-white font-semibold px-2 py-2 rounded" onClick={editHandle}>Save Changes</button>
+                  <button type="button" onClick={handleCloseModal} className="bg-red-500 text-white font-semibold px-4 py-2 rounded">Cancel</button>
+                </div>
+
               </div>
             </div>
           )}
         </div>
+     
+     
+     
       </div>
     </LayOut>
   );

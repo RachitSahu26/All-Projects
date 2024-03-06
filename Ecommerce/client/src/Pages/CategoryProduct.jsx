@@ -59,7 +59,7 @@ function CategoryProduct() {
             CategoryProduct
 
             <div className='border-2 border-green-500  h-[50%] p-2'>
-                <h2 className='text-white text-center text-5xl p-5'> </h2>
+                <h2 className='text-white text-center text-5xl p-5'>Category:{category.name} </h2>
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
 
                     {Product.map((item) => (

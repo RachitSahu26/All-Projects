@@ -47,6 +47,7 @@ const createCategoryController = async (req, res) => {
 
 export const updateCategoryController = async (req, res) => {
     try {
+
         const { name } = req.body;
         const { id } = req.params;
         const category = await categoryModel.findByIdAndUpdate(
@@ -59,7 +60,8 @@ export const updateCategoryController = async (req, res) => {
             messsage: "Category Updated Successfully",
             category,
         });
-    } catch (error) {
+    } 
+    catch (error) {
         console.log(error);
         res.status(500).send({
             success: false,
