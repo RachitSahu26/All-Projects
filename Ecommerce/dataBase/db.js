@@ -1,12 +1,10 @@
+
 import mongoose from "mongoose";
 
 const connectToMongo = async () => {
   try {
-    const mongoURI = 'mongodb+srv://curiousrachit26:curious2005261@cluster0.cmdu8dc.mongodb.net/';
-    // const dbName = 'your_database_name';
-
+    const mongoURI = 'mongodb+srv://curiousrachit26:curious2005261@cluster0.cmdu8dc.mongodb.net/your_database_name'; // Replace 'your_database_name' with your actual database name
     await mongoose.connect(mongoURI, {
-  
       useNewUrlParser: true,
       useUnifiedTopology: true,
       // useCreateIndex: true,

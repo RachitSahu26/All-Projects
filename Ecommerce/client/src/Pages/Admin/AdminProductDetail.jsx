@@ -22,9 +22,9 @@ function AdminProductDetail() {
     const [description, setDescription] = useState('');
     const [quantity, setQuantity] = useState('');
     const [shipping, setShipping] = useState(false);
-    const [selectedOption, setSelectedOption] = useState('');
+    // const [selectedOption, setSelectedOption] = useState('');
     // const [photo, setPhoto] = useState(null)
-    const [id, setId] = useState("");
+    const [id, setId] = useState(null);
     const [category, setCategory] = useState("");
 
     //   ................navigation and param.....
@@ -40,19 +40,18 @@ function AdminProductDetail() {
     // Function to fetch single product data
     const getProduct = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/product/get-product/${params.slug}`);
-            const { product } = response.data;
-
+            const { data } = await axios.get(`http://localhost:3000/api/product/get-product/${params.slug}`);
+            const { product } = data;
+            console.log(product)
             setSingleProduct(product);
             setName(product.name);
             setPrice(product.price);
             setDescription(product.description);
             setShipping(product.shipping);
             setQuantity(product.quantity);
-            setSelectedOption(product.selectedOption);
-            setId(product._id);
-            // setPhoto(product.photo);
-            setCategory(product.category._id);
+            setId(product._id)
+            setCategory(product.category);
+
             console.log(product._id)
             setLoading(false);
         } catch (error) {
@@ -68,7 +67,7 @@ function AdminProductDetail() {
     const handleDelete = async (id) => {
         try {
             const { data } = await axios.delete(
-                `http://localhost:3000/api/product/delete-product/${id}`,
+                `http://localhost:3000/api/product/delete-product/${params.slug}}`,
                 {
                     headers: {
                         Authorization: auth?.token,
@@ -90,7 +89,39 @@ function AdminProductDetail() {
 
 
 
+    const productUpdateHandler = async () => {
+        try {
 
+            const { data } = await axios.put(`http://localhost:3000/api/product/update-product/${id}`, {
+
+                name: name,
+                price: price,
+                description: description,
+                shipping: shipping,
+                quantity: quantity,
+                category: category,
+
+            }, {
+                headers: {
+                    Authorization: auth?.token
+
+                }
+            })
+
+
+            if (data?.success) {
+                toast.success("Product Updated Successfully");
+                navigate("/dashboard/admin/all-product");
+            }
+            else {
+                toast.error(data?.message);
+            }
+
+        } catch (error) {
+            console.error('Error creating product:', error);
+            toast.error("Something went wrong");
+        }
+    }
 
 
 
@@ -194,6 +225,8 @@ function AdminProductDetail() {
                                         name="name"
                                         value={name}
                                         className="w-full border rounded px-3 py-2"
+                                        onChange={(e) => setName(e.target.value)}
+
                                     // readOnly // Make the input read-only
                                     />
                                 </div>
@@ -215,6 +248,7 @@ function AdminProductDetail() {
                                         name="price"
                                         value={price}
                                         className="w-full border rounded px-3 py-2"
+                                        onChange={(e) => setPrice(e.target.value)}
                                     />
                                 </div>
 
@@ -226,6 +260,7 @@ function AdminProductDetail() {
                                     <textarea
                                         name="description"
                                         value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
                                         className="w-full border rounded px-3 py-2"
                                     />
                                 </div>
@@ -240,6 +275,7 @@ function AdminProductDetail() {
                                         type="number" // Use type="number" to accept only numeric values
                                         name="quantity"
                                         value={quantity}
+                                        onChange={(e) => setQuantity(e.target.value)}
                                         className="w-full border rounded px-3 py-2"
                                     />
                                 </div>
@@ -252,6 +288,7 @@ function AdminProductDetail() {
                                     <input
                                         type="checkbox" // Use checkboxes for boolean values
                                         name="shipping"
+                                        onChange={(e) => setShipping(e.target.value)}
                                         checked={shipping} // Sample static value
                                     />
                                 </div>
@@ -264,8 +301,10 @@ function AdminProductDetail() {
                                     <label className="block">Category:{singleProduct._id}</label>
                                     <select
                                         id="options"
-                                        value={selectedOption}
-                                        onChange={handleOptionChange}
+                                        onChange={(value) => {
+                                            setCategory(value);
+                                        }}
+                                        value={category}
                                         className="w-full border rounded text-black px-3 py-2"
                                     >
                                         <option value="">Select a category</option>
@@ -280,7 +319,7 @@ function AdminProductDetail() {
 
 
 
-                                <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">
+                                <button onClick={productUpdateHandler} className="bg-yellow-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">
                                     Update Product
                                 </button>
 

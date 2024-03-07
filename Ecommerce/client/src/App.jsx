@@ -35,18 +35,18 @@ function App() {
       <Mystate>
 
         <Routes>
-          
+
           <Route path="/" element={<Home />} />
           <Route path="/category" element={<Category />} />
           <Route path="/category/:slug" element={<CategoryProduct />} />
 
           <Route path="/product/:slug" element={<ProductDetail />} />
 
-  <Route path="/dashboard/admin/product/:slug" element={<AdminProductDetail/>} />
+          <Route path="/dashboard/admin/product/:slug" element={<AdminProductDetail />} />
 
 
 
-{/* ...............................user Dashboard............ */}
+          {/* ...............................user Dashboard............ */}
           <Route path="/dashboard" element={<Private />} >
             <Route path="user" element={<UserDashboard />} />
             <Route path="user/order" element={<UserOrder />} />
@@ -54,7 +54,7 @@ function App() {
           </Route>
 
 
-{/* ...............................user Admin Dashboard............ */}
+          {/* ...............................user Admin Dashboard............ */}
 
           <Route path="/dashboard" element={<AdminPrivate />} >
             <Route path="admin" element={<AdminDashboard />} />
@@ -62,10 +62,10 @@ function App() {
             <Route path="admin/create-product" element={<AdminCreateProduct />} />
             <Route path="admin/all-product" element={<AllProduct />} />
             {/* <Route path="/dashboard/admin/product/:slug" element={<ProductDetail/>} /> */}
-       
-         </Route>
 
-{/* .................................authentication Routing............/ */}
+          </Route>
+
+          {/* .................................authentication Routing............/ */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/cart" element={<Cart />} />

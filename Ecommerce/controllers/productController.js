@@ -102,7 +102,7 @@ export const productPhotoController = async (req, res) => {
 export const updateProductController = async (req, res) => {
     try {
         const { name, description, price, category, quantity, shipping } = req.body;
-
+const {id}=req.params
         //alidation
         switch (true) {
             case !name:
