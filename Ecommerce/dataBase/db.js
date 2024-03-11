@@ -1,12 +1,13 @@
-
 import mongoose from "mongoose";
 
-const connectToMongo = async () => {
+ export  const connectToMongo = async () => {
   try {
-    const mongoURI = 'mongodb+srv://curiousrachit26:curious2005261@cluster0.cmdu8dc.mongodb.net/your_database_name'; // Replace 'your_database_name' with your actual database name
+    const mongoURI = 'mongodb+srv://curiousrachit26:curious2005261@cluster0.cmdu8dc.mongodb.net/';
+    // const dbName = 'your_database_name';
+
     await mongoose.connect(mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+      useNewUrlParser: true, // Remove this line
+      useUnifiedTopology: true, // Remove this line
       // useCreateIndex: true,
     });
     console.log("---***Database Connected Successfully***---");
@@ -16,5 +17,3 @@ const connectToMongo = async () => {
     // throw error;
   }
 };
-
-export default connectToMongo;

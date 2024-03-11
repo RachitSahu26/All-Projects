@@ -1,7 +1,7 @@
 // Import required modules
 import express from 'express';
 import morgan from 'morgan';
-import connectToMongo from './dataBase/db.js';
+
 import router from './routes/authRoute.js';
 import dotenv from "dotenv";
 import cors from 'cors';
@@ -9,6 +9,7 @@ import categoryRoute from './routes/categoryRoute.js';
 // import productModel from './models/productModel.js';
 
 import productRoute from './routes/productRoute.js'
+import { connectToMongo } from './dataBase/db.js';
 
 //configure env
 dotenv.config();

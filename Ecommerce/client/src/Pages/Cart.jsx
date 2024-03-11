@@ -3,10 +3,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import LayOut from '../Components/Layout/LayOut'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom';
-import { removeToCart } from '../Redux/Slice/CartSlice';
+import { incrementQuantity, removeToCart } from '../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 // import LayOut from '../Components/Layout/LayOut.jsx'
-import DropIn from "braintree-web-drop-in-react";
+// import DropIn from "braintree-web-drop-in-react";
 import mycontext from '../Context/myContext';
 import axios from 'axios';
 
@@ -15,13 +15,13 @@ function Cart() {
 
     const cartItem = useSelector((state) => state.cart);
     const contextData = useContext(mycontext)
-
+    console.log(contextData)
     const { auth } = contextData;
 
     const [clientToken, setClientToken] = useState('');
     const [instance, setInstance] = useState("");
     const [loading, setLoading] = useState(false);
-
+    const [quantities, setQuantities] = useState({});
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
@@ -39,6 +39,7 @@ function Cart() {
 
 
     const [totalAmount, setTotalAmount] = useState(0);
+
     useEffect(() => {
         let temp = 0;
         cartItem.forEach((cartItem) => {
@@ -50,11 +51,22 @@ function Cart() {
 
 
 
+
     const handleIncrement = (id) => {
-        // Implement increment logic
+        // Increment quantity for the corresponding item ID
+        setQuantities((prevQuantities) => ({
+            ...prevQuantities,
+            [id]: (prevQuantities[id] || 1) + 1, // Default quantity to 1 if not available
+        }));
+        dispatch(incrementQuantity(id));
     };
 
     const handleDecrement = (id) => {
+        // Decrement quantity for the corresponding item ID, but keep it at least 1
+        setQuantities((prevQuantities) => ({
+            ...prevQuantities,
+            [id]: Math.max((prevQuantities[id] || 1) - 1, 1), // Default quantity to 1 if not available
+        }));
         // Implement decrement logic
     };
 
@@ -63,43 +75,58 @@ function Cart() {
 
 
 
-    useEffect(() => {
-        // Fetch client token from your server
-        const fetchClientToken = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/api/product/braintree/token');
-                setClientToken(response.data.clientToken);
-                console.log(response.data.clientToken)
-            } catch (error) {
-                console.error('Error fetching client token:', error);
-            }
-        };
+    // const handleIncrement = () => {
+    //     // Implement increment logic
+    //     dispatch(incrementQuantity(cartItem._id));
 
-        fetchClientToken();
-    }, [auth?.token]);
+    // };
+
+    // const handleDecrement = (id) => {
+    //     // Implement decrement logic
+    // };
 
 
 
 
-    const handlePayment = async () => {
-        if (!instance) return;
-
-        setLoading(true);
-        try {
-            const { nonce } = await instance.requestPaymentMethod();
-            const response = await axios.post('http://localhost:3000/api/product/braintree/payment', { nonce, cartItem });
-            console.log('Payment successful:', response.data);
-            // Handle success response
-        } catch (error) {
-            console.error('Payment error:', error.response.data);
-            // Handle error response
-        } finally {
-            setLoading(false);
-        }
 
 
+    // useEffect(() => {
+    //     // Fetch client token from your server
+    //     const fetchClientToken = async () => {
+    //         try {
+    //             const response = await axios.get('http://localhost:3000/api/product/braintree/token');
+    //             setClientToken(response.data.clientToken);
+    //             console.log(response.data.clientToken)
+    //         } catch (error) {
+    //             console.error('Error fetching client token:', error);
+    //         }
+    //     };
 
-    }
+    //     fetchClientToken();
+    // }, [auth?.token]);
+
+
+
+
+    // const handlePayment = async () => {
+    //     if (!instance) return;
+
+    //     setLoading(true);
+    //     try {
+    //         const { nonce } = await instance.requestPaymentMethod();
+    //         const response = await axios.post('http://localhost:3000/api/product/braintree/payment', { nonce, cartItem });
+    //         console.log('Payment successful:', response.data);
+    //         // Handle success response
+    //     } catch (error) {
+    //         console.error('Payment error:', error.response.data);
+    //         // Handle error response
+    //     } finally {
+    //         setLoading(false);
+    //     }
+
+
+
+    // }
 
     let shipping = parseInt(100);
     const grandTotal = shipping + totalAmount
@@ -119,68 +146,77 @@ function Cart() {
 
                     <div class="rounded-lg md:w-2/3">
 
-                        { cartItem.map((item) => (
+                        {cartItem.map((item) => (
 
-                                <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                            <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
 
-                                    <img
-                                        src={`http://localhost:3000/api/product/product-photo/${item._id}`}
-                                        className="card-img-top w-[20%] h-[20%] rounded-lg"
-                                        alt={item.name}
-                                    />
+                                <img
+                                    src={`http://localhost:3000/api/product/product-photo/${item._id}`}
+                                    className="card-img-top w-[20%] h-[20%] rounded-lg"
+                                    alt={item.name}
+                                />
 
-                                    <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                                        <div class="mt-5 sm:mt-0">
-                                            <h2 class="text-lg font-bold text-gray-900">{item.name}</h2>
-                                            <p class="mt-1 text-xs text-gray-700">${item.price}</p>
-                                            <p class="mt-1 text-xs text-gray-700">${item.description.slice(0, 50)}${item.description.length > 50 ? '...' : ''}</p>
+                                <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
 
 
+                                    <div class="mt-5 sm:mt-0">
+
+                                        <h2 class="text-lg font-bold text-gray-900">{item.name}</h2>
+                                        <p class="mt-1 text-xs text-gray-700">${item.price}</p>
+                                        <p class="mt-1 text-xs text-gray-700">${item.description.slice(0, 50)}${item.description.length > 50 ? '...' : ''}</p>
+
+
+                                    </div>
+
+
+
+                                    <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+
+                                        <div className="flex items-center border-gray-100">
+                                            <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => handleDecrement(item._id)}> - </span>
+                                            <input className="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value={quantities[item._id] || 1} min="1" readOnly />
+                                            <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => handleIncrement(item._id)}> + </span>
                                         </div>
-                                        <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                                            <div class="flex items-center border-gray-100">
-                                                <span class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"> - </span>
-                                                <input class="h-8 w-8 border bg-white text-center text-xs outline-none" type="number" value="2" min="1" />
-                                                <span class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"> + </span>
-                                            </div>
-                                            <div class="flex items-center space-x-4">
+
+                                        <div class="flex items-center space-x-4">
 
                                             <button onClick={() => deleteCart(item._id)} className='text-white bg-red-600 p-2 rounded-lg '>Remove Item <i className='fas fa-trash-alt'></i></button>
-                          
-                                            </div>
+
                                         </div>
+
                                     </div>
                                 </div>
+                            </div>
 
 
 
 
 
 
-                            ))}
+                        ))}
 
                     </div>
-                
-                
+
+
                     <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
-                            <div class="mb-2 flex justify-between">
-                                <p class="text-gray-700">Subtotal</p>
-                                <p class="text-gray-700">${totalAmount}</p>
-                            </div>
-                            <div class="flex justify-between">
-                                <p class="text-gray-700">Shipping</p>
-                                <p class="text-gray-700">${shipping}</p>
-                            </div>
-                            <hr class="my-4" />
-                            <div class="flex justify-between">
-                                <p class="text-lg font-bold">Total</p>
-                                <div class="">
-                                    <p class="mb-1 text-lg font-bold">$134.98 USD</p>
-                                    <p class="text-sm text-gray-700">including VAT</p>
-                                </div>
-                            </div>
-                            <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+                        <div class="mb-2 flex justify-between">
+                            <p class="text-gray-700">Subtotal</p>
+                            <p class="text-gray-700">${totalAmount}</p>
                         </div>
+                        <div class="flex justify-between">
+                            <p class="text-gray-700">Shipping</p>
+                            <p class="text-gray-700">${shipping}</p>
+                        </div>
+                        <hr class="my-4" />
+                        <div class="flex justify-between">
+                            <p class="text-lg font-bold">Total</p>
+                            <div class="">
+                                <p class="mb-1 text-lg font-bold">${grandTotal}</p>
+                                <p class="text-sm text-gray-700">including VAT</p>
+                            </div>
+                        </div>
+                        <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+                    </div>
                 </div>
 
             </div>

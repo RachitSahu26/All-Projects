@@ -24,7 +24,7 @@ function AdminProductDetail() {
     const [shipping, setShipping] = useState(false);
     // const [selectedOption, setSelectedOption] = useState('');
     // const [photo, setPhoto] = useState(null)
-    const [id, setId] = useState(null);
+    const [id, setId] = useState('');
     const [category, setCategory] = useState("");
 
     //   ................navigation and param.....
@@ -42,17 +42,19 @@ function AdminProductDetail() {
         try {
             const { data } = await axios.get(`http://localhost:3000/api/product/get-product/${params.slug}`);
             const { product } = data;
+
+            setSingleProduct(product)
             console.log(product)
-            setSingleProduct(product);
+
             setName(product.name);
             setPrice(product.price);
             setDescription(product.description);
             setShipping(product.shipping);
             setQuantity(product.quantity);
-            setId(product._id)
+
             setCategory(product.category);
 
-            console.log(product._id)
+
             setLoading(false);
         } catch (error) {
             console.error('Error fetching product:', error);
@@ -64,10 +66,32 @@ function AdminProductDetail() {
 
 
     // .....................Delete handleDelete.apply..............
+    // const handleDelete = async (id) => {
+    //     try {
+    //         const { data } = await axios.delete(
+    //             `http://localhost:3000/api/product/delete-product/${id}}`,
+    //             {
+    //                 headers: {
+    //                     Authorization: auth?.token,
+    //                 },
+    //             }
+    //         );
+
+    //         if (data.success) {
+    //             toast.success(`Product is deleted`);
+    //             navigate(`/dashboard/admin/all-product`);
+    //         } else {
+    //             toast.error(data.message);
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         toast.error("Something went wrong");
+    //     }
+    // };
     const handleDelete = async (id) => {
         try {
             const { data } = await axios.delete(
-                `http://localhost:3000/api/product/delete-product/${params.slug}}`,
+                `http://localhost:3000/api/product/delete-product/${id}`,
                 {
                     headers: {
                         Authorization: auth?.token,
@@ -89,39 +113,43 @@ function AdminProductDetail() {
 
 
 
-    const productUpdateHandler = async () => {
+
+    const productUpdateHandler = async (productId) => {
         try {
-
-            const { data } = await axios.put(`http://localhost:3000/api/product/update-product/${id}`, {
-
+            console.log("productId:", productId);
+            console.log("name:", name);
+            console.log("price:", price);
+            console.log("description:", description);
+            console.log("shipping:", shipping);
+            console.log("quantity:", quantity);
+            console.log("category:", category);
+    
+            const { data } = await axios.put(`http://localhost:3000/api/product/update-product/${productId}`, {
                 name: name,
                 price: price,
                 description: description,
                 shipping: shipping,
                 quantity: quantity,
                 category: category,
-
             }, {
                 headers: {
                     Authorization: auth?.token
-
                 }
-            })
-
-
+            });
+    
             if (data?.success) {
                 toast.success("Product Updated Successfully");
                 navigate("/dashboard/admin/all-product");
-            }
-            else {
+            } else {
                 toast.error(data?.message);
             }
-
+    
         } catch (error) {
-            console.error('Error creating product:', error);
+            console.error('Error updating product:', error);
             toast.error("Something went wrong");
         }
     }
+    
 
 
 
@@ -182,7 +210,7 @@ function AdminProductDetail() {
                                 <h2 className="text-2xl font-bold mb-4">{singleProduct.name}</h2>
                                 <p className="text-gray-600 mb-4">Price: ${singleProduct.price}</p>
                                 <p className="text-gray-600 mb-4">Quantity: {singleProduct.quantity}</p>
-                                <p className="text-gray-600 mb-4">Category: {singleProduct.categories}</p>
+                                <p className="text-gray-600 mb-4">Category: {singleProduct.category}</p>
                                 <p className="text-gray-600 mb-4">Description: {singleProduct.description}</p>
 
                                 <div className=' flex '>
@@ -298,13 +326,14 @@ function AdminProductDetail() {
 
                                 {/* .....................Update Category............. */}
                                 <div>
-                                    <label className="block">Category:{singleProduct._id}</label>
+                                    <label className="block">Category:{singleProduct.category}</label>
                                     <select
                                         id="options"
-                                        onChange={(value) => {
-                                            setCategory(value);
-                                        }}
                                         value={category}
+
+                                        onChange={(e) => {
+                                            setCategory(e.target.value);
+                                        }}
                                         className="w-full border rounded text-black px-3 py-2"
                                     >
                                         <option value="">Select a category</option>
@@ -318,11 +347,9 @@ function AdminProductDetail() {
 
 
 
-
-                                <button onClick={productUpdateHandler} className="bg-yellow-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">
+                                <button onClick={() => productUpdateHandler(singleProduct._id)} className="bg-yellow-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">
                                     Update Product
                                 </button>
-
 
 
 

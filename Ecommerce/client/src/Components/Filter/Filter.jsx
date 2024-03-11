@@ -58,8 +58,8 @@ const Filter = ({
             <h4 className="text-center mt-4">Filter By Price</h4>
             <div className="d-flex flex-column m-5">
                 <Radio.Group onChange={(e) => setRadio(e.target.value)}>
-                    {Price?.map((p) => (
-                        <div key={p._id}  className="p-[10%]"  >
+                    {Price?.map((p,index) => (
+                        <div key={index}  className="p-[10%]"  >
                             <Radio value={p.name}>{p.name}</Radio> {/* Use radioValue prop instead of p.array */}
                         </div>
                     ))}

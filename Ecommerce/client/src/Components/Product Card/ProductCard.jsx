@@ -33,8 +33,8 @@ function ProductCard({ FilterProducts }) {
 
 
         <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {combinedProducts.map((item) => (
-              <div className="max-w-sm bg-white border h-[90%] max-h-[auto] m-5 p-5 border-gray-200 rounded-lg shadow">
+            {combinedProducts.map((item,index) => (
+              <div   key={index} className="max-w-sm bg-white border h-[90%] max-h-[auto] m-5 p-5 border-gray-200 rounded-lg shadow">
 
               <Link  to={`/product/${item.slug}`} >
                         <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
@@ -49,7 +49,7 @@ function ProductCard({ FilterProducts }) {
 
 
                         <div className="flex justify-end p-4">
-                            <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                            <button onClick={()=>addCartItem(item)}  className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
                                 Add to cart
                             </button>
 
