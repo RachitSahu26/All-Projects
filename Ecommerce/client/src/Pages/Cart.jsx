@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from 'react'
 import LayOut from '../Components/Layout/LayOut'
 import { useDispatch, useSelector } from 'react-redux'
@@ -138,17 +137,29 @@ function Cart() {
 
         <LayOut>
 
-            <div class="min-h-screen bg-gray-100 pt-20">
-                <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+            <div className="min-h-screen bg-gray-100 pt-20">
+                <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
 
 
-                <div class="mx-auto max-w-5xl flex justify-center px-6 md:flex md:space-x-6 xl:px-0">
 
-                    <div class="rounded-lg md:w-2/3">
+
+
+
+
+
+
+
+
+                <div className="mx-auto max-w-5xl flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6 xl:px-0">
+
+
+
+
+                    <div className="rounded-lg md:w-2/3">
 
                         {cartItem.map((item) => (
 
-                            <div class="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                            <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
 
                                 <img
                                     src={`http://localhost:3000/api/product/product-photo/${item._id}`}
@@ -156,21 +167,21 @@ function Cart() {
                                     alt={item.name}
                                 />
 
-                                <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                                <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
 
 
-                                    <div class="mt-5 sm:mt-0">
+                                    <div className="mt-5 sm:mt-0">
 
-                                        <h2 class="text-lg font-bold text-gray-900">{item.name}</h2>
-                                        <p class="mt-1 text-xs text-gray-700">${item.price}</p>
-                                        <p class="mt-1 text-xs text-gray-700">${item.description.slice(0, 50)}${item.description.length > 50 ? '...' : ''}</p>
+                                        <h2 className="text-lg font-bold text-gray-900">{item.name}</h2>
+                                        <p className="mt-1 text-xs text-gray-700">${item.price}</p>
+                                        <p className="mt-1 text-xs text-gray-700">${item.description.slice(0, 50)}${item.description.length > 50 ? '...' : ''}</p>
 
 
                                     </div>
 
 
 
-                                    <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                                    <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
 
                                         <div className="flex items-center border-gray-100">
                                             <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => handleDecrement(item._id)}> - </span>
@@ -178,7 +189,7 @@ function Cart() {
                                             <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50" onClick={() => handleIncrement(item._id)}> + </span>
                                         </div>
 
-                                        <div class="flex items-center space-x-4">
+                                        <div className="flex items-center space-x-4">
 
                                             <button onClick={() => deleteCart(item._id)} className='text-white bg-red-600 p-2 rounded-lg '>Remove Item <i className='fas fa-trash-alt'></i></button>
 
@@ -198,25 +209,32 @@ function Cart() {
                     </div>
 
 
-                    <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
-                        <div class="mb-2 flex justify-between">
-                            <p class="text-gray-700">Subtotal</p>
-                            <p class="text-gray-700">${totalAmount}</p>
+
+
+
+                    <div className="mt-6 md:mt-0 rounded-lg border bg-white p-6 shadow-md md:w-1/3">
+                        <div className="mb-2 flex justify-between">
+                            <p className="text-gray-700">Subtotal</p>
+                            <p className="text-gray-700">${totalAmount}</p>
                         </div>
-                        <div class="flex justify-between">
-                            <p class="text-gray-700">Shipping</p>
-                            <p class="text-gray-700">${shipping}</p>
+                        <div className="flex justify-between">
+                            <p className="text-gray-700">Shipping</p>
+                            <p className="text-gray-700">${shipping}</p>
                         </div>
-                        <hr class="my-4" />
-                        <div class="flex justify-between">
-                            <p class="text-lg font-bold">Total</p>
-                            <div class="">
-                                <p class="mb-1 text-lg font-bold">${grandTotal}</p>
-                                <p class="text-sm text-gray-700">including VAT</p>
+                        <hr className="my-4" />
+                        <div className="flex justify-between">
+                            <p className="text-lg font-bold">Total</p>
+                            <div className="">
+                                <p className="mb-1 text-lg font-bold">${grandTotal}</p>
+                                <p className="text-sm text-gray-700">including VAT</p>
                             </div>
                         </div>
-                        <button class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
+                        <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check out</button>
                     </div>
+
+
+
+
                 </div>
 
             </div>
@@ -229,10 +247,3 @@ function Cart() {
 }
 
 export default Cart
-
-
-
-
-
-
-
