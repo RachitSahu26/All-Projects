@@ -6,6 +6,8 @@ import mycontext from '../Context/myContext.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Spinner from '../Components/Spinner/Spinner.jsx';
+// import SmallFilter from '../Components/Filter/SmallFilter.jsx';
+// import SmallFilter from '../Components/Filter/SmallFilter.jsx';
 
 function Home(props) {
     const contextData = useContext(mycontext);
@@ -17,7 +19,10 @@ function Home(props) {
     const [selectedCategory, setSelectedCategory] = useState([]);
 
 
+
+
     // Handler function to update the selected category
+
     const handleCategoryChange = (e) => {
         setSelectedCategory(e.target.value);
     };
@@ -56,33 +61,43 @@ function Home(props) {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen">
-            <Spinner />
-          </div>
+                <Spinner />
+            </div>
         )
     }
+    // const isSmallScreen = useMediaQuery('(max-width: 640px)');
 
     return (
         <div>
             <LayOut>
-                <div className='bg-black flex'>
-                    <div className='border-2 border-red-500 w-[20%] sticky top-0 '>
-                        <div>
-                            <Filter
-                                FilterHandle={filterHandle}
-                                FiterProducts={fiterProducts}
-                                HandleCategoryChange={handleCategoryChange}
-                                Radio={radio} setRadio={setRadio}
-                                SelectedCategory={selectedCategory}
-                            />
-                        </div>
-                    </div>
-                    <div className='border-2 border-green-500'>
-                     
-                            <ProductCard FilterProducts={fiterProducts} />
-                      
+                <div className='bg-black flex flex-col sm:flex-row'>
+
+                    <div className='border-2 border-red-500 sm:w-1/4 sticky top-0'>
+
+                
+
+                    <Filter
+            FilterHandle={filterHandle}
+            FiterProducts={fiterProducts}
+            HandleCategoryChange={handleCategoryChange}
+            Radio={radio}
+            setRadio={setRadio}
+          
+        />
+                           
+
+
+
+
+
+
+
                     </div>
 
-                    
+                    <div className='border-2 border-green-500 sm:w-3/4'>
+                        <ProductCard FilterProducts={fiterProducts} />
+                    </div>
+
                 </div>
             </LayOut>
         </div>

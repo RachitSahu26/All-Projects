@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import mycontext from '../../Context/myContext';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 
 function Header() {
   const navigate = useNavigate()
   const ContextData = useContext(mycontext);
+  const cartItem = useSelector((state) => state.cart);
   const { auth, setAuth, categories, getAllCategory } = ContextData;
   // const [isOpenNav, setIsOpenNav] = useState(false);
 
@@ -154,7 +156,7 @@ function Header() {
 
 
 
-                  <Link to={"/cart"} className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium" >Cart</Link>
+                  <Link to={"/cart"} className="text-gray-300 hover:text-white p-4 rounded-md text-xl font-medium" >Cart{cartItem.length}</Link>
 
                 </div>
               </div>

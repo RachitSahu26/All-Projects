@@ -47,14 +47,10 @@ const Mystate = (props) => {
 
     try {
       const { data } = await axios.get("http://localhost:3000/api/category/get-category");
-      if (data?.success) {
-        // toast.success(`successfully created`);
-        setCategories(data?.category);
-        setLoading(false);
 
-      } else {
-        toast.error(data.message);
-      }
+      setCategories(data.categories);
+      console.log(data.categories)
+
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong in input form");
