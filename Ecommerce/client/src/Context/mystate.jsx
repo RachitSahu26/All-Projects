@@ -49,7 +49,7 @@ const Mystate = (props) => {
       const { data } = await axios.get("http://localhost:3000/api/category/get-category");
 
       setCategories(data.categories);
-      console.log(data.categories)
+      // console.log(data.categories)
 
     } catch (error) {
       console.log(error);

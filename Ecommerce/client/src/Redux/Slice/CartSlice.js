@@ -12,12 +12,16 @@ const CartSlice = createSlice({
     removeToCart(state, action) {
       return state.filter((item) => item._id !== action.payload);
     },
+
+
     incrementQuantity(state, action) {
       const itemIndex = state.findIndex((item) => item._id === action.payload);
       if (itemIndex !== -1) {
         state[itemIndex].quantity += 1;
       }
     },
+
+    
     decrementQuantity(state, action) {
       const itemIndex = state.findIndex((item) => item._id === action.payload);
       if (itemIndex !== -1 && state[itemIndex].quantity > 1) {

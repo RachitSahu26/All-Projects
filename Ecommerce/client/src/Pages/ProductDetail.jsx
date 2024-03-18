@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Spinner from '../Components/Spinner/Spinner';
 
+
 function ProductDetail() {
     const params = useParams();
     const [singleProduct, setSingleProduct] = useState(null);
@@ -56,6 +57,15 @@ function ProductDetail() {
                     )}
                 </div>
             </div>
+
+
+
+
+
+
+
+
+
         </LayOut>
     );
 }
