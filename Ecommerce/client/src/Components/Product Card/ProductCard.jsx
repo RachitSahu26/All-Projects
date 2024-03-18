@@ -32,24 +32,26 @@ function ProductCard({ FilterProducts }) {
 
 
 
-        <div className="grid grid-cols-1 gap-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {combinedProducts.map((item,index) => (
-              <div   key={index} className="max-w-sm bg-white border h-[90%] max-h-[auto] m-5 p-5 border-gray-200 rounded-lg shadow">
+        <div className="grid grid-cols-2  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {combinedProducts.map((item, index) => (
+                <div key={index} className="max-w-sm bg-white border h-[95%] max-h-[auto] m-2 p-2 border-gray-200 rounded-lg shadow">
 
-              <Link  to={`/product/${item.slug}`} >
+                    <Link to={`/product/${item.slug}`} >
                         <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
                     </Link>
-                    <div className="p-5">
+                    <div >
                         <a href="#">
-                            <h3 className="text-lg font-bold text-black">{item.name}</h3>
+                            <h3 className="text-lg  font-bold text-black">{item.name}</h3>
                         </a>
-                        <p className="mt-1 text-sm text-black line-clamp-3">{item.description}</p>
-                        <p className="mt-1 text-sm text-black line-clamp-3">{item.category}</p>
+                        <p class="mt-1 text-xs text-gray-700">${item.description.slice(0, 30)}${item.description.length > 30 ? '...' : ''}</p>
+                        <p className="mt-1 text-lg text-black line-clamp-3">${item.price}</p>
+
+                        {/* <p className="mt-1 text-sm text-black line-clamp-3">{item.category}</p> */}
                         {/* <p className="mt-1 text-sm text-black line-clamp-3">{categories.find(cat => cat._id === item.category)?.name}</p> */}
 
 
-                        <div className="flex justify-end p-4">
-                            <button onClick={()=>addCartItem(item)}  className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
+                        <div className="flex justify-center mt-3 m-1">
+                            <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded">
                                 Add to cart
                             </button>
 
