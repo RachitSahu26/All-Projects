@@ -118,7 +118,7 @@ function Home(props) {
 
 
 
-{/* 
+                    {/* 
                     <div className='block sm:hidden'>
                         <div className='text-white bg-red-300 block sm:hidden text-center text-4xl' onClick={handleFilterClick} >
                             {

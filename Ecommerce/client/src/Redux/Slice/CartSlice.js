@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 // const initialState =JSON.parse(localStorage.getItem('cart')) ?? [];
 const initialState = JSON.parse(localStorage.getItem('cart')) || [];
@@ -8,6 +9,7 @@ const CartSlice = createSlice({
   reducers: {
     addToCart(state, action) {
       state.push(action.payload);
+
     },
     removeToCart(state, action) {
       return state.filter((item) => item._id !== action.payload);
