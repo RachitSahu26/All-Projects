@@ -140,36 +140,48 @@ function AdminCreateCategory() {
 
   return (
     <LayOut>
-      <div className='border-2 flex'>
+      <div className='border-2 flex border-yellow-400 m-2 p-1 rounded'>
         <div>
           <Sidebar />
         </div>
-        <div className='text-white w-[90%] justify-center flex-col border-3'>
+        <div className='text-black w-[90%] justify-center flex-col border-3'>
           <h1>Create Category</h1>
           <CreateCategoryForm />
 
           <div className='border-t-2 border-b-2 border-teal-400 mt-5'>
             <h4 className='text-center tex'>Data of the all category</h4>
             <table className="table-fixed w-full">
+           
+           
               <thead>
                 <tr>
                   <th className="px-4 py-2 w-1/2">Name</th>
                   <th className="px-4 py-2 w-1/2">Actions</th>
                 </tr>
               </thead>
+             
+             
+             
               <tbody>
                 {categories?.map((c) => (
                   <tr key={c._id}>
                     <td className="border px-4 py-2">{c.name}</td>
-                    <td className="border px-4 py-2">
+                    <td className="border flex justify-center px-10 py-2 ">
+                     
+                     
+                     
                       <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-3 rounded mr-2"
                         onClick={() => handleEdit(c)}
                       >
                         Edit
                       </button>
+                   
+                   
+                   
+                   
                       <button
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-3  rounded"
                         onClick={() => handleDelete(c._id)}
                       >
                         Delete
@@ -178,6 +190,11 @@ function AdminCreateCategory() {
                   </tr>
                 ))}
               </tbody>
+          
+          
+          
+          
+          
             </table>
           </div>
 
