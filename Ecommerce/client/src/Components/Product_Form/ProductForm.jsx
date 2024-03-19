@@ -72,7 +72,7 @@ const ProductFrom = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-8">
+        <div className="md:w-1/2 mx-auto border-2  p-3 border-teal-400  mt-8">
             <h2 className="text-xl font-semibold mb-4">Add Product</h2>
             <div className="space-y-4 bg-teal-500 p-4 rounded-xl">
                
