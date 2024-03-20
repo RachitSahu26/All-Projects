@@ -72,10 +72,9 @@ const ProductFrom = () => {
     };
 
     return (
-        <div className="md:w-1/2 mx-auto border-2  p-3 border-teal-400  mt-8">
+        <div className="md:w-1/2 mx-auto   p-3   mt-8">
             <h2 className="text-xl font-semibold mb-4">Add Product</h2>
-            <div className="space-y-4 bg-teal-500 p-4 rounded-xl">
-               
+            <div className="space-y-4  text-white  border-2 border-teal-400 p-4 rounded-xl">
                 <div>
                     <label className="block">Name:</label>
                     <input
@@ -86,7 +85,7 @@ const ProductFrom = () => {
                         className="w-full border rounded px-3 py-2"
                     />
                 </div>
-               
+
                 <div>
                     <label className="block">Price:</label>
                     <input
@@ -97,7 +96,7 @@ const ProductFrom = () => {
                         className="w-full border rounded px-3 py-2"
                     />
                 </div>
-               
+
                 <div>
                     <label className="block">Description:</label>
                     <textarea
@@ -107,7 +106,7 @@ const ProductFrom = () => {
                         className="w-full border rounded px-3 py-2"
                     />
                 </div>
-               
+
                 <div>
                     <label className="block">Quantity:</label>
                     <input
@@ -118,7 +117,7 @@ const ProductFrom = () => {
                         className="w-full border rounded px-3 py-2"
                     />
                 </div>
-              
+
                 <div>
                     <label className="block">Shipping:</label>
                     <input
