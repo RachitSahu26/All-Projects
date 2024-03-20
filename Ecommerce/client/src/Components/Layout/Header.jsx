@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import mycontext from '../../Context/myContext';
 import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { FaShoppingCart, FaBars, FaTimes, FaList, FaHome, FaUser, FaUserPlus, FaPlus, FaBox, FaSignOutAlt } from 'react-icons/fa';
+import { FaShoppingCart, FaBars, FaTimes, FaList, FaHome, FaUser, FaUserPlus, FaPlus, FaBox, FaSignOutAlt, FaHeart } from 'react-icons/fa';
 // import { FaBars,  } from 'react-icons/fa';
 function Header() {
   const navigate = useNavigate();
   const ContextData = useContext(mycontext);
   const cartItem = useSelector((state) => state.cart);
+  const WishListItem = useSelector((state) => state.wishList);
+  console.log(WishListItem)
   const { auth, setAuth, categories, getAllCategory } = ContextData;
 
 
@@ -72,12 +74,14 @@ function Header() {
   return (
     <>
       {/* <nav className="bg-gray-800  max-w-2xl sm:max-w-7xl"> */}
-      <nav className="bg-white max-w-2xl sm:max-w-7xl lg:max-w-full sticky top-0 z-10  ">
-        {/* .............large screen ......... */}
+   
+      <nav className="bg-white p-1 max-w-2xl sm:max-w-7xl lg:max-w-full sticky top-0 z-10 shadow-md">
 
+     {/* .............large screen ......... */}
         <div className="h-16 flex justify-between items-center m-5">
 
 
+          {/* mobile screen hamburger................. */}
           <div className="flex-shrink-0 md:hidden  flex items-center pl-5">
             {isMobileNavOpen ? (
               <FaTimes style={{ color: 'black' }} onClick={toggleMobileNav} />
@@ -86,9 +90,17 @@ function Header() {
             )}
           </div>
 
-          <span className="text-black text-xl ml-5 font-bold"><Link to="/">VRS_Shopy</Link></span>
 
-          <div className=" flex items-baseline space-x-4 md:space-x-8">
+          {/* ...........logo....... */}
+          <div className='item-center'>
+            <span className="text-black text-xl ml-5 font-bold"><Link to="/">VRS_Shopy</Link></span>
+          </div>
+
+
+
+
+
+          <div className=" flex justify-center  items-baseline space-x-4 md:space-x-8">
 
 
 
@@ -98,7 +110,7 @@ function Header() {
               <button
                 onClick={toggleCategoryMenu}
                 // Toggle menu off hover
-                className="hidden mb-5 md:flex justify-center items-center  text-xl text-black font-bold hover:text-gray-400 py-3 focus:outline-none"
+                className="hidden  md:flex justify-center items-center  text-xl text-black font-bold hover:text-gray-400 py-3 focus:outline-none"
               >
                 {/* <FaList className="inline-block text-black mr-2" /> */}
                 Category
@@ -137,6 +149,22 @@ function Header() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             {/* .........................Cart .............. */}
 
             <div className='flex justify-center '>
@@ -145,18 +173,70 @@ function Header() {
               {
                 auth?.token && (
 
+                  <>
 
-                  <Link to="/cart" className="flex items-center lg: text-gray-300 hover:text-white p-1 mt-5 rounded-md text-md font-medium duration-300 ease-in-out transform hover:scale-110">
+                    <Link to="/cart" className="flex items-center lg: text-gray-300 hover:text-white p-1 mt-5 rounded-md text-md font-medium duration-300 ease-in-out transform hover:scale-110">
 
-                    <div className='p-2  relative right-2   '>
-                      <span className="bg-red-500 rounded-full absolute top-0 right-0   text-xs px-2 py-1">
-                        {cartItem.length}
-                      </span>
-                      <FaShoppingCart className="text-2xl text-black" />
-                    </div>
+                      <div className='p-2  relative right-2   '>
+                        <span className="bg-red-500 rounded-full absolute top-0 right-0   text-xs px-2 py-1">
+                          {cartItem.length}
+                        </span>
+
+                        <div className='flex justify-center items-center flex-col'>
+                          <div>
+
+                            <FaShoppingCart className="text-2xl text-black" />
+
+                          </div>
+                          <div >
+
+                            <p className='text-black text-[15px]'>
+                              Cart
+
+                            </p>
+                          </div>
+
+                        </div>
+
+                      </div>
 
 
-                  </Link>
+                    </Link>
+
+                    {/* ..................................wishlist .......................... */}
+
+
+                    <Link to="/wishlist" className="flex items-center lg:text-gray-300 hover:text-white p-1 mt-5 rounded-md text-md font-medium duration-300 ease-in-out transform hover:scale-110">
+                      <div className='p-2 relative right-2'>
+
+                        <span className="bg-red-500 rounded-full absolute top-0 right-0 text-xs px-2 py-1">
+                          {WishListItem.length}
+                        </span>
+
+                        <div className='flex justify-center items-center flex-col'>
+                          <div>
+
+                            <FaHeart className="text-xl text-black" />
+                          </div>
+                          <div >
+
+                            <p className='text-black text-[15px]'>
+                              Wishlist
+
+                            </p>
+                          </div>
+
+                        </div>
+
+
+                      </div>
+                    </Link>
+
+
+
+                  </>
+
+
                 )
               }
 
@@ -187,108 +267,8 @@ function Header() {
 
 
 
-            {
-              isRegisterMenuOpen && (
-                <div className="text-white  w-50 absolute top-20 right-8 border-2 border-teal-500 p-5 rounded-lg bg-black">
 
 
-                  <div className="flex flex-col">
-
-
-                    <div className="p-3">
-                      <Link to="/dashboard/user/profile">
-
-                        <span>Profile</span>
-                      </Link>
-
-
-                    </div>
-
-                    <div className="p-3">
-                      <Link to="/dashboard/user/order">
-                        <span>Order</span>
-                      </Link>
-
-
-                    </div>
-
-
-                    <div className="p-3">
-                      <Link to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"
-                        }`}>
-                        <span>Dashboard</span>
-                      </Link>
-
-
-                    </div>
-
-
-
-
-
-                    {/* Conditionally render login, signup, or logout links based on the availability of auth token */}
-                    {auth.token ? (
-                      <div>
-                        {/* Logout link */}
-                        <div className="p-3 ">
-                          {/* <span  className='cursor-pointer'> Logout</span> */}
-                          <FaSignOutAlt onClick={logOutHandle} className="inline-block mr-2" /> Logout
-                        </div>
-                      </div>
-                    ) : (
-                      <div>
-                        {/* Login link */}
-                        <div className="p-3">
-
-                          <Link to="/signin" className="block  text-white font-bold hover:text-white py-3"><FaUser className="inline-block mr-2" />Log In</Link>
-
-
-                        </div>
-
-                        {/* Signup link */}
-                        <div className="p-3">
-
-
-                          <Link to="/signup" className="block  text-white font-bold hover:text-white py-3">
-                            <FaUserPlus className="inline-block mr-2" />Sign Up</Link>
-
-
-
-
-                        </div>
-                      </div>
-                    )}
-
-                    {/* <div className="p-3">
-                      <Link to="/signin">
-                        <span>Login</span>
-                      </Link>
-
-
-                    </div>
-
-
-
-                    <div className="p-3">
-                      <Link to="/signup">
-                        <span>SignUp</span>
-                      </Link>
-                    </div> */}
-
-
-
-
-                  </div>
-
-
-
-                </div>
-              )
-            }
-
-            {/* <Link to="/signup" className="hidden md:block text-xl text-black py-3 inline-block transition duration-300 ease-in-out transform hover:scale-110">
-              <FaUserPlus className="inline-block mr-2" />
-            </Link> */}
 
 
 
@@ -299,7 +279,32 @@ function Header() {
           </div>
 
 
+
+
+
+
+
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -404,6 +409,121 @@ function Header() {
         </div >
 
       </nav >
+
+
+
+
+      {/* ..................toggle menu................ */}
+
+
+
+      {/* .................user dashboard profile and other............. */}
+
+      {
+        isRegisterMenuOpen && (
+          <div className="text-white  w-50 absolute top-20 right-8 border-2 border-teal-500 p-5 rounded-lg bg-black">
+
+
+            <div className="flex flex-col">
+
+
+              <div className="p-3">
+                <Link to="/dashboard/user/profile">
+
+                  <span>Profile</span>
+                </Link>
+
+
+              </div>
+
+              <div className="p-3">
+                <Link to="/dashboard/user/order">
+                  <span>Order</span>
+                </Link>
+              </div>
+
+              {auth?.user?.role == 1 && (
+                <>
+                  {/* All Product */}
+                  <div className="p-3">
+                    <Link to="/dashboard/admin/all-product">
+                      <span>All Product</span>
+                    </Link>
+                  </div>
+
+                  {/* Add Product */}
+                  <div className="p-3">
+                    <Link to="/dashboard/admin/create-product">
+                      <span>Add Product</span>
+                    </Link>
+                  </div>
+
+                  {/* Create Category */}
+                  <div className="p-3">
+                    <Link to="/dashboard/admin/create-category">
+                      <span>Create Category</span>
+                    </Link>
+                  </div>
+                </>
+              )}
+              {/* else condition */}
+              {auth?.user?.role !== 1 && (
+                <div className="p-3">
+                  <Link to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}>
+                    <span>Dashboard</span>
+                  </Link>
+                </div>
+              )}
+
+
+
+
+
+              {/* Conditionally render login, signup, or logout links based on the availability of auth token */}
+              {auth.token ? (
+                <div>
+                  {/* Logout link */}
+                  <div className="p-3 ">
+                    {/* <span  className='cursor-pointer'> Logout</span> */}
+                    <FaSignOutAlt onClick={logOutHandle} className="inline-block mr-2" /> Logout
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  {/* Login link */}
+                  <div className="p-3">
+
+                    <Link to="/signin" className="block  text-white font-bold hover:text-white py-3"><FaUser className="inline-block mr-2" />Log In</Link>
+
+
+                  </div>
+
+                  {/* Signup link */}
+                  <div className="p-3">
+
+
+                    <Link to="/signup" className="block  text-white font-bold hover:text-white py-3">
+                      <FaUserPlus className="inline-block mr-2" />Sign Up</Link>
+
+
+
+
+                  </div>
+                </div>
+              )}
+
+
+            </div>
+
+
+
+          </div>
+        )
+      }
+
+
+
+
     </>
   );
 }
