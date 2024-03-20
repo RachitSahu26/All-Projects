@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 import mycontext from '../Context/myContext';
+import { FaCartPlus, FaHeart } from 'react-icons/fa';
+import { addToWishlist } from '../Redux/Slice/WishlistSlice';
 
 function ProductDetail() {
     const params = useParams();
@@ -44,6 +46,13 @@ function ProductDetail() {
         }
     };
 
+
+    // ..................add to WishlistSlice........
+    const addToWishList = (Wishitem) => {
+        dispatch(addToWishlist(Wishitem))
+        toast.success("Added into Wishlist ")
+    }
+
     if (loading) {
         return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
     }
@@ -52,7 +61,7 @@ function ProductDetail() {
         <LayOut>
             <div className="container mx-auto p-2">
                 {/* Your product detail layout */}
-                
+
                 <div className="max-w-5xl sm:max-w-3xl lg:max-w-7xl p-5 mx-auto bg-white shadow-md rounded overflow-hidden">
                     {singleProduct && (
                         <div className=" flex flex-col sm:flex-row ">
@@ -77,12 +86,17 @@ function ProductDetail() {
 
                                     {/* .............cart and buy btn......... */}
                                     <div className="flex space-x-4 p-3">
-                                        <button onClick={() => addCartItem(singleProduct)} className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded">
-                                            Add to Cart
+
+                                        <button onClick={() => addCartItem(singleProduct)} className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded flex items-center">
+                                            <FaCartPlus className="mr-2" /> Add to Cart
                                         </button>
-                                        <button className="bg-white border-2 border-gray-500 text-black font-bold py-2 px-4 rounded">
-                                            Wishlist
+                                        <button onClick={() => addToWishList(singleProduct)} className="bg-white border-2 border-gray-500 text-black font-bold py-2 px-4 rounded flex items-center">
+                                            <FaHeart className="mr-2" /> Wishlist
                                         </button>
+
+
+
+
                                     </div>
 
                                 </div>
