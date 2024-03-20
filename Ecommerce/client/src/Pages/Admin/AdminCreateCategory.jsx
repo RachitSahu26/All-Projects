@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import LayOut from '../../Components/Layout/LayOut.jsx';
 import CreateCategoryForm from '../../Components/Form/CreateCategoryForm.jsx';
 import mycontext from '../../Context/myContext';
-import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
+// import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -140,11 +140,9 @@ function AdminCreateCategory() {
 
   return (
     <LayOut>
-      <div className='border-2 flex border-yellow-400 m-2 p-1 rounded'>
-        <div>
-          <Sidebar />
-        </div>
-        <div className='text-black w-[90%] justify-center flex-col border-3'>
+      <div className='border-2 flex bg-black border-yellow-400 m-2 p-5 justify-center rounded'>
+     
+        <div className='text-white w-[90%] justify-center flex-col border-3'>
           <h1>Create Category</h1>
           <CreateCategoryForm />
 
