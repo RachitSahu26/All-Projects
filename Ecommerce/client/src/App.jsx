@@ -26,6 +26,7 @@ import CategoryProduct from './Pages/CategoryProduct.jsx'
 import Cart from './Pages/Cart.jsx'
 import AllProduct from './Pages/Admin/AllProduct.jsx'
 import AdminProductDetail from './Pages/Admin/AdminProductDetail.jsx'
+import WishList from './Pages/WishList.jsx'
 
 function App() {
 
@@ -69,6 +70,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<WishList />} />
 
         </Routes>
       </Mystate>
