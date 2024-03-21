@@ -74,10 +74,10 @@ function Header() {
   return (
     <>
       {/* <nav className="bg-gray-800  max-w-2xl sm:max-w-7xl"> */}
-   
+
       <nav className="bg-white p-1 max-w-2xl sm:max-w-7xl lg:max-w-full sticky top-0 z-10 shadow-md">
 
-     {/* .............large screen ......... */}
+        {/* .............large screen ......... */}
         <div className="h-16 flex justify-between items-center m-5">
 
 
@@ -247,6 +247,10 @@ function Header() {
 
               {/* ....................user profile ......... */}
               {/* Render other navigation links */}
+
+
+
+
               <Link className=" text-xl text-black  inline-block transition duration-300 ease-in-out transform hover:scale-110">
 
                 <div className='flex mt-5   justify-center items-center flex-col  p-2'>
@@ -391,7 +395,7 @@ function Header() {
                       <Link
                         key={category._id}
                         to={`/category/${category.slug}`}
-                        className="block px-4 py-2 text-white hover:bg-gray-200"
+                        className="block px-4 py-2 text-white m-2 rounded hover:bg-gray-500"
                       >
                         {category.name}
                       </Link>
@@ -421,59 +425,66 @@ function Header() {
 
       {
         isRegisterMenuOpen && (
-          <div className="text-white  w-50 absolute top-20 right-8 border-2 border-teal-500 p-5 rounded-lg bg-black">
+          <div className="text-white  w-50 absolute top-240 right-8  border-2 border-teal-500 p-5 rounded-lg bg-black">
 
 
             <div className="flex flex-col">
 
+              {
+                auth?.token && (
+                  <>
 
-              <div className="p-3">
-                <Link to="/dashboard/user/profile">
+                    <div className="p-3 hover:bg-gray-600 rounded">
+                      <Link to="/dashboard/user/profile">
 
-                  <span>Profile</span>
-                </Link>
+                        <span>Profile</span>
+                      </Link>
 
 
-              </div>
+                    </div>
 
-              <div className="p-3">
-                <Link to="/dashboard/user/order">
-                  <span>Order</span>
-                </Link>
-              </div>
+                    <div className="p-3 hover:bg-gray-600 rounded">
+                      <Link to="/dashboard/user/order">
+                        <span>Order</span>
+                      </Link>
+                    </div>
+                  </>
+                )
+
+              }
+
+
+
+
 
               {auth?.user?.role == 1 && (
                 <>
                   {/* All Product */}
-                  <div className="p-3">
+                  <div className="p-3 hover:bg-gray-600 rounded">
+
                     <Link to="/dashboard/admin/all-product">
                       <span>All Product</span>
                     </Link>
                   </div>
 
                   {/* Add Product */}
-                  <div className="p-3">
+                  <div className="p-3 hover:bg-gray-600 rounded">
+
                     <Link to="/dashboard/admin/create-product">
                       <span>Add Product</span>
                     </Link>
                   </div>
 
                   {/* Create Category */}
-                  <div className="p-3">
+                  <div className="p-3 hover:bg-gray-600 rounded">
+
                     <Link to="/dashboard/admin/create-category">
                       <span>Create Category</span>
                     </Link>
                   </div>
                 </>
               )}
-              {/* else condition */}
-              {auth?.user?.role !== 1 && (
-                <div className="p-3">
-                  <Link to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"}`}>
-                    <span>Dashboard</span>
-                  </Link>
-                </div>
-              )}
+              
 
 
 
