@@ -1,17 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react'
 import LayOut from '../Components/Layout/LayOut'
-import Filter from '../Components/Filter/Filter.jsx';
-import ProductCard from '../Components/Product Card/ProductCard.jsx';
 import mycontext from '../Context/myContext.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Spinner from '../Components/Spinner/Spinner.jsx';
+import { Carousel } from 'antd';
+// import ProductCard from '../Components/Product Card/ProductCard.jsx'
+// import  Filter from '../Components/Filter/Filter.jsx'
 // import SmallFilter from '../Components/Filter/SmallFilter.jsx';
 // import SmallFilter from '../Components/Filter/SmallFilter.jsx';
 // import SmallFilter from '../Components/Filter/SmallFilter.jsx';
 // import SmallFilter from '../Components/Filter/SmallFilter.jsx';
 
 function Home(props) {
+
     const contextData = useContext(mycontext);
     const { getAllProduct, loading } = contextData
 
@@ -97,60 +99,80 @@ function Home(props) {
     return (
         <div>
             <LayOut>
-                <div className='bg-black flex flex-col sm:flex-row'>
+                <div className="bg-black  flex flex-col">
+                    {/* Banner Carousel */}
 
-                    <div className='border-2 sm:w-1/4 hidden sm:block sticky top-0'>
-
-
-                        <Filter
-                            FilterHandle={filterHandle}
-                            FiterProducts={fiterProducts}
-                            HandleCategoryChange={handleCategoryChange}
-                            Radio={radio}
-                            setRadio={setRadio}
-
-                        />
-
-
+                    <div className='border-2  h-[32rem]  rounded-xl w-full mx-auto '>
+                        <Carousel className="rounded-xl">
+                            <img
+                                src='https://media.istockphoto.com/id/1459477634/photo/organization-shelves-with-shoes-organized-and-lined-up.jpg?s=2048x2048&w=is&k=20&c=jXgUO8USRnduIeUpja5Od0x90QPjxlqlnhdHe3t2C9M=' alt="image 1"
+                                className="  h-[32rem] p-2 w-full object-cover rounded-xl"
+                            />
+                            <img
+                                src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
+                                alt="image 2"
+                                className=" h-[32rem]  p-2 w-full object-cover rounded-xl"
+                            />
+                            <img
+                                src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
+                                alt="image 3"
+                                className=" h-[32rem]  p-2 w-full object-cover rounded-xl"
+                            />
+                        </Carousel>
                     </div>
 
 
-
-
-
-                    {/* 
-                    <div className='block sm:hidden'>
-                        <div className='text-white bg-red-300 block sm:hidden text-center text-4xl' onClick={handleFilterClick} >
-                            {
-                                showFilter ? (<button className="sm:hidden">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fillRule="evenodd" d="M6.293 6.293a1 1 0 0 1 1.414 0L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 1 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 0-1.414z" clipRule="evenodd" />
-                                    </svg>
-                                </button>) : (
-                                    <h1>
-                                        filter
-                                    </h1>
-
-                                )
-
-                            }
+                    <div className=" p-5 rounded-xl flex justify-center">
+                        {/* Content for boys */}
+                        <div className="border-2 rounded-xl bg-white m-2">
+                            {/* <h2 className="text-center text-xl font-semibold">Boys</h2> */}
+                            {/* Add content specific to boys here */}
+                            <img className=' rounded-xl' src="https://images.unsplash.com/photo-1465877783223-4eba513e27c6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGtpZHMlMjBzaG9lfGVufDB8fDB8fHww" alt="Boys" />
                         </div>
 
-                        {showFilter && <SmallFilter />}
-                    </div>
-
-
- */}
-
-
-
-                    <div className='border-2 sm:w-3/4 flex justify-center'>
-                        <ProductCard FilterProducts={fiterProducts} />
+                        {/* Content for girls */}
+                        <div className="border-2 rounded-xl bg-white  m-2">
+                            {/* <h2 className="text-center text-xl font-semibold">Girls</h2> */}
+                            {/* Add content specific to girls here */}
+                            <img className=' rounded-xl' src="https://images.unsplash.com/photo-1463453091185-61582044d556?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z2lybHMlMjBzaG9lfGVufDB8fDB8fHww" alt="Girls" />
+                        </div>
                     </div>
 
                 </div>
-            </LayOut>
-        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </LayOut >
+        </div >
     )
 }
 

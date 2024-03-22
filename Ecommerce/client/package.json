@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.4",
     "@reduxjs/toolkit": "^2.2.1",
+    "@tailwindcss/ui": "^0.7.2",
     "antd": "^5.14.2",
     "axios": "^1.6.7",
     "braintree-web-drop-in-react": "^1.2.1",

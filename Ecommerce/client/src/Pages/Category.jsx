@@ -15,7 +15,7 @@ const Category = () => {
       <div className="container">
         <div className="row">
           {categories.map((c) => (
-            <div className="col-md-6 bg-red-500 mt-5 mb-3 gx-3 gy-3" key={c._id}>
+            <div className="col-md-6  mt-5 mb-3 gx-3 gy-3" key={c._id}>
               
               <Link to={`/category/${c.slug}`} className="btn ">
                 {c.name}
