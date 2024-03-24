@@ -1,27 +1,2 @@
 
-                <div className='border-2 sm:w-1/4 hidden sm:block sticky top-0'>
-
-
-                    <Filter
-                        FilterHandle={filterHandle}
-                        FiterProducts={fiterProducts}
-                        HandleCategoryChange={handleCategoryChange}
-                        Radio={radio}
-                        setRadio={setRadio}
-
-                    />
-
-
-
-
-
-
-                    <div className='border-2 sm:w-3/4   border-yellow-500 flex justify-center'>
-                        {/* <  /> */}
-                        <ProductCard FilterProducts={fiterProducts} />
-                    </div>
-
-
-
-
-                </div>
+               

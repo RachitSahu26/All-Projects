@@ -253,7 +253,7 @@ function Header() {
 
               <Link className=" text-xl text-black  inline-block transition duration-300 ease-in-out transform hover:scale-110">
 
-                <div className='flex mt-5   justify-center items-center flex-col  p-2'>
+                <div className='flex mt-5 justify-center items-center flex-col  p-2'>
 
                   <div className="w-9 h-9 md:w-10 md:h-10 rounded-full  bg-red-200 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-300 flex items-center justify-center">
                     <FaUser className="text-xl md:text-lg" onClick={toggleRegistationMenu} />
@@ -425,7 +425,7 @@ function Header() {
 
       {
         isRegisterMenuOpen && (
-          <div className="text-white  w-50 absolute top-240 right-8  border-2 border-teal-500 p-5 rounded-lg bg-black">
+          <div className="text-white z-10 w-50 absolute top-240 right-8  border-2 border-teal-500 p-5 rounded-lg bg-black">
 
 
             <div className="flex flex-col">
