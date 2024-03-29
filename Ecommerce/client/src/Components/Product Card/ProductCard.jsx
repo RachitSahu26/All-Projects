@@ -4,41 +4,50 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
-import { FaHeart } from 'react-icons/fa';
-import { addToWishlist } from '../../Redux/Slice/WishlistSlice';
+import { FaCartPlus, FaShoppingCart } from 'react-icons/fa';
 
 function ProductCard({ FilterProducts }) {
     const contextData = useContext(mycontext);
     const { allProduct, categories, auth } = contextData;
-    // const navigate = useNavigate()
-    // Combine allProduct and filterProducts into a single array
+
     const combinedProducts = FilterProducts.length > 0 ? FilterProducts : allProduct;
 
     const cartItem = useSelector((state) => state.cart);
 
+    const isItemInCart = (item) => {
+        return cartItem.some(cartItem => cartItem._id === item._id);
+    };
+
     const dispatch = useDispatch()
 
- 
+
     const navigate = useNavigate();
 
-    const addCartItem = (product) => {
-        if (auth?.token) {
+    // const addCartItem = (product) => {
+    //     if (auth?.token) {
 
-            dispatch(addToCart(product));
-            toast.success("Cart Successfully added")
+    //         dispatch(addToCart(product));
+    //         toast.success("Cart Successfully added")
 
+    //     } else {
+    //         navigate('/signin')
+    //     }
+    // }
+
+
+
+
+
+    const handleButtonClick = (item) => {
+        if (isItemInCart(item)) {
+            // Redirect to cart page
+            navigate('/cart');
         } else {
-            navigate('/signin')
+            // Add item to cart
+            dispatch(addToCart(item));
+            toast.success("Product Added");
         }
-    }
-
-
-    const addToWishlistHandler = (product) => {
-        dispatch(addToWishlist(product));
-        toast.success("Wishlist Successfully added")
-       
-    }
-
+    };
 
 
 
@@ -62,13 +71,27 @@ function ProductCard({ FilterProducts }) {
                         <p className="mt-1 text-lg text-black line-clamp-3">${item.price}</p>
 
                         <div className="flex justify-center mt-3 m-1">
-                            <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mr-2">
-                                Add to Cart
+
+                            <button
+                                onClick={() => handleButtonClick(item)}
+                                className="bg-black transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-110 hover:shadow-xl text-white font-semibold py-2 px-4 rounded-lg flex items-center"
+                            >
+                                {isItemInCart(item) ? (
+                                    <FaShoppingCart className="mr-2" />
+                                ) : (
+                                    <FaCartPlus className="mr-2" />
+                                )}
+                                <span style={{ color: isItemInCart(item) ? 'green' : 'white' }}>
+                                    {isItemInCart(item) ? 'Go to Cart' : 'Add to Cart'}
+                                </span>
                             </button>
 
-                            <button onClick={() => addToWishlistHandler(item)} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                                <FaHeart />
-                            </button>
+
+
+
+
+
+                    
 
 
                         </div>

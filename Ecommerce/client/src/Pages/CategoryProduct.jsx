@@ -4,7 +4,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios';
 import ProductCard from '../Components/Product Card/ProductCard';
 import Spinner from '../Components/Spinner/Spinner';
-import { FaHeart } from 'react-icons/fa';
+import { FaCartPlus, FaHeart, FaShoppingCart } from 'react-icons/fa';
+import { addToCart } from '../Redux/Slice/CartSlice';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
 function CategoryProduct() {
 
@@ -15,7 +18,15 @@ function CategoryProduct() {
     const navigate = useNavigate();
 
     const params = useParams();
+    const dispatch = useDispatch()
+ 
+    const cartItem = useSelector((state) => state.cart);
 
+    const isItemInCart = (item) => {
+        return cartItem.some(cartItem => cartItem._id === item._id);
+    };
+    
+    
     const categoryBaseProduct = async () => {
         try {
             const { data } = await axios.get(`http://localhost:3000/api/product/category-base-product/${params.slug}`)
@@ -53,21 +64,23 @@ function CategoryProduct() {
     }
 
 
-
-
-    const addToWishlistHandler = () => {
-
-    }
-    const addCartItem = () => {
-
-    }
+    const handleButtonClick = (item) => {
+        if (isItemInCart(item)) {
+            // Redirect to cart page
+            navigate('/cart');
+        } else {
+            // Add item to cart
+            dispatch(addToCart(item));
+            toast.success("Product Added");
+        }
+    };
 
 
     return (
         <LayOut>
 
 
-    
+
 
             <div className='border-2 bg-black  h-[50%] p-2'>
                 <h2 className='text-white text-bold text-center text-2xl p-5'>Category:{category.name} </h2>
@@ -83,7 +96,7 @@ function CategoryProduct() {
                                     <Link to={`/product/${item.slug}`}>
                                         <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
                                     </Link>
-                                
+
                                 </div>
                                 <div>
                                     <h3 className="text-lg font-bold text-black">{item.name}</h3>
@@ -91,9 +104,20 @@ function CategoryProduct() {
                                     <p className="mt-1 text-lg text-black line-clamp-3">${item.price}</p>
 
                                     <div className="flex justify-center mt-3 m-1">
-                                        <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded mr-2">
-                                            Add to Cart
+                                        <button
+                                            onClick={() => handleButtonClick(item)}
+                                            className="bg-black transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-110 hover:shadow-xl text-white font-semibold py-2 px-4 rounded-lg flex items-center"
+                                        >
+                                            {isItemInCart(item) ? (
+                                                <FaShoppingCart className="mr-2" />
+                                            ) : (
+                                                <FaCartPlus className="mr-2" />
+                                            )}
+                                            <span style={{ color: isItemInCart(item) ? 'green' : 'white' }}>
+                                                {isItemInCart(item) ? 'Go to Cart' : 'Add to Cart'}
+                                            </span>
                                         </button>
+
 
                                         <button onClick={() => addToWishlistHandler(item)} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
                                             <FaHeart />

@@ -2,7 +2,7 @@ import express from "express";
 
 
 import { requireSignIn } from "../middleware/SignInRequrie.js";
-import { braintreePaymentController, braintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, productPhotoController, updateProductController } from "../controllers/productController.js";
+import { WishListAddController, WishListGetItemController, WishListRemoveController, braintreePaymentController, braintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, productPhotoController, updateProductController } from "../controllers/productController.js";
 import braintree from "braintree";
 
 import formidable from 'express-formidable';
@@ -52,6 +52,23 @@ router.get("/braintree/token", braintreeTokenController);
 
 // ....................payment  ................
 router.post("/braintree/payment", requireSignIn, braintreePaymentController);
+
+
+
+
+// ........................wishlist  ADD ...............
+router.post('/addWishlist',WishListAddController)
+
+
+
+// ........................wishlist  Remove...............
+router.post('/removeWishlist',WishListRemoveController)
+
+
+
+// .......................get wishlist ...............
+router.get('/getWishlist',WishListGetItemController)
+
 
 
 export default router;

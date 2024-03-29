@@ -8,12 +8,14 @@ import { FaShoppingCart, FaBars, FaTimes, FaList, FaHome, FaUser, FaUserPlus, Fa
 function Header() {
   const navigate = useNavigate();
   const ContextData = useContext(mycontext);
+    // ...............cart from redux........
   const cartItem = useSelector((state) => state.cart);
-  const WishListItem = useSelector((state) => state.wishList);
-  console.log(WishListItem)
   const { auth, setAuth, categories, getAllCategory } = ContextData;
 
-
+  // ...............wishlist from redux........
+  const wishlistItems = useSelector(state => state.wishList.items);
+ 
+console.log(wishlistItems)
 
 
 
@@ -210,7 +212,7 @@ function Header() {
                       <div className='p-2 relative right-2'>
 
                         <span className="bg-red-500 rounded-full absolute top-0 right-0 text-xs px-2 py-1">
-                          {WishListItem.length}
+                          {wishlistItems.length}
                         </span>
 
                         <div className='flex justify-center items-center flex-col'>
@@ -484,7 +486,7 @@ function Header() {
                   </div>
                 </>
               )}
-              
+
 
 
 
