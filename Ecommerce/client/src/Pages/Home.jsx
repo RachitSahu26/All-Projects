@@ -9,6 +9,7 @@ import Filter from '../Components/Filter/Filter.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaCartPlus, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
+// import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
 import { addToCart } from '../Redux/Slice/CartSlice.js';
 import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
 
@@ -19,20 +20,36 @@ function Home(props) {
     const [fiterProducts, setFilterProducts] = useState([]);
     const [radio, setRadio] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState([]);
-    // ................cartitem from redux....
-    const cartItem = useSelector((state) => state.cart);
-
-    // ...............wishlist from redux........
-    const wishlistItems = useSelector(state => state.wishList.items);
-
-
-
-    const isItemInCart = (item) => {
-        return cartItem.some(cartItem => cartItem._id === item._id);
-    };
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const cartItems = useSelector((state) => state.cart || []);
+    const isItemInCart = (item) => {
+        return cartItems.some(cartItem => cartItem._id === item._id);
+    };
+
+    const wishlistItems = useSelector(state => state.wishlist.wishlistItems || []); // Extracting wishlist items from Redux store
+    const isItemInWishlist = (item) => {
+        return wishlistItems.some(wishItem => wishItem._id === item._id);
+    };
+
+    const handleButtonClick = (item) => {
+        if (isItemInCart(item)) {
+            navigate('/cart');
+        } else {
+            dispatch(addToCart(item));
+            toast.success("Product Added");
+        }
+    }
+
+    const wishlistHandler = (item) => {
+        if (isItemInWishlist(item)) {
+            dispatch(removeFromWishlist(item)); // Remove item from wishlist if already in wishlist
+        } else {
+            dispatch(addToWishlist(item)); // Add item to wishlist if not in wishlist
+        }
+    };
 
     const handleCategoryChange = (e) => {
         setSelectedCategory(e.target.value);
@@ -44,7 +61,6 @@ function Home(props) {
                 category: selectedCategory,
                 radio: radio
             });
-
             setFilterProducts(data?.products);
             toast.success("product filtered");
         } catch (error) {
@@ -71,26 +87,6 @@ function Home(props) {
             </div>
         )
     }
-
-
-    const wishlistHandler = async (item) => {
-        const itemId = item._id;
-        const isItemInWishlist = wishlistItems[itemId];
-
-        try {
-            if (isItemInWishlist) {
-                await axios.post('http://localhost:3000/api/product/removeWishlist', { itemId });
-                 console.log(itemId)
-                dispatch(removeFromWishlist(itemId));
-            } else {
-                await axios.post('http://localhost:3000/api/product/addWishlist', { itemId });
-                dispatch(addToWishlist(itemId));
-            }
-        } catch (error) {
-            console.error('Error:', error.message);
-            toast.error("Failed to add/remove item from wishlist");
-        }
-    };
 
     const imageUrls = [
         'https://media.istockphoto.com/id/1459477634/photo/organization-shelves-with-shoes-organized-and-lined-up.jpg?s=2048x2048&w=is&k=20&c=jXgUO8USRnduIeUpja5Od0x90QPjxlqlnhdHe3t2C9M=',
@@ -130,7 +126,7 @@ function Home(props) {
                     </div>
                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
                         {allProduct.map((item, index) => (
-                            <div key={item._id} className=" sm:w-[85%] bg-white   border-2 border-green-500 h-[95%] max-h-[auto] m-2 p-2 border-gray-500 rounded-lg shadow relative">
+                            <div key={item._id} className=" sm:w-[85%] bg-white   border-2  h-[95%] max-h-[auto] m-2 p-2 border-gray-500 rounded-lg shadow relative">
                                 <Link to={`/product/${item.slug}`}>
                                     <img className="rounded-lg item-center" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
                                 </Link>
@@ -138,37 +134,35 @@ function Home(props) {
                                     <h3 className="text-lg  font-bold text-black">{item.name}</h3>
                                     <p className="mt-1 text-xs text-gray-700">${item.description.slice(0, 30)}${item.description.length > 30 ? '...' : ''}</p>
                                     <p className="mt-1 text-lg text-black line-clamp-3">${item.price}</p>
-                                    <div className="flex  justify-evenly mt-3 m-1">
-                                       
-                                       
+                                    <div className="flex flex-col  sm:flex-row justify-evenly mt-3 m-1">
                                         <button
                                             onClick={() => handleButtonClick(item)}
-                                            className="bg-black transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-110 hover:shadow-xl text-white font-semibold sm:py-2 py-1 px-4 rounded-lg flex items-center"
+                                            className="bg-black transition border-2  border-teal-300 duration-300 ease-in-out transform hover:scale-110 hover:shadow-xl text-white font-semibold sm:py-5 py-1 px-5 rounded-lg flex items-center"
                                         >
                                             {isItemInCart(item) ? (
                                                 <FaShoppingCart className="mr-2" />
                                             ) : (
                                                 <FaCartPlus className="mr-2" />
                                             )}
-                                            <span  style={{ 
-                                                color: isItemInCart(item) ? 'green' : 'white', 
-                                                fontSize:'10px'
-                                                }}>
+                                            <span style={{
+                                                color: isItemInCart(item) ? 'green' : 'white',
+                                                fontSize: '15px'
+                                            }}>
                                                 {isItemInCart(item) ? 'Go to Cart' : 'Add to Cart'}
                                             </span>
                                         </button>
-                                      
-                                      
-                                      
-                                       <button className='p-1 '>
-
-                                            <FaHeart
-                                                className={`text-gray-500 cursor-pointer ${wishlistItems[item._id] ? 'text-red-500' : ''}`}
-                                                onClick={() => wishlistHandler(item)}
-                                                style={{ fontSize: '1.5rem' }} // Adjust the size of the wishlist icon
-                                            />
+                                        <button
+                                            onClick={() => wishlistHandler(item)}
+                                            className="bg-black transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold sm:py-5 py-1 px-4 rounded-lg flex items-center"
+                                        >
+                                            <FaHeart className={`mr-1 ${isItemInWishlist(item) ? 'text-red-500' : ''}`} /> {/* Toggling red color */}
+                                            <span style={{
+                                                color: isItemInWishlist(item) ? 'red' : 'white',
+                                                fontSize: '15px'
+                                            }}>
+                                                {isItemInWishlist(item) ? 'Whislisted' : 'Wishlist'}
+                                            </span>
                                         </button>
-
                                     </div>
                                 </div>
                             </div>
