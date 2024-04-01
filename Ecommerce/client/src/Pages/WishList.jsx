@@ -6,8 +6,9 @@ import mycontext from '../Context/myContext.jsx';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { addToCart } from '../Redux/Slice/CartSlice.js';
-import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
+// import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
 import axios from 'axios';
+import { removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
 
 const WishList = () => {
     const contextData = useContext(mycontext);
@@ -16,21 +17,9 @@ const WishList = () => {
     const dispatch = useDispatch();
 
     // Get wishlist items from Redux store
-    const wishlistItems = useSelector(state => state.wishList);
-    console.log(wishlistItems);
 
-    // Load wishlist items from API when component mounts
-    useEffect(() => {
-        const fetchWishlist = async () => {
-            try {
-                const { data } = await axios.get('http://localhost:3000/api/product/getWishlist');
-                dispatch(addToWishlist(data));
-            } catch (error) {
-                console.error('Error fetching wishlist:', error);
-            }
-        };
-        fetchWishlist();
-    }, [dispatch]);
+    const wishlistItems = useSelector(state => state.wishlist.wishlistItems || []);
+
 
     // Save wishlist items to localStorage when they change
     useEffect(() => {
@@ -42,21 +31,17 @@ const WishList = () => {
             dispatch(addToCart(p));
             toast.success("Cart Successfully added");
         } else {
-            navigate('/signin'); 
+            navigate('/signin');
         }
     };
 
-    const wishlistHandler = (item) => {
-        const itemId = item._id;
-        const isItemInWishlist = wishlistItems[itemId];
-        if (isItemInWishlist) {
-            dispatch(removeFromWishlist(itemId));
-            toast.success("Item removed from wishlist");
-        } else {
-            dispatch(addToWishlist(item));
-            toast.success("Item added to wishlist");
-        }
-    };
+
+
+    const removeWishItem=(item)=>{
+        dispatch(removeFromWishlist(item));
+    }
+  
+
 
     return (
         <LayOut>
@@ -78,13 +63,16 @@ const WishList = () => {
                                 <p className="text-gray-600">{item.description}</p>
                                 <div className="mt-4 flex justify-between items-center">
                                     <span className="text-gray-700">${item.price}</span>
-                                    <div className='flex p-3 justify-between border-2 border-yellow-400'>
-                                        <div>
-                                            <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-[10px] p-2 text-white font-semibold  rounded">
+                                    <div className='flex p-3 justify-between'>
+                                        <div className=' flex  flex-col sm:flex-row'>
+                                            <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-1xl p-2 text-white font-semibold  duration-300 ease-in-out transform hover:scale-110   rounded">
                                                 Add to Cart
                                             </button>
+                                            <button onClick={() => removeWishItem(item._id)} className="bg-black mt-3 hover:bg-red-600 text-1xl p-2 text-white font-semibold   duration-300 ease-in-out transform hover:scale-110  rounded">
+                                                Remvoe to wishlist
+                                            </button>
                                         </div>
-                                      
+
                                     </div>
                                 </div>
                             </div>
