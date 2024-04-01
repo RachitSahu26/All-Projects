@@ -9,13 +9,13 @@ function Header() {
   const navigate = useNavigate();
   const ContextData = useContext(mycontext);
     // ...............cart from redux........
-  const cartItem = useSelector((state) => state.cart);
+
+  const cartItems = useSelector((state) => state.cart || []);
   const { auth, setAuth, categories, getAllCategory } = ContextData;
 
   // ...............wishlist from redux........
-  const wishlistItems = useSelector(state => state.wishList.items);
- 
-console.log(wishlistItems)
+  const wishlistItems = useSelector(state => state.wishlist.wishlistItems || []);
+// console.log(wishlistItems)
 
 
 
@@ -181,7 +181,7 @@ console.log(wishlistItems)
 
                       <div className='p-2  relative right-2   '>
                         <span className="bg-red-500 rounded-full absolute top-0 right-0   text-xs px-2 py-1">
-                          {cartItem.length}
+                          {cartItems.length}
                         </span>
 
                         <div className='flex justify-center items-center flex-col'>
@@ -213,6 +213,7 @@ console.log(wishlistItems)
 
                         <span className="bg-red-500 rounded-full absolute top-0 right-0 text-xs px-2 py-1">
                           {wishlistItems.length}
+                        
                         </span>
 
                         <div className='flex justify-center items-center flex-col'>
