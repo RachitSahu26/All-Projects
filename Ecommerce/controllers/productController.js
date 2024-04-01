@@ -4,7 +4,6 @@ import productModel from '../models/productModel.js';
 import slugify from 'slugify';
 import braintree from 'braintree';
 import orderModel from '../models/orderModel.js';
-import wishlistModel from '../models/wishListItem.js'
 import dotenv from "dotenv";
 // import gateway from 'path/to/braintree';
 import fs from 'fs'
@@ -352,60 +351,3 @@ export const braintreePaymentController = async (req, res) => {
 
 
 
-
-// ............WishListController................
-
-// Route to add an item to the wishlist
-export const WishListAddController = async (req, res) => {
-
-    try {
-        const { itemId } = req.body;
-        // Add logic to add the item to the wishlist
-        // Example:
-        const wishlistItem = await wishlistModel.create({ itemId });
-        res.status(200).json({ success: true, message: 'Item added to wishlist' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-
-}
-
-
-// Wishlis get item
-export const WishListGetItemController = async (req, res) => {
-
-    try {
-        const wishList = await wishlistModel.find({})
-
-        res.status(200).send({
-            success: true,
-
-            message: "ALlWishlistItem  ",
-            wishList,
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({
-            success: false,
-            message: "Erorr in getting wishlist item",
-            error: error.message,
-        });
-    }
-}
-
-// Route to remove an item from the wishlist
-export const WishListRemoveController = async (req, res) => {
-
-    try {
-        const { itemId } = req.params;
-        // Add logic to remove the item from the wishlist
-
-        await wishlistModel.findOneAndDelete({ itemId });
-        res.status(200).json({ success: true, message: 'Item removed from wishlist' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
-    }
-
-}
