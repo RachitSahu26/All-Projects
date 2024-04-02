@@ -46,8 +46,11 @@ function Home(props) {
     const wishlistHandler = (item) => {
         if (isItemInWishlist(item)) {
             dispatch(removeFromWishlist(item)); // Remove item from wishlist if already in wishlist
+            toast.success("Removed Wishlist");
+       
         } else {
             dispatch(addToWishlist(item)); // Add item to wishlist if not in wishlist
+            toast.success("Wishlisted");
         }
     };
 

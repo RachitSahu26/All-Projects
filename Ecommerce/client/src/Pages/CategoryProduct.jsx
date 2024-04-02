@@ -8,6 +8,7 @@ import { FaCartPlus, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { addToCart } from '../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
+import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice';
 
 function CategoryProduct() {
 
@@ -19,14 +20,26 @@ function CategoryProduct() {
 
     const params = useParams();
     const dispatch = useDispatch()
- 
+
     const cartItem = useSelector((state) => state.cart);
 
     const isItemInCart = (item) => {
         return cartItem.some(cartItem => cartItem._id === item._id);
     };
-    
-    
+
+
+
+
+
+    // ................wishlist ..............
+    const wishlistItems = useSelector(state => state.wishlist.wishlistItems || []); // Extracting wishlist items from Redux store
+    const isItemInWishlist = (item) => {
+        return wishlistItems.some(wishItem => wishItem._id === item._id);
+    };
+
+
+
+
     const categoryBaseProduct = async () => {
         try {
             const { data } = await axios.get(`http://localhost:3000/api/product/category-base-product/${params.slug}`)
@@ -76,6 +89,17 @@ function CategoryProduct() {
     };
 
 
+    // ......................wishlist Handler.........
+    const wishlistHandler = (item) => {
+        if (isItemInWishlist(item)) {
+            dispatch(removeFromWishlist(item)); // Remove item from wishlist if already in wishlist
+            toast.success("Item removed from Wishlist" );
+        } else {
+            dispatch(addToWishlist(item)); // Add item to wishlist if not in wishlist
+            toast.success("Wishlisted");
+        }
+    };
+
     return (
         <LayOut>
 
@@ -103,7 +127,7 @@ function CategoryProduct() {
                                     <p class="mt-1 text-xs text-gray-700">${item.description.slice(0, 30)}${item.description.length > 30 ? '...' : ''}</p>
                                     <p className="mt-1 text-lg text-black line-clamp-3">${item.price}</p>
 
-                                    <div className="flex justify-center mt-3 m-1">
+                                    <div className="flex flex-col  sm:flex-row justify-evenly mt-3 m-1">
                                         <button
                                             onClick={() => handleButtonClick(item)}
                                             className="bg-black transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-110 hover:shadow-xl text-white font-semibold py-2 px-4 rounded-lg flex items-center"
@@ -119,8 +143,22 @@ function CategoryProduct() {
                                         </button>
 
 
-                                        <button onClick={() => addToWishlistHandler(item)} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-                                            <FaHeart />
+
+
+
+
+                                        {/* .....................wishlist btn.............. */}
+                                        <button
+                                            onClick={() => wishlistHandler(item)}
+                                            className="bg-black transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold py-3 px-4 rounded-lg flex items-center"
+                                        >
+                                            <FaHeart className={`mr-1 ${isItemInWishlist(item) ? 'text-red-500' : ''}`} /> {/* Toggling red color */}
+                                            <span style={{
+                                                color: isItemInWishlist(item) ? 'red' : 'white',
+                                                fontSize: '15px'
+                                            }}>
+                                                {isItemInWishlist(item) ? 'Whislisted' : 'Wishlist'}
+                                            </span>
                                         </button>
 
 
