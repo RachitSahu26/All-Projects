@@ -75,14 +75,14 @@ const ProductFrom = () => {
         <div className="md:w-1/2 mx-auto   p-3   mt-8">
             <h2 className="text-xl font-semibold mb-4">Add Product</h2>
             <div className="space-y-4  text-white  border-2 border-teal-400 p-4 rounded-xl">
-                <div>
+                <div >
                     <label className="block">Name:</label>
                     <input
                         type="text"
                         name="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full border rounded px-3 py-2"
+                        className="w-full border rounded px-3 py-2 text-black"
                     />
                 </div>
 
@@ -93,7 +93,7 @@ const ProductFrom = () => {
                         name="price"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
-                        className="w-full border rounded px-3 py-2"
+                        className="w-full border rounded px-3 py-2 text-black"
                     />
                 </div>
 
@@ -103,7 +103,7 @@ const ProductFrom = () => {
                         name="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full border rounded px-3 py-2"
+                        className="w-full border rounded px-3 py-2 text-black"
                     />
                 </div>
 
@@ -114,7 +114,7 @@ const ProductFrom = () => {
                         name="quantity"
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
-                        className="w-full border rounded px-3 py-2"
+                        className="w-full border rounded px-3 py-2 text-black"
                     />
                 </div>
 
@@ -125,19 +125,21 @@ const ProductFrom = () => {
                         name="shipping"
                         checked={shipping}
                         onChange={(e) => setShipping(e.target.checked)}
+                        className='text-black'
                     />
                 </div>
                 {/* ...........................image adding............... */}
 
                 <div className="mb-3">
-                    <label className="border border-gray-300 bg-white rounded-md p-2 block text-center cursor-pointer">
+                    <label className="border border-gray-300 bg-green-400 text-black rounded-md p-2 block text-center cursor-pointer">
+               
                         {photo ? photo.name : "Upload Photo"}
                         <input
                             type="file"
                             name="photo"
                             accept="image/*"
                             onChange={(e) => setPhoto(e.target.files[0])}
-                            className="hidden"
+                            className="hidden text-black"
                         />
                     </label>
                 </div>
