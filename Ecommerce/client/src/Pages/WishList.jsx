@@ -4,7 +4,7 @@ import { FaHeart } from 'react-icons/fa';
 import LayOut from '../Components/Layout/LayOut.jsx'
 import mycontext from '../Context/myContext.jsx';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { addToCart } from '../Redux/Slice/CartSlice.js';
 // import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
 import axios from 'axios';
@@ -37,23 +37,26 @@ const WishList = () => {
 
 
 
-    const removeWishItem=(item)=>{
+    const removeWishItem = (item) => {
         dispatch(removeFromWishlist(item));
     }
-  
+
 
 
     return (
         <LayOut>
-            <div className="container mx-auto px-4 py-8">
-                <h2 className="text-2xl text-center font-bold mb-4"> My Wishlist</h2>
+            <div className="container mx-auto bg-black px-4 py-8">
+                <h2 className="text-2xl  text-white text-center font-bold mb-4"> My Wishlist</h2>
                 {Object.values(wishlistItems).length === 0 ? (
                     <p className="text-center text-gray-600 text-xl font-semibold mt-8">Your wishlist is empty.</p>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
                         {Object.values(wishlistItems).map((item, index) => (
                             <div key={index} className="bg-white rounded-lg shadow-md p-4">
-                                <img src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} className="w-full h-48 object-cover mb-4" />
+                              <Link to={`/product/${item.slug}`}>
+                                    <img src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} className="w-full h-48 object-cover mb-4" />
+                                </Link>
+
                                 <div className="flex justify-between items-center">
                                     <h3 className="text-lg font-semibold">{item.name}</h3>
                                     <button className="text-red-500 hover:text-red-600 focus:outline-none" onClick={() => wishlistHandler(item)}>
@@ -64,11 +67,11 @@ const WishList = () => {
                                 <div className="mt-4 flex justify-between items-center">
                                     <span className="text-gray-700">${item.price}</span>
                                     <div className='flex p-3 justify-between'>
-                                        <div className=' flex  flex-col sm:flex-row'>
+                                        <div className=' flex  flex-col sm:flex-row '>
                                             <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-1xl p-2 text-white font-semibold  duration-300 ease-in-out transform hover:scale-110   rounded">
                                                 Add to Cart
                                             </button>
-                                            <button onClick={() => removeWishItem(item._id)} className="bg-black mt-3 hover:bg-red-600 text-1xl p-2 text-white font-semibold   duration-300 ease-in-out transform hover:scale-110  rounded">
+                                            <button onClick={() => removeWishItem(item._id)} className="bg-black mt-3 sm:mt-0 hover:bg-red-600 text-1xl p-2 text-white font-semibold sm:ml-3  duration-300 ease-in-out transform hover:scale-110  rounded">
                                                 Remvoe to wishlist
                                             </button>
                                         </div>
