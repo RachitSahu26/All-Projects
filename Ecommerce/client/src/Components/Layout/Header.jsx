@@ -8,14 +8,14 @@ import { FaShoppingCart, FaBars, FaTimes, FaList, FaHome, FaUser, FaUserPlus, Fa
 function Header() {
   const navigate = useNavigate();
   const ContextData = useContext(mycontext);
-    // ...............cart from redux........
+  // ...............cart from redux........
 
   const cartItems = useSelector((state) => state.cart || []);
   const { auth, setAuth, categories, getAllCategory } = ContextData;
 
   // ...............wishlist from redux........
   const wishlistItems = useSelector(state => state.wishlist.wishlistItems || []);
-// console.log(wishlistItems)
+  // console.log(wishlistItems)
 
 
 
@@ -213,7 +213,7 @@ function Header() {
 
                         <span className="bg-red-500 rounded-full absolute top-0 right-0 text-xs px-2 py-1">
                           {wishlistItems.length}
-                        
+
                         </span>
 
                         <div className='flex justify-center items-center flex-col'>
@@ -258,7 +258,7 @@ function Header() {
 
                 <div className='flex mt-5 justify-center items-center flex-col  p-2'>
 
-                  <div className="w-9 h-9 md:w-10 md:h-10 rounded-full  bg-red-200 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-300 flex items-center justify-center">
+                  <div onClick={toggleRegistationMenu} className="w-9 h-9 md:w-10 md:h-10 rounded-full  bg-red-200 cursor-pointer transition duration-300 ease-in-out hover:bg-gray-300 flex items-center justify-center">
                     <FaUser className="text-xl md:text-lg" onClick={toggleRegistationMenu} />
                   </div>
 
@@ -428,8 +428,8 @@ function Header() {
 
       {
         isRegisterMenuOpen && (
-          <div className="text-white z-10 w-50 absolute top-240 right-8  border-2 border-teal-500 p-5 rounded-lg bg-black">
 
+          <div className="text-white z-10 w-50 fixed top-30 right-8 border-2 border-teal-500 p-5 rounded-lg bg-black">
 
             <div className="flex flex-col">
 
@@ -437,7 +437,7 @@ function Header() {
                 auth?.token && (
                   <>
 
-                    <div className="p-3 hover:bg-gray-600 rounded">
+                    <div className="p-3  hover:bg-slate-800 rounded">
                       <Link to="/dashboard/user/profile">
 
                         <span>Profile</span>
@@ -446,7 +446,7 @@ function Header() {
 
                     </div>
 
-                    <div className="p-3 hover:bg-gray-600 rounded">
+                    <div className="p-3  hover:bg-slate-800 rounded">
                       <Link to="/dashboard/user/order">
                         <span>Order</span>
                       </Link>
@@ -463,7 +463,7 @@ function Header() {
               {auth?.user?.role == 1 && (
                 <>
                   {/* All Product */}
-                  <div className="p-3 hover:bg-gray-600 rounded">
+                  <div className="p-3  hover:bg-slate-800 rounded">
 
                     <Link to="/dashboard/admin/all-product">
                       <span>All Product</span>
@@ -471,7 +471,7 @@ function Header() {
                   </div>
 
                   {/* Add Product */}
-                  <div className="p-3 hover:bg-gray-600 rounded">
+                  <div className="p-3  hover:bg-slate-800 rounded">
 
                     <Link to="/dashboard/admin/create-product">
                       <span>Add Product</span>
@@ -479,7 +479,7 @@ function Header() {
                   </div>
 
                   {/* Create Category */}
-                  <div className="p-3 hover:bg-gray-600 rounded">
+                  <div className="p-3  hover:bg-slate-800 rounded">
 
                     <Link to="/dashboard/admin/create-category">
                       <span>Create Category</span>
@@ -497,9 +497,9 @@ function Header() {
               {auth.token ? (
                 <div>
                   {/* Logout link */}
-                  <div className="p-3 ">
+                  <div className="p-3 cursor-pointer hover:bg-slate-800 rounded" onClick={logOutHandle} >
                     {/* <span  className='cursor-pointer'> Logout</span> */}
-                    <FaSignOutAlt onClick={logOutHandle} className="inline-block mr-2" /> Logout
+                    <FaSignOutAlt className="inline-block mr-2" /> Logout
                   </div>
                 </div>
               ) : (
