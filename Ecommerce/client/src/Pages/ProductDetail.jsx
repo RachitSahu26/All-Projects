@@ -3,11 +3,11 @@ import LayOut from '../Components/Layout/LayOut';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '../Components/Spinner/Spinner';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 import mycontext from '../Context/myContext';
-import { FaCartPlus, FaHeart } from 'react-icons/fa';
+import { FaCartPlus, FaExchangeAlt, FaHeart, FaMoneyBill, FaShoppingCart, FaTruck } from 'react-icons/fa';
 
 function ProductDetail() {
     const params = useParams();
@@ -17,6 +17,20 @@ function ProductDetail() {
     const { auth } = contextData;
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+
+
+
+
+    const cartItems = useSelector((state) => state.cart || []);
+    const isItemInCart = (singleProduct) => {
+        return cartItems.some(cartItem => cartItem._id === singleProduct._id);
+    };
+
+
+
+
+
 
     useEffect(() => {
         const getProduct = async () => {
@@ -35,18 +49,19 @@ function ProductDetail() {
         }
     }, [params.slug]);
 
-    const addCartItem = (product) => {
-        if (auth?.token) {
-            dispatch(addToCart(product));
-            toast.success("Cart Successfully added");
+
+
+    // .................add to cart Handle..............
+    const handleButtonClick = (singleProduct) => {
+        if (isItemInCart(singleProduct)) {
+            navigate('/cart');
         } else {
-            // Here, you might show a modal or message to inform the user to log in first
-            navigate("/signin");
+            dispatch(addToCart(singleProduct));
+            toast.success("Product Added");
         }
-    };
+    }
 
 
-  
     if (loading) {
         return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
     }
@@ -81,10 +96,22 @@ function ProductDetail() {
                                     {/* .............cart and buy btn......... */}
                                     <div className="flex space-x-4 p-3">
 
-                                        <button onClick={() => addCartItem(singleProduct)} className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded flex items-center">
-                                            <FaCartPlus className="mr-2" /> Add to Cart
+                                        <button
+                                            onClick={() => handleButtonClick(singleProduct)}
+                                            className="bg-black transition border-2  border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold py-3 px-4 rounded-lg flex items-center"
+                                        >
+                                            {isItemInCart(singleProduct) ? (
+                                                <FaShoppingCart className="mr-2" />
+                                            ) : (
+                                                <FaCartPlus className="mr-2" />
+                                            )}
+                                            <span style={{
+                                                color: isItemInCart(singleProduct) ? 'green' : 'white',
+                                                fontSize: '15px'
+                                            }}>
+                                                {isItemInCart(singleProduct) ? 'Go to Cart' : 'Add to Cart'}
+                                            </span>
                                         </button>
-                                      
 
 
 
@@ -98,10 +125,18 @@ function ProductDetail() {
                                 <div className='md:mt-6 mt-5'>
                                     <p>100% original product</p>
                                     <div>
-                                        <h2>Fast delivery</h2>
-                                        <h2>Fast delivery</h2>
-                                        <h2>Fast delivery</h2>
-
+                                        <div className="flex items-center mb-2">
+                                            <FaTruck className="mr-2 text-blue-500" /> {/* Truck icon */}
+                                            <h2 className="text-xl font-semibold">Fast delivery</h2>
+                                        </div>
+                                        <div className="flex items-center mb-2">
+                                            <FaMoneyBill className="mr-2 text-blue-500" /> {/* Money bill icon */}
+                                            <h2 className="text-xl font-semibold">Cash on Delivery available</h2>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <FaExchangeAlt className="mr-2 text-blue-500" /> {/* Exchange icon */}
+                                            <h2 className="text-xl font-semibold">7 Days exchange available</h2>
+                                        </div>
                                     </div>
 
 
@@ -111,6 +146,9 @@ function ProductDetail() {
 
                     )}
                 </div>
+
+
+               
             </div>
         </LayOut>
     );
