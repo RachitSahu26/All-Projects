@@ -57,10 +57,31 @@ function ProductDetail() {
             navigate('/cart');
         } else {
             dispatch(addToCart(singleProduct));
-            toast.success("Product Added");
+         
+
+            toast.success("Product Added",
+
+            {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            }
+
+        );
+
+
+
         }
     }
 
+    const checkUserJHander = () => {
+        navigate("/signin");
+    };
 
     if (loading) {
         return <div className="flex justify-center items-center h-screen"><Spinner /></div>;
@@ -96,22 +117,39 @@ function ProductDetail() {
                                     {/* .............cart and buy btn......... */}
                                     <div className="flex space-x-4 p-3">
 
-                                        <button
-                                            onClick={() => handleButtonClick(singleProduct)}
-                                            className="bg-black transition border-2  border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold py-3 px-4 rounded-lg flex items-center"
-                                        >
-                                            {isItemInCart(singleProduct) ? (
-                                                <FaShoppingCart className="mr-2" />
-                                            ) : (
-                                                <FaCartPlus className="mr-2" />
-                                            )}
-                                            <span style={{
-                                                color: isItemInCart(singleProduct) ? 'green' : 'white',
-                                                fontSize: '15px'
-                                            }}>
-                                                {isItemInCart(singleProduct) ? 'Go to Cart' : 'Add to Cart'}
-                                            </span>
-                                        </button>
+
+                                        {
+                                            auth?.token ? (<>
+                                                <button
+                                                    onClick={() => handleButtonClick(singleProduct)}
+                                                    className="bg-black transition border-2  border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold py-3 px-4 rounded-lg flex items-center"
+                                                >
+                                                    {isItemInCart(singleProduct) ? (
+                                                        <FaShoppingCart className="mr-2" />
+                                                    ) : (
+                                                        <FaCartPlus className="mr-2" />
+                                                    )}
+                                                    <span style={{
+                                                        color: isItemInCart(singleProduct) ? 'green' : 'white',
+                                                        fontSize: '15px'
+                                                    }}>
+                                                        {isItemInCart(singleProduct) ? 'Go to Cart' : 'Add to Cart'}
+                                                    </span>
+                                                </button>
+                                            </>) : (<>
+                                                <button
+                                                    onClick={checkUserJHander}
+                                                    className="bg-black transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold sm:py-2 sm:px-2 py-1 px-5 rounded-lg flex items-center"
+                                                >
+                                                    <FaShoppingCart className="mr-2" />
+                                                    <span>
+                                                        Add to Cart
+                                                    </span>
+                                                </button>
+
+                                            </>)
+                                        }
+
 
 
 
@@ -148,7 +186,7 @@ function ProductDetail() {
                 </div>
 
 
-               
+
             </div>
         </LayOut>
     );

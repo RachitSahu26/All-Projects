@@ -28,7 +28,7 @@ const Footer = () => {
           <FaTwitter size={40} />
         </a>
           </p>
-            <h3 className="text-xl font-semibold">Develop by Rachit Sahu</h3>
+            <h3 className="text-xl font-semibold">Developed by Rachit Sahu</h3>
 
         </div>
 

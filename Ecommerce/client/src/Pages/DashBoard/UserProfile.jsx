@@ -6,6 +6,11 @@ const UserProfile = ({ toggleMenu }) => {
   const ContextData = useContext(mycontext);
   const { auth } = ContextData;
 
+
+
+
+
+
   return (
     <LayOut>
 

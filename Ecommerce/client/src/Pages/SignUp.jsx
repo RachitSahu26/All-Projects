@@ -28,7 +28,6 @@ function SignUp() {
 
 
 
-
     const registerHandle = async () => {
 
         try {
@@ -58,6 +57,8 @@ function SignUp() {
 
 
 
+console.log(process.env.REACT_APP_API)
+
 
 
 
@@ -66,8 +67,10 @@ function SignUp() {
     return (
         <LayOut>
             <div className="flex justify-center bg-black items-center h-screen">
-                <form onSubmit={handleSubmit} className="bg-[#d2cbbf]  border-2 border-teal-500 shadow-md rounded-xl px-8 pt-6 pb-8 mb-4 sm:w-1/3  ">
-                    <h2 className="text-2xl mb-4 font-bold text-gray-800">Sign Up</h2>
+             
+            <form onSubmit={handleSubmit} className="bg-[#d2cbbf] border-2 border-teal-500 shadow-lg rounded-xl px-8 pt-6 pb-8 mb-4 sm:w-1/3 hover:shadow-md">
+ 
+                   <h2 className="text-2xl mb-4 font-bold text-gray-800">Sign Up</h2>
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">Name</label>
                         <input

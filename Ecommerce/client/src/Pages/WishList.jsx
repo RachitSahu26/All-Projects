@@ -71,7 +71,7 @@ const WishList = () => {
                                             <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-1xl p-2 text-white font-semibold  duration-300 ease-in-out transform hover:scale-110   rounded">
                                                 Add to Cart
                                             </button>
-                                            <button onClick={() => removeWishItem(item._id)} className="bg-black mt-3 sm:mt-0 hover:bg-red-600 text-1xl p-2 text-white font-semibold sm:ml-3  duration-300 ease-in-out transform hover:scale-110  rounded">
+                                            <button onClick={() => removeWishItem(item)} className="bg-black mt-3 sm:mt-0 hover:bg-red-600 text-1xl p-2 text-white font-semibold sm:ml-3  duration-300 ease-in-out transform hover:scale-110  rounded">
                                                 Remvoe to wishlist
                                             </button>
                                         </div>
