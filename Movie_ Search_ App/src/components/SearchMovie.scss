@@ -1,0 +1,58 @@
+// Responsive Breakpoint
+$bp-large: 62em;        //992px
+$bp-medium: 45em;       //720px
+$bp-small: 40em;        //640px
+$bp-smallest: 25em;     //400px
+
+.form {
+    display: grid;
+
+    @media only screen and (min-width: $bp-small){
+        grid-template-columns: auto 1fr auto;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .label {
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+        text-transform: uppercase;
+    }
+
+    .search-movie {
+        font-size: 1.6rem;
+        padding: 0.5rem 2rem;
+        line-height: 2.8rem;
+        border-radius: 20px;
+        border: 1px solid #ddd;
+        margin-bottom: 1rem;
+
+        &:focus {
+            outline: none;
+        }
+
+        @media only screen and (min-width: $bp-small){
+            margin-bottom: 0;
+        }    
+    }
+
+    .search-button {
+        background-color: rgba(0,0,0,0.75);
+        color: white;
+        padding: 1rem 2rem;
+        border: 1px solid rgba(0,0,0,0.75);
+        border-radius: 20px;
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: background-color 250ms;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            background-color: rgba(0,0,0,0.85);
+        }
+    }
+}
+
