@@ -1,20 +1,22 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { BrowserRouter } from 'react-router-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App.jsx';
+import './index.css';
+import { BrowserRouter } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { Provider } from 'react-redux'
-import { store } from './Redux/store.js'
+import { Provider } from 'react-redux';
+import { store } from './Redux/store.js';
+// import dotenv from 'dotenv';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+// dotenv.config();
+
+ReactDOM.render(
   <BrowserRouter>
-
     <React.StrictMode>
       <Provider store={store}>
-
-      <App />
+        <App />
       </Provider>
-    </React.StrictMode>,
-  </BrowserRouter>
-)
+    </React.StrictMode>
+  </BrowserRouter>,
+  document.getElementById('root')
+);

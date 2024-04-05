@@ -2,8 +2,8 @@
 import categoryModel from '../models/categoryModel.js';
 import productModel from '../models/productModel.js';
 import slugify from 'slugify';
-import braintree from 'braintree';
-import orderModel from '../models/orderModel.js';
+// import braintree from 'braintree';
+// import orderModel from '../models/orderModel.js';
 import dotenv from "dotenv";
 // import gateway from 'path/to/braintree';
 import fs from 'fs'
@@ -11,14 +11,14 @@ import fs from 'fs'
 dotenv.config();
 
 
-// ......................payment gateway.........
+// // ......................payment gateway.........
 
-var gateway = new braintree.BraintreeGateway({
-    environment: braintree.Environment.Sandbox,
-    merchantId: process.env.BRAINTREE_MERCHANT_ID,
-    publicKey: process.env.BRAINTREE_PUBLIC_KEY,
-    privateKey: process.env.BRAINTREE_PRIVATE_KEY,
-});
+// var gateway = new braintree.BraintreeGateway({
+//     environment: braintree.Environment.Sandbox,
+//     merchantId: process.env.BRAINTREE_MERCHANT_ID,
+//     publicKey: process.env.BRAINTREE_PUBLIC_KEY,
+//     privateKey: process.env.BRAINTREE_PRIVATE_KEY,
+// });
 
 
 
@@ -286,67 +286,67 @@ export const productCategoryBaseController = async (req, res) => {
 
 
 
-// Briantree Token Controller
-export const braintreeTokenController = (req, res) => {
-    try {
-        gateway.clientToken.generate({}, function (err, response) {
-            if (err) {
-                res.status(500).send(err);
-            } else {
-                res.send(response);
-            }
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
+// // Briantree Token Controller
+// export const braintreeTokenController = (req, res) => {
+//     try {
+//         gateway.clientToken.generate({}, function (err, response) {
+//             if (err) {
+//                 res.status(500).send(err);
+//             } else {
+//                 res.send(response);
+//             }
+//         });
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
 
 
 
-export const braintreePaymentController = async (req, res) => {
-    try {
-        const { nonce, cartItem } = req.body;
-        let total = 0;
-        cartItem.forEach((item) => {
-            total += item.price;
-        });
+// export const braintreePaymentController = async (req, res) => {
+//     try {
+//         const { nonce, cartItem } = req.body;
+//         let total = 0;
+//         cartItem.forEach((item) => {
+//             total += item.price;
+//         });
 
 
-        // Perform the transaction
-        gateway.transaction.sale(
-            {
-                amount: total,
-                paymentMethodNonce: nonce,
-                options: {
-                    submitForSettlement: true,
-                },
-            },
-            async (error, result) => {
+//         // Perform the transaction
+//         gateway.transaction.sale(
+//             {
+//                 amount: total,
+//                 paymentMethodNonce: nonce,
+//                 options: {
+//                     submitForSettlement: true,
+//                 },
+//             },
+//             async (error, result) => {
 
-                if (error) {
-                    return res.status(500).send(error);
-                }
+//                 if (error) {
+//                     return res.status(500).send(error);
+//                 }
 
-                try {
-                    // Save the order to the database
-                    const order = new orderModel({
-                        products: cartItem,
-                        payment: result,
-                        buyer: req.user._id,
-                    });
-                    await order.save();
-                    return res.json({ ok: true });
-                } catch (saveError) {
-                    console.log(saveError);
-                    return res.status(500).send(saveError);
-                }
-            }
-        );
-    } catch (error) {
-        console.log(error);
-        return res.status(500).send(error);
-    }
-};
+//                 try {
+//                     // Save the order to the database
+//                     const order = new orderModel({
+//                         products: cartItem,
+//                         payment: result,
+//                         buyer: req.user._id,
+//                     });
+//                     await order.save();
+//                     return res.json({ ok: true });
+//                 } catch (saveError) {
+//                     console.log(saveError);
+//                     return res.status(500).send(saveError);
+//                 }
+//             }
+//         );
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).send(error);
+//     }
+// };
 
 

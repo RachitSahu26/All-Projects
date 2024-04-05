@@ -69,7 +69,7 @@ function ProductDetail() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "light",
+                theme: "dark",
             }
 
         );
@@ -89,10 +89,10 @@ function ProductDetail() {
 
     return (
         <LayOut>
-            <div className="container mx-auto p-2">
+            <div className="container  bg-black mx-auto p-2">
                 {/* Your product detail layout */}
 
-                <div className="max-w-5xl sm:max-w-3xl lg:max-w-7xl p-5 mx-auto bg-white shadow-md rounded overflow-hidden">
+                <div className="max-w-5xl sm:max-w-3xl lg:max-w-7xl  p-5 mx-auto bg-[#1c1b1bcd] border-2 border-teal-400 rounded-lg shadow-md  overflow-hidden">
                     {singleProduct && (
                         <div className=" flex flex-col sm:flex-row ">
 
@@ -104,13 +104,13 @@ function ProductDetail() {
 
                             <div>
 
-                                <h2 className="text-2xl sm:text-3xl font-bold mb-4">{singleProduct.name}</h2>
-                                <p className="text-black  mb-4">Description: {singleProduct.description}</p>
+                                <h2 className="text-2xl  text-white sm:text-3xl font-bold mb-4">{singleProduct.name}</h2>
+                                <p className="text-white  mb-4">Description: {singleProduct.description}</p>
 
                                 <hr className="border border-gray-400" />
                                 <div className="mt-5 md:mt-6">
 
-                                    <p className="text-black text-xl  font-bold">Price: ${singleProduct.price}</p>
+                                    <p className="text-white text-xl  font-bold">Price: ${singleProduct.price}</p>
                                     <h1 className="text-blue-700   text-xl font-bold">Price inclusive tasks</h1>
 
 
@@ -122,7 +122,7 @@ function ProductDetail() {
                                             auth?.token ? (<>
                                                 <button
                                                     onClick={() => handleButtonClick(singleProduct)}
-                                                    className="bg-black transition border-2  border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold py-3 px-4 rounded-lg flex items-center"
+                                                    className="text-white transition border-2  border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl font-semibold py-3 px-4 rounded-lg flex items-center"
                                                 >
                                                     {isItemInCart(singleProduct) ? (
                                                         <FaShoppingCart className="mr-2" />
@@ -139,7 +139,7 @@ function ProductDetail() {
                                             </>) : (<>
                                                 <button
                                                     onClick={checkUserJHander}
-                                                    className="bg-black transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold sm:py-2 sm:px-2 py-1 px-5 rounded-lg flex items-center"
+                                                    className=" transition border-2 border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold sm:py-2 sm:px-2 py-1 px-5 rounded-lg flex items-center"
                                                 >
                                                     <FaShoppingCart className="mr-2" />
                                                     <span>
@@ -161,19 +161,19 @@ function ProductDetail() {
 
 
                                 <div className='md:mt-6 mt-5'>
-                                    <p>100% original product</p>
+                                    <p className='text-red-500'>100% original product</p>
                                     <div>
                                         <div className="flex items-center mb-2">
                                             <FaTruck className="mr-2 text-blue-500" /> {/* Truck icon */}
-                                            <h2 className="text-xl font-semibold">Fast delivery</h2>
+                                            <h2 className="text-xl  text-white font-semibold">Fast delivery</h2>
                                         </div>
                                         <div className="flex items-center mb-2">
-                                            <FaMoneyBill className="mr-2 text-blue-500" /> {/* Money bill icon */}
-                                            <h2 className="text-xl font-semibold">Cash on Delivery available</h2>
+                                            <FaMoneyBill className="mr-2  text-blue-500" /> {/* Money bill icon */}
+                                            <h2 className="text-xl  text-white font-semibold">Cash on Delivery available</h2>
                                         </div>
                                         <div className="flex items-center">
                                             <FaExchangeAlt className="mr-2 text-blue-500" /> {/* Exchange icon */}
-                                            <h2 className="text-xl font-semibold">7 Days exchange available</h2>
+                                            <h2 className="text-xl text-white font-semibold">7 Days exchange available</h2>
                                         </div>
                                     </div>
 

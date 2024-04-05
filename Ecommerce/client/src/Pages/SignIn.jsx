@@ -29,7 +29,33 @@ function Login() {
 
             if (res && res.data.success) {
                 console.log(res.data.token)
-                toast.success(res.data && res.data.message);
+                // toast.success(res.data && res.data.message);
+
+                toast.success("Signin Successful ",
+
+                    {
+                        position: "top-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                        style: {
+                            borderRadius: '10px', // Set border radius
+
+
+
+                        },
+
+                    }
+
+                );
+
+
+
+
                 setAuth({
                     ...auth,
                     user: res.data.user,
@@ -37,12 +63,38 @@ function Login() {
                 });
                 localStorage.setItem("auth", JSON.stringify(res.data));
                 navigate("/");
+          
+          
+          
+          
             } else {
                 toast.error(res.data.message);
             }
         } catch (error) {
             console.log(error);
-            toast.error("Something went wrong");
+            toast.success("Something went wrong ",
+
+                {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    style: {
+                        borderRadius: '10px', // Set border radius
+                        color: "red"
+
+
+                    },
+
+                }
+
+            );
+
+
         }
 
 

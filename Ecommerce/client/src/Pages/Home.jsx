@@ -23,16 +23,24 @@ function Home(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+
+
+
     const cartItems = useSelector((state) => state.cart || []);
     const isItemInCart = (item) => {
         return cartItems.some(cartItem => cartItem._id === item._id);
     };
+
+
+
 
     const wishlistItems = useSelector(state => state.wishlist.wishlistItems || []);
     const isItemInWishlist = (item) => {
         return wishlistItems.some(wishItem => wishItem._id === item._id);
     };
 
+
+    
     const handleButtonClick = (item) => {
         if (isItemInCart(item)) {
             navigate('/cart');
@@ -80,7 +88,9 @@ function Home(props) {
                     theme: "dark",
                     style: {
                         borderRadius: '10px', // Set border radius
-                        // Other CSS properties...
+                   color:"red"
+
+
                       },
                     
                 }

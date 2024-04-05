@@ -2,8 +2,8 @@ import express from "express";
 
 
 import { requireSignIn } from "../middleware/SignInRequrie.js";
-import {  braintreePaymentController, braintreeTokenController, createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, productPhotoController, updateProductController } from "../controllers/productController.js";
-import braintree from "braintree";
+import {   createProductController, deleteProductController, getProductController, getSingleProductController, productCategoryBaseController, productFiltersController, productPhotoController, updateProductController } from "../controllers/productController.js";
+// import braintree from "braintree";
 
 import formidable from 'express-formidable';
 
@@ -47,11 +47,11 @@ router.get("/category-base-product/:slug", productCategoryBaseController);
 
 
 
-// ..............payment braintree TokenExpiredError........
-router.get("/braintree/token", braintreeTokenController);
+// // ..............payment braintree TokenExpiredError........
+// router.get("/braintree/token", braintreeTokenController);
 
-// ....................payment  ................
-router.post("/braintree/payment", requireSignIn, braintreePaymentController);
+// // ....................payment  ................
+// router.post("/braintree/payment", requireSignIn, braintreePaymentController);
 
 
 

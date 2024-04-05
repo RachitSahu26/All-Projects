@@ -29,7 +29,29 @@ function Cart() {
     const deleteCart = (productId) => {
        
         dispatch(removeToCart(productId));
-        toast.success("Item removed from cart successfully");
+   
+   
+        toast.success("Item removed from cart successfully",
+
+        {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            style: {
+                borderRadius: '10px', // Set border radius
+            color:"red"
+
+              },
+            
+        }
+
+    );
+
     }
 
 

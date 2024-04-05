@@ -27,9 +27,7 @@ function SignUp() {
     };
 
 
-
     const registerHandle = async () => {
-
         try {
             const response = await axios.post('http://localhost:3000/api/auth/register', {
                 email,
@@ -40,24 +38,47 @@ function SignUp() {
             });
 
             if (response.data.success) {
-                toast.success("successful")
-                console.log(response.data.message)
+                toast.success(response.data.message, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    style: {
+                        borderRadius: '10px',
+                    },
+                });
+
+                navigate("/signin");
+
+                setEmail("");
+                setPassword("");
             } else {
-                console.log(response.data.message)
-                toast.error("failed")
+                toast.error(response.data.message, {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    style: {
+                        borderRadius: '10px',
+                        color: "red"
+                    },
+                });
             }
 
-            setEmail("");
-            setPassword("");
+          
         } catch (error) {
-            console.error('Error occurred during login:', error);
+            console.error('Error occurred during signup:', error);
         }
     };
 
-
-
-
-console.log(process.env.REACT_APP_API)
 
 
 
@@ -141,7 +162,9 @@ console.log(process.env.REACT_APP_API)
 
 
 
-                        <Link to="/signin" className="text-red-800 font-bold p-5 ">Already have an account?</Link>
+                      <p className='p-4'>
+                          <Link to="/signin" className="text-red-800 font-bold  ">Already have an account?</Link>
+                        </p>
                     </div>
 
 

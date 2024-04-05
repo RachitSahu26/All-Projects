@@ -26,6 +26,10 @@ function CategoryProduct() {
     const params = useParams();
     const dispatch = useDispatch()
 
+
+
+
+
     const cartItem = useSelector((state) => state.cart);
 
     const isItemInCart = (item) => {
@@ -117,7 +121,33 @@ function CategoryProduct() {
         if (isItemInWishlist(item)) {
             dispatch(removeFromWishlist(item)); // Remove item from wishlist if already in wishlist
             
-            toast.success("Item removed from Wishlist",
+          
+            toast.success(
+                "Item removed from Wishlist",
+                {
+                  position: "top-center",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+                  style: {
+                    color: "red", // Set background color of the progress bar line to red
+                  },
+                }
+              );
+
+
+
+
+
+        } else {
+            dispatch(addToWishlist(item)); // Add item to wishlist if not in wishlist
+           
+       
+            toast.success("Wishlisted",
 
             {
                 position: "top-center",
@@ -127,13 +157,10 @@ function CategoryProduct() {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                theme: "light",
+                theme: "dark",
             }
 
         );
-        } else {
-            dispatch(addToWishlist(item)); // Add item to wishlist if not in wishlist
-            toast.success("Wishlisted");
         }
     };
 

@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const connectToMongo = async () => {
   try {
-    const mongoURI = 'mongodb+srv://curiousrachit26:curious2005261@cluster0.cmdu8dc.mongodb.net/';
+    const mongoURI = process.env.MONGO_URL;
    
     mongoose.connect(mongoURI,);
 

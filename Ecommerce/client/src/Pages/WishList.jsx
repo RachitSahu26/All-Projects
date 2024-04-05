@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaHeart } from 'react-icons/fa';
+import { FaCartPlus, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import LayOut from '../Components/Layout/LayOut.jsx'
 import mycontext from '../Context/myContext.jsx';
 import { toast } from 'react-toastify';
@@ -17,8 +17,20 @@ const WishList = () => {
     const dispatch = useDispatch();
 
     // Get wishlist items from Redux store
-
     const wishlistItems = useSelector(state => state.wishlist.wishlistItems || []);
+
+
+
+
+
+    const cartItems = useSelector((state) => state.cart || []);
+    const isItemInCart = (item) => {
+        return cartItems.some(cartItem => cartItem._id === item._id);
+    };
+
+
+
+
 
 
     // Save wishlist items to localStorage when they change
@@ -27,9 +39,37 @@ const WishList = () => {
     }, [wishlistItems]);
 
     const addCartItem = (p) => {
+
+
+
         if (auth?.token) {
+
+
             dispatch(addToCart(p));
-            toast.success("Cart Successfully added");
+
+
+
+            toast.success("Cart Successfully added",
+
+                {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    style: {
+                        borderRadius: '10px', // Set border radius
+                        // Other CSS properties...
+                    },
+
+                }
+
+            );
+
+
         } else {
             navigate('/signin');
         }
@@ -39,6 +79,29 @@ const WishList = () => {
 
     const removeWishItem = (item) => {
         dispatch(removeFromWishlist(item));
+
+        toast.success("Removed Wishlist",
+
+            {
+                position: "top-center",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                style: {
+                    borderRadius: '10px', // Set border radius
+                   
+               
+               
+                    color: "red",
+                },
+               
+            }
+
+        );
     }
 
 
@@ -53,7 +116,7 @@ const WishList = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
                         {Object.values(wishlistItems).map((item, index) => (
                             <div key={index} className="bg-white rounded-lg shadow-md p-4">
-                              <Link to={`/product/${item.slug}`}>
+                                <Link to={`/product/${item.slug}`}>
                                     <img src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} className="w-full h-48 object-cover mb-4" />
                                 </Link>
 
@@ -68,10 +131,30 @@ const WishList = () => {
                                     <span className="text-gray-700">${item.price}</span>
                                     <div className='flex p-3 justify-between'>
                                         <div className=' flex  flex-col sm:flex-row '>
-                                            <button onClick={() => addCartItem(item)} className="bg-green-500 hover:bg-green-600 text-1xl p-2 text-white font-semibold  duration-300 ease-in-out transform hover:scale-110   rounded">
-                                                Add to Cart
-                                            </button>
-                                            <button onClick={() => removeWishItem(item)} className="bg-black mt-3 sm:mt-0 hover:bg-red-600 text-1xl p-2 text-white font-semibold sm:ml-3  duration-300 ease-in-out transform hover:scale-110  rounded">
+                                       
+                                          
+                                          
+                                            <button
+                                                    onClick={() => addCartItem(item)}
+                                                    className="bg-black transition border-2 p-1 border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold sm:py-1 sm:px-1 py-2 px-5 rounded-lg flex items-center"
+                                                >
+                                                    {isItemInCart(item) ? (
+                                                        <FaShoppingCart className="mr-2" />
+                                                    ) : (
+                                                        <FaCartPlus className="mr-2" />
+                                                    )}
+                                                    <span style={{
+                                                        color: isItemInCart(item) ? 'green' : 'white',
+                                                        fontSize: '15px'
+                                                    }}>
+                                                        {isItemInCart(item) ? 'Go to Cart' : 'Add to Cart'}
+                                                    </span>
+                                                </button>
+                                          
+                                          
+                                          
+                                          
+                                            <button onClick={() => removeWishItem(item)} className="bg-black   border-2  border-teal-300 hover:bg-red-600  p-1  text-white font-semibold    sm:py-1 sm:px-1 py-2 px-5  rounded-lg duration-300 ease-in-out transform hover:scale-90  rounded">
                                                 Remvoe to wishlist
                                             </button>
                                         </div>
