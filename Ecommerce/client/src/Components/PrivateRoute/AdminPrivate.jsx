@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import mycontext from "../../Context/myContext";
 import { Outlet } from 'react-router-dom';
 import Spinner from "../Spinner/Spinner";
+import { baseUrl } from "../../../urls";
 
 export const AdminPrivate = () => {
     const { auth } = useContext(mycontext);
@@ -13,7 +14,7 @@ export const AdminPrivate = () => {
         const authCheck = async () => {
             try {
                 if (auth?.token) {
-                    const res = await axios.get("http://localhost:3000/api/auth/admin-auth", {
+                    const res = await axios.get(`${baseUrl}/api/auth/admin-auth`, {
                         headers: {
                             "Authorization": auth?.token
                         }

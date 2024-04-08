@@ -8,6 +8,7 @@ import { addToCart } from '../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 import mycontext from '../Context/myContext';
 import { FaCartPlus, FaExchangeAlt, FaHeart, FaMoneyBill, FaShoppingCart, FaTruck } from 'react-icons/fa';
+import { baseUrl } from '../../urls';
 
 function ProductDetail() {
     const params = useParams();
@@ -35,7 +36,7 @@ function ProductDetail() {
     useEffect(() => {
         const getProduct = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/product/get-product/${params.slug}`);
+                const response = await axios.get(`${baseUrl}/api/product/get-product/${params.slug}`);
                 setSingleProduct(response.data.product);
                 setLoading(false);
             } catch (error) {
@@ -97,7 +98,7 @@ function ProductDetail() {
                         <div className=" flex flex-col sm:flex-row ">
 
                             <div className="p-8 sm:w-full lg:w-[60%]">
-                                <img className="rounded-lg w-full lg:w-[60%]  h-auto" src={`http://localhost:3000/api/product/product-photo/${singleProduct._id}`} alt={singleProduct.name} />
+                                <img className="rounded-lg w-full lg:w-[60%]  h-auto" src={`${baseUrl}/api/product/product-photo/${singleProduct._id}`} alt={singleProduct.name} />
                             </div>
 
 

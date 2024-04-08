@@ -5,6 +5,7 @@ import axios from 'axios';
 // import layOut from '../Components/Layout/LayOut.jsx'
 import toast from 'react-hot-toast';
 import LayOut from '../Components/Layout/LayOut.jsx';
+import { baseUrl } from '../../urls.js';
 // import { Toast } from 'react/-toastify/dist/components';
 function SignUp() {
     // Initialize state variables for form inputs
@@ -29,7 +30,7 @@ function SignUp() {
 
     const registerHandle = async () => {
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/register', {
+            const response = await axios.post(`${baseUrl}/api/auth/register`, {
                 email,
                 password,
                 phone,

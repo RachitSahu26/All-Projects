@@ -5,6 +5,7 @@ import Spinner from '../../Components/Spinner/Spinner';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import mycontext from '../../Context/myContext';
+import { baseUrl } from '../../../urls';
 
 function AdminProductDetail() {
 
@@ -40,7 +41,8 @@ function AdminProductDetail() {
     // Function to fetch single product data
     const getProduct = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3000/api/product/get-product/${params.slug}`);
+            const { data } = await axios.get(`${baseUrl}/api/product/get-product/${params.slug}`);
+
             const { product } = data;
 
             setSingleProduct(product)

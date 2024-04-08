@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
+import { baseUrl } from '../../../urls';
 
 function AllProduct() {
     const [photoUrl, setPhotoUrl] = useState([]);
@@ -37,7 +38,7 @@ function AllProduct() {
                         {allProduct.map((item, index) => (
                             <div key={index} className="max-w-sm bg-white border h-[95%] max-h-[auto] m-2 p-2 border-gray-500 rounded-lg shadow">
                                 <Link to={`/product/${item.slug}`}>
-                                    <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
+                                    <img className="rounded-lg" src={`${baseUrl}/api/product/product-photo/${item._id}`} alt={item.name} />
                                 </Link>
                                 <div>
                                     <h3 className="text-lg  font-bold text-black">{item.name}</h3>

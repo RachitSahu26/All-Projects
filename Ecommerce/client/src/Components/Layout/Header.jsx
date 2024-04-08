@@ -77,10 +77,10 @@ function Header() {
     <>
       {/* <nav className="bg-gray-800  max-w-2xl sm:max-w-7xl"> */}
 
-      <nav className="bg-white p-1 max-w-2xl sm:max-w-7xl lg:max-w-full sticky top-0 z-10 shadow-md">
+      <nav className="bg-white     p-1 max-w-2xl sm:max-w-7xl lg:max-w-full sticky top-0 z-10 shadow-md">
 
         {/* .............large screen ......... */}
-        <div className="h-16 flex justify-between items-center m-5">
+        <div className="h-16 flex justify-between items-center m-2">
 
 
           {/* mobile screen hamburger................. */}
@@ -95,7 +95,7 @@ function Header() {
 
           {/* ...........logo....... */}
           <div className='item-center'>
-            <span className="text-black text-xl ml-5 font-bold"><Link to="/">VRS_Shopy</Link></span>
+            <span className="text-black sm:text-xl ml-5 font-bold"><Link to="/">VRS_Shopy</Link></span>
           </div>
 
 
@@ -112,7 +112,7 @@ function Header() {
               <button
                 onClick={toggleCategoryMenu}
                 // Toggle menu off hover
-                className="hidden  md:flex justify-center items-center  text-xl text-black font-bold hover:text-gray-400 py-3 focus:outline-none"
+                className="hidden  md:flex justify-center items-center  sm:text-xl text-black font-bold hover:text-gray-400 py-3 focus:outline-none"
               >
                 {/* <FaList className="inline-block text-black mr-2" /> */}
                 Category

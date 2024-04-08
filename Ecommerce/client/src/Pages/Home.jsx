@@ -11,6 +11,7 @@ import { FaCartPlus, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../Redux/Slice/CartSlice.js';
 import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
+import { baseUrl } from '../../urls.js';
 
 function Home(props) {
     const contextData = useContext(mycontext);
@@ -75,27 +76,17 @@ function Home(props) {
             if (isItemInWishlist(item)) {
                 dispatch(removeFromWishlist(item));
                
-                toast.success("Removed Wishlist",
-
-                {
-                    position: "top-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                    style: {
-                        borderRadius: '10px', // Set border radius
-                   color:"red"
 
 
-                      },
-                    
-                }
-    
-            );
+                
+            
+                
+
+
+
+
+
+
 
 
                 
@@ -139,7 +130,7 @@ function Home(props) {
 
     const filterHandle = async () => {
         try {
-            const { data } = await axios.post("http://localhost:3000/api/product/filter-product", {
+            const { data } = await axios.post(`${baseUrl}/api/product/filter-product`, {
                 category: selectedCategory,
                 radio: radio
             });
@@ -227,7 +218,7 @@ function Home(props) {
                         {allProduct.map((item, index) => (
                             <div key={item._id} className="sm:w-[85%] duration-300 ease-in-out transform hover:scale-90 bg-white border-2 h-[95%] max-h-[auto] m-2 p-2 border-gray-500 rounded-lg shadow relative">
                                 <Link to={`/product/${item.slug}`}>
-                                    <img className="rounded-lg item-center" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
+                                    <img className="rounded-lg item-center" src={`${baseUrl}/api/product/product-photo/${item._id}`} alt={item.name} />
                                 </Link>
                                 <div className=''>
                                     <h3 className="text-lg  font-bold text-black">{item.name}</h3>

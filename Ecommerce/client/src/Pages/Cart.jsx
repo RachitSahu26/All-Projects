@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 // import DropIn from "braintree-web-drop-in-react";
 import mycontext from '../Context/myContext';
 import axios from 'axios';
+import { baseUrl } from '../../urls';
 
 
 function Cart() {
@@ -153,7 +154,7 @@ function Cart() {
                     <div className="md:w-2/3 rounded m-2">
                         {cartItem.map((item) => (
                             <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
-                                <img src={`http://localhost:3000/api/product/product-photo/${item._id}`} className="card-img-top w-1/4 h-auto rounded-lg mb-4 sm:mb-0 sm:w-1/6" alt={item.name} />
+                                <img src={`${baseUrl}/api/product/product-photo/${item._id}`} className="card-img-top w-1/4 h-auto rounded-lg mb-4 sm:mb-0 sm:w-1/6" alt={item.name} />
                                 <div className="sm:ml-4 sm:flex sm:flex-col sm:w-full sm:justify-between">
                                     <div className="mt-5">
                                         <h2 className="text-lg font-bold text-gray-900">{item.name}</h2>

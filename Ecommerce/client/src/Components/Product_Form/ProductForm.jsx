@@ -3,6 +3,7 @@ import mycontext from '../../Context/myContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { baseUrl } from '../../../urls';
 
 const ProductFrom = () => {
     const [name, setName] = useState('');
@@ -41,7 +42,7 @@ const ProductFrom = () => {
             formData.append('category', selectedOption);
             formData.append('photo', photo); // Append the image file
 
-            const { data } = await axios.post("http://localhost:3000/api/product/create-product", formData, {
+            const { data } = await axios.post(`${baseUrl}/api/product/create-product`, formData, {
                 headers: {
                     Authorization: auth?.token,
                     'Content-Type': 'multipart/form-data', // Set the correct content type for file uploads

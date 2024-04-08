@@ -4,9 +4,7 @@ import LayOut from '../../Components/Layout/LayOut.jsx'
 import mycontext from '../../Context/myContext.jsx';
 const UserProfile = ({ toggleMenu }) => {
   const ContextData = useContext(mycontext);
-  const { auth } = ContextData;
-
-
+  const { auth,loading } = ContextData;
 
 
 

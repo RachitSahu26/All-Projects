@@ -5,6 +5,7 @@ import mycontext from '../../Context/myContext';
 // import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { baseUrl } from '../../../urls.js';
 
 function AdminCreateCategory() {
   // const contextData = useContext(mycontext);
@@ -24,7 +25,7 @@ function AdminCreateCategory() {
 
   const handleDelete = async (id) => {
     try {
-      const { data } = await axios.delete(`http://localhost:3000/api/category/delete-category/${id}`, {
+      const { data } = await axios.delete(`${baseUrl}/api/category/delete-category/${id}`, {
         headers: {
           Authorization: contextData.auth?.token,
         },

@@ -9,6 +9,7 @@ import { addToCart } from '../Redux/Slice/CartSlice.js';
 // import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
 import axios from 'axios';
 import { removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
+import { baseUrl } from '../../urls.js';
 
 const WishList = () => {
     const contextData = useContext(mycontext);
@@ -108,16 +109,19 @@ const WishList = () => {
 
     return (
         <LayOut>
-            <div className="container mx-auto bg-black px-4 py-8">
+            <div className="container mx-auto h-screen border-2 border-teal-400 m-2 bg-black rounded-lg px-4 py-8">
                 <h2 className="text-2xl  text-white text-center font-bold mb-4"> My Wishlist</h2>
                 {Object.values(wishlistItems).length === 0 ? (
-                    <p className="text-center text-gray-600 text-xl font-semibold mt-8">Your wishlist is empty.</p>
+                    <div className='flex justify-center'>
+
+                    <p className="text-center  text-red-600 text-xl font-semibold mt-8">Your wishlist is empty.</p>
+                    </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
                         {Object.values(wishlistItems).map((item, index) => (
                             <div key={index} className="bg-white rounded-lg shadow-md p-4">
                                 <Link to={`/product/${item.slug}`}>
-                                    <img src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} className="w-full h-48 object-cover mb-4" />
+                                    <img src={`${baseUrl}/api/product/product-photo/${item._id}`} alt={item.name} className="w-full h-48 object-cover mb-4" />
                                 </Link>
 
                                 <div className="flex justify-between items-center">
@@ -136,7 +140,7 @@ const WishList = () => {
                                           
                                             <button
                                                     onClick={() => addCartItem(item)}
-                                                    className="bg-black transition border-2 p-1 border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold sm:py-1 sm:px-1 py-2 px-5 rounded-lg flex items-center"
+                                                    className="bg-black transition border-2 p-2 border-teal-300 duration-300 ease-in-out transform hover:scale-90 hover:shadow-xl text-white font-semibold   sm:py-1 sm:px-1 py-2 px-5 rounded-lg flex items-center"
                                                 >
                                                     {isItemInCart(item) ? (
                                                         <FaShoppingCart className="mr-2" />
@@ -147,15 +151,15 @@ const WishList = () => {
                                                         color: isItemInCart(item) ? 'green' : 'white',
                                                         fontSize: '15px'
                                                     }}>
-                                                        {isItemInCart(item) ? 'Go to Cart' : 'Add to Cart'}
+                                                        {isItemInCart(item) ? 'Go to Cart' : ' Cart'}
                                                     </span>
                                                 </button>
                                           
                                           
                                           
                                           
-                                            <button onClick={() => removeWishItem(item)} className="bg-black   border-2  border-teal-300 hover:bg-red-600  p-1  text-white font-semibold    sm:py-1 sm:px-1 py-2 px-5  rounded-lg duration-300 ease-in-out transform hover:scale-90  rounded">
-                                                Remvoe to wishlist
+                                            <button onClick={() => removeWishItem(item)} className="bg-black   border-2  border-teal-300 hover:bg-red-600  p-2  text-white font-semibold   sm:py-1 sm:px-1 py-2 px-5   duration-300 ease-in-out transform hover:scale-90  rounded-lg">
+                                                Remvoe  wishlist
                                             </button>
                                         </div>
 

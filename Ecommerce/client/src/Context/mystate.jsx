@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import mycontext from './myContext'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { baseUrl } from '../../urls';
 
 const Mystate = (props) => {
 
@@ -31,7 +32,7 @@ const Mystate = (props) => {
 
   const getAllProduct = async () => {
     try {
-      const { data } = await axios.get("http://localhost:3000/api/product/get-product");
+      const { data } = await axios.get(`${baseUrl}/api/product/get-product`);
       setAllProduct(data.products);
       setLoading(false);
 
@@ -46,7 +47,7 @@ const Mystate = (props) => {
   const getAllCategory = async () => {
 
     try {
-      const { data } = await axios.get("http://localhost:3000/api/category/get-category");
+      const { data } = await axios.get(`${baseUrl}/api/category/get-category`);
 
       setCategories(data.categories);
       // console.log(data.categories)

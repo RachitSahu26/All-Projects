@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice';
 import mycontext from '../Context/myContext';
+import { baseUrl } from '../../urls';
 
 function CategoryProduct() {
 
@@ -51,7 +52,7 @@ function CategoryProduct() {
 
     const categoryBaseProduct = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:3000/api/product/category-base-product/${params.slug}`)
+            const { data } = await axios.get(`${baseUrl}/api/product/category-base-product/${params.slug}`)
 
             setProduct(data?.products);
             setCategory(data?.category);
@@ -182,7 +183,7 @@ function CategoryProduct() {
                                 <div className='flex justify-center'>
 
                                     <Link to={`/product/${item.slug}`}>
-                                        <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${item._id}`} alt={item.name} />
+                                        <img className="rounded-lg" src={`${baseUrl}/api/product/product-photo/${item._id}`} alt={item.name} />
                                     </Link>
 
                                 </div>
