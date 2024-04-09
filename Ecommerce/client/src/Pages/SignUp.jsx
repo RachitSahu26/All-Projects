@@ -5,8 +5,8 @@ import axios from 'axios';
 // import layOut from '../Components/Layout/LayOut.jsx'
 import toast from 'react-hot-toast';
 import LayOut from '../Components/Layout/LayOut.jsx';
-import { baseUrl } from '../../urls.js';
-// import { Toast } from 'react/-toastify/dist/components';
+import { baseUrl } from '../urls.js';
+
 function SignUp() {
     // Initialize state variables for form inputs
     const [name, setName] = useState('');

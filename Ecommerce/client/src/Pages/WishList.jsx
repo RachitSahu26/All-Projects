@@ -9,7 +9,7 @@ import { addToCart } from '../Redux/Slice/CartSlice.js';
 // import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
 import axios from 'axios';
 import { removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
-import { baseUrl } from '../../urls.js';
+import { baseUrl } from '../urls.js';
 
 const WishList = () => {
     const contextData = useContext(mycontext);

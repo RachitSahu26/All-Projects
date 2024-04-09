@@ -5,7 +5,8 @@ import mycontext from '../../Context/myContext';
 // import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { baseUrl } from '../../../urls.js';
+import { baseUrl } from '../../urls.js';
+// import { baseUrl } from '../../../urls.js';
 
 function AdminCreateCategory() {
   // const contextData = useContext(mycontext);
@@ -141,7 +142,7 @@ function AdminCreateCategory() {
 
   return (
     <LayOut>
-      <div className='border-2 flex bg-black border-yellow-400 m-2 p-5 justify-center rounded'>
+      <div className='flex bg-black m-2 p-5 justify-center h-screen rounded'>
      
         <div className='text-white w-[90%] justify-center flex-col border-3'>
           <h1>Create Category</h1>

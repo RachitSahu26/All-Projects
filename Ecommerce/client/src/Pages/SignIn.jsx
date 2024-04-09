@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import mycontext from '../Context/myContext.jsx';
 import clsx from 'clsx';
 import LayOut from '../Components/Layout/LayOut.jsx';
-import { baseUrl } from '../../urls.js';
+import { baseUrl } from '../urls.js';
 function Login() {
     const ContextData = useContext(mycontext);
     const { auth, setAuth } = ContextData;

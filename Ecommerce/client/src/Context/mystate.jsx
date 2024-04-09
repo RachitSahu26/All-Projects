@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import mycontext from './myContext'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { baseUrl } from '../../urls';
+import { baseUrl } from '../urls.js';
+// import { baseUrl } from '../../urls';
 
 const Mystate = (props) => {
 

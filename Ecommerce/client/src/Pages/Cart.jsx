@@ -9,7 +9,8 @@ import { toast } from 'react-toastify';
 // import DropIn from "braintree-web-drop-in-react";
 import mycontext from '../Context/myContext';
 import axios from 'axios';
-import { baseUrl } from '../../urls';
+import { baseUrl } from '../urls.js';
+// import { baseUrl } from '../../urls';
 
 
 function Cart() {

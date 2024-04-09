@@ -8,7 +8,7 @@ import { addToCart } from '../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 import mycontext from '../Context/myContext';
 import { FaCartPlus, FaExchangeAlt, FaHeart, FaMoneyBill, FaShoppingCart, FaTruck } from 'react-icons/fa';
-import { baseUrl } from '../../urls';
+import { baseUrl } from '../urls.js';
 
 function ProductDetail() {
     const params = useParams();

@@ -3,7 +3,8 @@ import mycontext from '../../Context/myContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { baseUrl } from '../../../urls';
+import { baseUrl } from '../../urls.js';
+// import { baseUrl } from '../../../urls';
 
 const ProductFrom = () => {
     const [name, setName] = useState('');

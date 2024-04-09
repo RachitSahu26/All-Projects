@@ -5,7 +5,8 @@ import Spinner from '../../Components/Spinner/Spinner';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import mycontext from '../../Context/myContext';
-import { baseUrl } from '../../../urls';
+import { baseUrl } from '../../urls.js';
+// import { baseUrl } from '../../../urls';
 
 function AdminProductDetail() {
 
