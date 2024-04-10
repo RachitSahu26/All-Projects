@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import { FaShoppingCart, FaBars, FaTimes, FaList, FaHome, FaUser, FaUserPlus, FaPlus, FaBox, FaSignOutAlt, FaHeart } from 'react-icons/fa';
 // import { FaBars,  } from 'react-icons/fa';
+// import img from './VV.png';
 function Header() {
   const navigate = useNavigate();
   const ContextData = useContext(mycontext);
@@ -94,10 +95,10 @@ function Header() {
 
 
           {/* ...........logo....... */}
+    
           <div className='item-center'>
             <span className="text-black sm:text-xl ml-5 font-bold"><Link to="/">VRS_Shopy</Link></span>
           </div>
-
 
 
 
