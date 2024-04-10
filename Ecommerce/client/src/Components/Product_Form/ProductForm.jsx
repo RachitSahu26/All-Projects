@@ -22,7 +22,7 @@ const ProductFrom = () => {
 
     // Context API
     const contextData = useContext(mycontext);
-    const { categories, getAllCategory, auth,baseUrl } = contextData;
+    const { categories, getAllCategory, auth, baseUrl } = contextData;
 
     useEffect(() => {
         getAllCategory();
@@ -57,7 +57,13 @@ const ProductFrom = () => {
                 toast.error(data?.message);
             }
 
-
+            setName("")
+            setDescription("")
+            setPrice("")
+            setQuantity("")
+            setSelectedOption("")
+            setPhoto("")
+            setShipping("")
         } catch (error) {
             console.error('Error creating product:', error);
             toast.error("Something went wrong");
@@ -132,7 +138,7 @@ const ProductFrom = () => {
 
                 <div className="mb-3">
                     <label className="border border-gray-300 bg-green-400 text-black rounded-md p-2 block text-center cursor-pointer">
-               
+
                         {photo ? photo.name : "Upload Photo"}
                         <input
                             type="file"

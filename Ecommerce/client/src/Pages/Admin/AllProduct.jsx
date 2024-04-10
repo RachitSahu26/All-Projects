@@ -37,7 +37,7 @@ function AllProduct() {
                     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5">
                         {allProduct.map((item, index) => (
                             <div key={index} className="max-w-sm bg-white border h-[95%] max-h-[auto] m-2 p-2 border-gray-500 rounded-lg shadow">
-                                <Link to={`/product/${item.slug}`}>
+                                <Link to={`/dashboard/admin/product/${item.slug}`}>
                                     <img className="rounded-lg" src={`${baseUrl}/api/product/product-photo/${item._id}`} alt={item.name} />
                                 </Link>
                                 <div>

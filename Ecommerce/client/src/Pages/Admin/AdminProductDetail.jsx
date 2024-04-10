@@ -93,7 +93,7 @@ function AdminProductDetail() {
     const handleDelete = async (id) => {
         try {
             const { data } = await axios.delete(
-                `http://localhost:3000/api/product/delete-product/${id}`,
+                `${baseUrl}/api/product/delete-product/${id}`,
                 {
                     headers: {
                         Authorization: auth?.token,
@@ -126,7 +126,7 @@ function AdminProductDetail() {
             console.log("quantity:", quantity);
             console.log("category:", category);
     
-            const { data } = await axios.put(`http://localhost:3000/api/product/update-product/${productId}`, {
+            const { data } = await axios.put(`${baseUrl}/api/product/update-product/${productId}`, {
                 name: name,
                 price: price,
                 description: description,
@@ -202,18 +202,18 @@ function AdminProductDetail() {
 
 
 
-            <div className="container mx-auto py-8">
-                <div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+            <div className="container mx-auto p-5 bg-black py-8">
+                <div className="max-w-2xl mx-auto  bg-black border-2 border-teal-400 shadow-md rounded-lg overflow-hidden">
                     {singleProduct && (
                         <div className="md:flex">
                             <div className="p-8">
-                                <img className="rounded-lg" src={`http://localhost:3000/api/product/product-photo/${singleProduct._id}`} alt={singleProduct.name} />
+                                <img className="rounded-lg" src={`${baseUrl}/api/product/product-photo/${singleProduct._id}`} alt={singleProduct.name} />
 
                                 <h2 className="text-2xl font-bold mb-4">{singleProduct.name}</h2>
-                                <p className="text-gray-600 mb-4">Price: ${singleProduct.price}</p>
-                                <p className="text-gray-600 mb-4">Quantity: {singleProduct.quantity}</p>
-                                <p className="text-gray-600 mb-4">Category: {singleProduct.category}</p>
-                                <p className="text-gray-600 mb-4">Description: {singleProduct.description}</p>
+                                <p className="text-white mb-4">Price: ${singleProduct.price}</p>
+                                <p className="text-white mb-4">Quantity: {singleProduct.quantity}</p>
+                                <p className="text-white mb-4">Category: {singleProduct.category}</p>
+                                <p className="text-white mb-4">Description: {singleProduct.description}</p>
 
                                 <div className=' flex '>
 
@@ -222,7 +222,7 @@ function AdminProductDetail() {
                                         <button className='bg-green-500 p-3 rounded-lg' onClick={() => handleEdit(singleProduct._id)}  >Edit</button>
                                     </div>
                                     <div className='ml-5'>
-                                        <button className='bg-red-500 p-3 rounded-lg' onClick={() => handleDelete(singleProduct._id)}  >Delete</button>
+                                        <button className='bg-red-500 hover:bg-red-600 p-3 rounded-lg' onClick={() => handleDelete(singleProduct._id)}  >Delete</button>
                                     </div>
 
                                 </div>
@@ -236,7 +236,7 @@ function AdminProductDetail() {
                 </div>
 
 
-                ...............................update product
+                {/* ...............................update product */}
                 {showModal && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
 
