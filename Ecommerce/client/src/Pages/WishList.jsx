@@ -109,7 +109,7 @@ const WishList = () => {
 
     return (
         <LayOut>
-            <div className="container mx-auto h-screen border-2 border-teal-400 m-2 bg-black rounded-lg px-4 py-8">
+            <div className="container mx-auto h-[50%]  border-2 border-teal-400 m-2 bg-black rounded-lg px-4 py-8">
                 <h2 className="text-2xl  text-white text-center font-bold mb-4"> My Wishlist</h2>
                 {Object.values(wishlistItems).length === 0 ? (
                     <div className='flex justify-center'>
