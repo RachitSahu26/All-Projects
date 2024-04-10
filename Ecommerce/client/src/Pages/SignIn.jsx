@@ -6,6 +6,8 @@ import mycontext from '../Context/myContext.jsx';
 import clsx from 'clsx';
 import LayOut from '../Components/Layout/LayOut.jsx';
 import { baseUrl } from '../urls.js';
+
+
 function Login() {
     const ContextData = useContext(mycontext);
     const { auth, setAuth } = ContextData;
@@ -29,7 +31,7 @@ function Login() {
 
 
             if (res && res.data.success) {
-                console.log(res.data.token)
+                // console.log(res.data.token)
                 // toast.success(res.data && res.data.message);
 
                 toast.success("Signin Successful ",

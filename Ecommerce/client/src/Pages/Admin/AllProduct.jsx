@@ -17,7 +17,7 @@ function AllProduct() {
     const dispatch = useDispatch(); // Move useDispatch hook here
 
     useEffect(() => {
-        console.log(allProduct);
+        // console.log(allProduct);
         getAllProduct();
     }, []);
 
