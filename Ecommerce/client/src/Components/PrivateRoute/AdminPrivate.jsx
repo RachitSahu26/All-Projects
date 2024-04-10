@@ -3,11 +3,9 @@ import { useContext, useEffect, useState } from "react";
 import mycontext from "../../Context/myContext";
 import { Outlet } from 'react-router-dom';
 import Spinner from "../Spinner/Spinner";
-import { baseUrl } from "../../urls.js";
-// import { baseUrl } from "../../../urls";
 
 export const AdminPrivate = () => {
-    const { auth } = useContext(mycontext);
+    const { auth,baseUrl} = useContext(mycontext);
     const [authorized, setAuthorized] = useState(false);
     const [loading, setLoading] = useState(true);
 

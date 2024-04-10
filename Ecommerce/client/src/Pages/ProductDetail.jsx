@@ -8,14 +8,14 @@ import { addToCart } from '../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 import mycontext from '../Context/myContext';
 import { FaCartPlus, FaExchangeAlt, FaHeart, FaMoneyBill, FaShoppingCart, FaTruck } from 'react-icons/fa';
-import { baseUrl } from '../urls.js';
+
 
 function ProductDetail() {
     const params = useParams();
     const [singleProduct, setSingleProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const contextData = useContext(mycontext);
-    const { auth } = contextData;
+    const { auth,baseUrl } = contextData;
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

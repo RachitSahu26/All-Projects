@@ -5,12 +5,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
 import { FaCartPlus, FaShoppingCart } from 'react-icons/fa';
-import { baseUrl } from '../../urls.js';
-// import { baseUrl } from '../../../urls';
 
 function ProductCard({ FilterProducts }) {
     const contextData = useContext(mycontext);
-    const { allProduct, categories, auth } = contextData;
+    const { allProduct, categories, auth,baseUrl } = contextData;
 
     const combinedProducts = FilterProducts.length > 0 ? FilterProducts : allProduct;
 

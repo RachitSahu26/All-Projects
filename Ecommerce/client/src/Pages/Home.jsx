@@ -11,11 +11,11 @@ import { FaCartPlus, FaHeart, FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../Redux/Slice/CartSlice.js';
 import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice.js';
-import { baseUrl } from '../urls.js';
+
 
 function Home(props) {
     const contextData = useContext(mycontext);
-    const { getAllProduct, allProduct, loading, auth } = contextData;
+    const { getAllProduct, allProduct, loading, auth,baseUrl } = contextData;
 
     const [fiterProducts, setFilterProducts] = useState([]);
     const [radio, setRadio] = useState([]);

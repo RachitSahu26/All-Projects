@@ -7,13 +7,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/Slice/CartSlice';
 import { toast } from 'react-toastify';
-import { baseUrl } from '../../urls.js';
-// import { baseUrl } from '../../../urls';
+
 
 function AllProduct() {
     const [photoUrl, setPhotoUrl] = useState([]);
     const contextData = useContext(mycontext);
-    const { getAllProduct, allProduct } = contextData;
+    const { getAllProduct, allProduct,baseUrl } = contextData;
     const dispatch = useDispatch(); // Move useDispatch hook here
 
     useEffect(() => {

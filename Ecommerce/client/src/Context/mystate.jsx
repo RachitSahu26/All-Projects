@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import mycontext from './myContext'
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { baseUrl } from '../urls.js';
+
 // import { baseUrl } from '../../urls';
 
 const Mystate = (props) => {
 
-
+  const   baseUrl='https://e-commerce-rest-api-fcle.onrender.com'
 
 
   const [categories, setCategories] = useState([]);
@@ -76,7 +76,7 @@ const Mystate = (props) => {
     <mycontext.Provider value={{
       auth, setAuth,
       categories, setCategories, getAllCategory,
-      getAllProduct, allProduct, loading
+      getAllProduct, allProduct, loading,baseUrl
 
     }}>
       {props.children}

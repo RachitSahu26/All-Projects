@@ -5,8 +5,7 @@ import mycontext from '../../Context/myContext';
 // import Sidebar from '../../Components/SideBar/AdminSideBar.jsx';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { baseUrl } from '../../urls.js';
-// import { baseUrl } from '../../../urls.js';
+
 
 function AdminCreateCategory() {
   // const contextData = useContext(mycontext);
@@ -15,7 +14,7 @@ function AdminCreateCategory() {
   const contextData = useContext(mycontext);
   const { auth } = contextData;
 
-  const { categories, getAllCategory } = contextData;
+  const { categories, getAllCategory,baseUrl } = contextData;
 
   const [showModal, setShowModal] = useState(false);
   const [editedCategory, setEditedCategory] = useState({});

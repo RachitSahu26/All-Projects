@@ -5,8 +5,7 @@ import Spinner from '../../Components/Spinner/Spinner';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import mycontext from '../../Context/myContext';
-import { baseUrl } from '../../urls.js';
-// import { baseUrl } from '../../../urls';
+
 
 function AdminProductDetail() {
 
@@ -36,7 +35,7 @@ function AdminProductDetail() {
 
     // ..............fetching another context ............
     const contextData = useContext(mycontext);
-    const { auth, categories } = contextData
+    const { auth, categories,baseUrl } = contextData
 
 
     // Function to fetch single product data

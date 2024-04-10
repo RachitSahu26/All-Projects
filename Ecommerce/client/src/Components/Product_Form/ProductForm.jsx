@@ -3,8 +3,6 @@ import mycontext from '../../Context/myContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Navigate, useNavigate } from 'react-router-dom';
-import { baseUrl } from '../../urls.js';
-// import { baseUrl } from '../../../urls';
 
 const ProductFrom = () => {
     const [name, setName] = useState('');
@@ -24,7 +22,7 @@ const ProductFrom = () => {
 
     // Context API
     const contextData = useContext(mycontext);
-    const { categories, getAllCategory, auth } = contextData;
+    const { categories, getAllCategory, auth,baseUrl } = contextData;
 
     useEffect(() => {
         getAllCategory();

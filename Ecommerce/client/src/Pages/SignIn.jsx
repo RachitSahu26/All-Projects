@@ -10,11 +10,11 @@ import LayOut from '../Components/Layout/LayOut.jsx';
 
 function Login() {
     const ContextData = useContext(mycontext);
-    const { auth, setAuth } = ContextData;
+    const { auth, setAuth,baseUrl } = ContextData;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
- const   baseUrl='https://e-commerce-rest-api-fcle.onrender.com'
+ 
     const loginHandle = async () => {
         try {
             const res = await axios.post( `${baseUrl}/api/auth/login`, {

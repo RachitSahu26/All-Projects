@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 // import DropIn from "braintree-web-drop-in-react";
 import mycontext from '../Context/myContext';
 import axios from 'axios';
-import { baseUrl } from '../urls.js';
+
 // import { baseUrl } from '../../urls';
 
 
@@ -18,7 +18,7 @@ function Cart() {
     const cartItem = useSelector((state) => state.cart);
     const contextData = useContext(mycontext)
 
-    const { auth } = contextData;
+    const { auth,baseUrl } = contextData;
 
     const [clientToken, setClientToken] = useState('');
     const [instance, setInstance] = useState("");
@@ -153,8 +153,8 @@ function Cart() {
                 <div className="mx-auto pb-5 max-w-5xl flex flex-col justify-center px-6 md:flex-row md:space-x-6 xl:px-0">
                     {/* <!-- Cart Items --> */}
                     <div className="md:w-2/3 rounded m-2">
-                        {cartItem.map((item) => (
-                            <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start">
+                        {cartItem.map((item,index) => (
+                            <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start" key={index}>
                                 <img src={`${baseUrl}/api/product/product-photo/${item._id}`} className="card-img-top w-1/4 h-auto rounded-lg mb-4 sm:mb-0 sm:w-1/6" alt={item.name} />
                                 <div className="sm:ml-4 sm:flex sm:flex-col sm:w-full sm:justify-between">
                                     <div className="mt-5">

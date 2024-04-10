@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToWishlist, removeFromWishlist } from '../Redux/Slice/WishlistSlice';
 import mycontext from '../Context/myContext';
-import { baseUrl } from '../urls.js';
+
 
 
 function CategoryProduct() {
@@ -23,7 +23,7 @@ function CategoryProduct() {
 
 
     const contextData = useContext(mycontext);
-    const { auth } = contextData;
+    const { auth,baseUrl } = contextData;
 
     const params = useParams();
     const dispatch = useDispatch()

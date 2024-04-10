@@ -1,14 +1,20 @@
-import { useState } from 'react'; // Import useState hook if not already imported
+import { useContext, useState } from 'react'; // Import useState hook if not already imported
 import { Link, useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 import axios from 'axios';
 // import layOut from '../Components/Layout/LayOut.jsx'
 import toast from 'react-hot-toast';
 import LayOut from '../Components/Layout/LayOut.jsx';
+import mycontext from '../Context/myContext.jsx';
 // import { baseUrl } from '../urls.js';
 
 function SignUp() {
     // Initialize state variables for form inputs
+   
+    const ContextData = useContext(mycontext);
+    const {baseUrl } = ContextData;
+   
+   
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,7 +33,7 @@ function SignUp() {
         // Perform form submission logic here
     };
 
-    const   baseUrl='https://e-commerce-rest-api-fcle.onrender.com'
+
     const registerHandle = async () => {
         try {
             const response = await axios.post(`${baseUrl}/api/auth/register`, {
