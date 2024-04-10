@@ -27,10 +27,10 @@ function SignUp() {
         // Perform form submission logic here
     };
 
-
+    const   baseUrl='https://e-commerce-rest-api-fcle.onrender.com'
     const registerHandle = async () => {
         try {
-            const response = await axios.post('https://e-commerce-rest-api-fcle.onrender.com/api/auth/register', {
+            const response = await axios.post(`${baseUrl}/api/auth/register`, {
                 email,
                 password,
                 phone,

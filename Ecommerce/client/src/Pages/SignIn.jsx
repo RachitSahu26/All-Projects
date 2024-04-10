@@ -14,10 +14,10 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+ const   baseUrl='https://e-commerce-rest-api-fcle.onrender.com'
     const loginHandle = async () => {
         try {
-            const res = await axios.post( 'https://e-commerce-rest-api-fcle.onrender.com/api/auth/login', {
+            const res = await axios.post( `${baseUrl}/api/auth/login`, {
                 email,
                 password
             }
