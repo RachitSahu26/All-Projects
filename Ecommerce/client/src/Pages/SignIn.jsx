@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import mycontext from '../Context/myContext.jsx';
 import clsx from 'clsx';
 import LayOut from '../Components/Layout/LayOut.jsx';
-import { baseUrl } from '../urls.js';
+// import { baseUrl } from '../urls.js';
 
 
 function Login() {
@@ -17,7 +17,7 @@ function Login() {
 
     const loginHandle = async () => {
         try {
-            const res = await axios.post( `${baseUrl}/api/auth/login`, {
+            const res = await axios.post( 'https://e-commerce-rest-api-fcle.onrender.com/api/auth/login', {
                 email,
                 password
             }
