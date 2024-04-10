@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import mycontext from "../../Context/myContext";
 import { Outlet } from 'react-router-dom';
 import Spinner from "../Spinner/Spinner";
-import { baseUrl } from "../../urls.js";
+// import { baseUrl } from "../../urls.js";
 // import { baseUrl } from "../../../urls";
 
 export const Private = () => {
@@ -15,7 +15,7 @@ export const Private = () => {
         const authCheck = async () => {
             try {
                 if (auth?.token) {
-                    const res = await axios.get(`${baseUrl}/api/auth/user-auth`, {
+                    const res = await axios.get('https://e-commerce-rest-api-fcle.onrender.com/api/auth/user-auth', {
                         headers: {
                             "Authorization": auth?.token
                         }
