@@ -11,6 +11,11 @@ The E-commerce App is a full-stack application built with React.js and Node.js. 
 
 Click on the image above to watch the demo video.
 
+## Live Demo
+Check out the live demo: [E-commerce App Demo](https://vrs-shoppyrss.vercel.app/)
+
+Click on the image above to watch the demo video.
+
 ## Table of Contents
 - [Description](#description)
 - [Prerequisites](#prerequisites)
